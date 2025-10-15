@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useTasks } from "../context/useTasks";
 import {  useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { supabase } from "../api/supabaseClient.js"
+import { supabase } from "/supabaseClient.js"
 //import { jsPDF } from "jspdf";
 import { imprimirIngreso } from "../utils/imprimirIngreso.js";
 
