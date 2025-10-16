@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const signin = async (user) => {
+    const signin = async (user, navigate) => {
 
         try {
             setErrors([]);
@@ -67,21 +67,23 @@ export const AuthProvider = ({ children }) => {
            console.log(res)
 
 
-             if (!res || !res.data || !res.data.token) {
-      throw new Error("Token inválido o no recibido");}
+            // if (!res || !res.data || !res.data.token) {
+      //throw new Error("Token inválido o no recibido");}
      
                 // Cookies.set("token", res.data.token);
 
 
             setIsAuthenticated(true)
             setUser(res.data.user)
+            navigate("/");
 
         } catch (err) {
             
             const message = err.response?.data?.message || 'Error de pasword'
             
             setErrors([message])
-            //setErrors([err.response.data.message])
+            setErrors([err.response?.data?.message || 'Error desconocido al iniciar sesión.']);
+            console.error("signin error:", err.response?.data || err.message);
         }
     }
     
