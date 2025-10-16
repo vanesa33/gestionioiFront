@@ -7,6 +7,6 @@ const api = axios.create({
     withCredentials: true
 })
 
-//export const getUsersRequest = (users) => api.get("/users/", users);
+
 
 export const getUsersRequest = () => api.get("users");
