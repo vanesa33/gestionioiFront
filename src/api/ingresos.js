@@ -17,9 +17,9 @@ export const getIngresoRequest = (id) => api.get(`/ingresos/${id}`);
 
 export const createIngresoRequest = async (ingreso) => api.post("/ingresos/", ingreso);
 
-//export const upDateingresoRequest = (id, ingreso) => api.put(`/ingresos/${id}`, ingreso);//
+export const upDateingresoRequest = (id, ingreso) => api.put(`/ingresos/${id}`, ingreso);
 
-export const upDateingresoRequest = (data) => api.put(`${import.meta.env.VITE_API_URL}/api/ingresos/${iid}`, data)
+//export const upDateingresoRequest = (data) => api.put(`${import.meta.env.VITE_API_URL}/api/ingresos/${iid}`, data)//
 
 export const deleteIngresoRequest = (id) => api.delete(`/ingresos/${id}`);
 
