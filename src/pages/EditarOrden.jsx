@@ -51,7 +51,7 @@ function EditarOrden() {
 
       await upDateingresoRequest(iid, data);
       alert("Orden actualizada con éxito");
-navigate(`/ingresos/${iid}`);
+navigate(`/ingresos/todos`);
     } catch (error) {
       console.error("Error al actualizar la orden:", error);
       alert("Hubo un error al guardar los cambios");
