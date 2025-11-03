@@ -234,10 +234,10 @@ function TasksBuscarOrden() {
               <td className="p-2">{orden.falla}</td>              
               <td className="p-2">{orden.costo}</td>
               <td className="p-2">{orden.repuesto}</td>
-              <td className="p-2">{orden.mano_obra}</td>
+              <td className="p-2">{orden.manoobra}</td>
               <td className="p-2">{orden.total}</td>
               <td className="p-2">{orden.iva}</td>
-              <td className="p-2">{orden.presupuesto}</td>
+              <td className="p-2">{orden.presu}</td>
               <td className="p-2">{orden.salida}</td>
               <td className="p-2">{orden.usuario_nombre}</td>
             </tr>
