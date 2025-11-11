@@ -77,9 +77,26 @@ function EditClientForm() {
 
       {/* Domicilio */}
       <div className="col-span-2">
-        <label className="block mb-1">Domicilio</label>
-        <input {...register("domicilio")} className="w-full border p-2 rounded" />
+        <label className="block mb-1">Calle</label>
+        <input {...register("calle")} className="w-full border p-2 rounded" />
       </div>
+
+      <div className="col-span-2">
+        <label className="block mb-1">numero</label>
+        <input {...register("numero")} className="w-full border p-2 rounded" />
+      </div>
+
+       <div className="col-span-2">
+        <label className="block mb-1">piso</label>
+        <input {...register("piso")} className="w-full border p-2 rounded" />
+      </div>
+
+       <div className="col-span-2">
+        <label className="block mb-1">dto</label>
+        <input {...register("dto")} className="w-full border p-2 rounded" />
+      </div>
+
+
 
       {/* Localidad */}
       <div>
