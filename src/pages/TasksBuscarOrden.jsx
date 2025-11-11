@@ -238,7 +238,7 @@ function TasksBuscarOrden() {
               <td className="p-2">{orden.total}</td>
               <td className="p-2">{orden.iva}</td>
               <td className="p-2">{orden.presu}</td>
-              <td className="p-2">{orden.salida  ? new Date(orden.salida).toISOString().split("T")[0] : ""}</td>
+              <td className="p-2">{orden.salida}</td>
               <td className="p-2">{orden.usuario_nombre}</td>
             </tr>
           ))
