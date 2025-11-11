@@ -178,6 +178,7 @@ function BuscarClientes() {
             <p><strong>Apellido:</strong> {clienteSeleccionado.apellido}</p>
             <p><strong>Teléfono:</strong> {clienteSeleccionado.telefono}</p>
             <p><strong>Mail:</strong> {clienteSeleccionado.mail}</p>
+            <p><strong>Domicilio:</strong> {clienteSeleccionado.calle} {clienteSeleccionado.numero} {clienteSeleccionado.numero}</p>
 
             <div className="flex gap-4 text-right mt-4">
               <button
