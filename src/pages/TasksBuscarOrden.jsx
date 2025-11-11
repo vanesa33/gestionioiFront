@@ -126,7 +126,7 @@ function TasksBuscarOrden() {
     Total: orden.total,
     IVA: orden.iva,
     Presupuesto: orden.presu,
-    Salida: orden.salida  ? new Date(orden.salida).toISOString().split("T")[0] : "",
+    Salida: orden.salida,
     "Creado por": orden.usuario_nombre,
   }));
 
