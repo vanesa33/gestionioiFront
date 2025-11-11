@@ -9,6 +9,9 @@ function BuscarClientes() {
     apellido: "",
     telefono: "",
     mail: "",
+    calle: "",
+    numero: "",
+    localidad: "",
   });
   
   const navigate = useNavigate();
@@ -33,7 +36,12 @@ function BuscarClientes() {
   (busqueda.nombre === "" || c.nombre?.toLowerCase().includes(busqueda.nombre.toLowerCase())) &&
   (busqueda.apellido === "" || c.apellido?.toLowerCase().includes(busqueda.apellido.toLowerCase())) &&
   (busqueda.telefono === "" || (c.telefono != null ? c.telefono.toString().toLowerCase() : "").includes(busqueda.telefono.toLowerCase())) &&
-  (busqueda.mail === "" || c.mail?.toLowerCase().includes(busqueda.mail.toLowerCase()))
+  (busqueda.mail === "" || c.mail?.toLowerCase().includes(busqueda.mail.toLowerCase())) &&
+  (busqueda.calle === "" || c.calle?.toLowerCase().includes(busqueda.calle.toLowerCase())) &&
+      (busqueda.numero === "" || (c.numero != null ? c.numero.toString().toLowerCase() : "").includes(busqueda.numero.toLowerCase())) &&
+      (busqueda.localidad === "" || (c.localidad != null ? c.localidad.toString().toLowerCase() : "").includes(busqueda.localidad.toLowerCase())) 
+
+  
 ));
 
   const totalPaginas = Math.ceil(resultadosFiltrados.length / filasPorPagina);
@@ -178,7 +186,7 @@ function BuscarClientes() {
             <p><strong>Apellido:</strong> {clienteSeleccionado.apellido}</p>
             <p><strong>Teléfono:</strong> {clienteSeleccionado.telefono}</p>
             <p><strong>Mail:</strong> {clienteSeleccionado.mail}</p>
-            <p><strong>Domicilio:</strong> {clienteSeleccionado.calle} {clienteSeleccionado.numero} {clienteSeleccionado.numero}</p>
+            <p><strong>Domicilio:</strong> {clienteSeleccionado.calle} {clienteSeleccionado.numero} {clienteSeleccionado.localidad}</p>
 
             <div className="flex gap-4 text-right mt-4">
               <button
