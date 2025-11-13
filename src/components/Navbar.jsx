@@ -22,7 +22,7 @@ function Navbar(){
         <nav className="bg-red-600 flex  justify-between py-5 px-10">
             <Link to='/'>
                 <img
-                 src="../src/img/logo-ioi.jpeg" alt="Logo"
+                 src="/logo-ioi.jpeg" alt="Logo"
                 className="h-12 w-auto"
                 />
             </Link>             
