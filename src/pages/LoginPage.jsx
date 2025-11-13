@@ -48,7 +48,7 @@ if (isAuthenticated) navigate("/");
         
         <div className="w-1/2 flex flex-col justify-center items-center px-8">
       <div className="bg-white bg-opacity-10 backdrop-blur-md rounded-lg p-8 w-full max-w-sm text-white" >
-            <img src="../src/img/logo-in.jpeg" alt="50" className='w-40 mb-4 rounded-full mx-auto'/>
+            <img src="/logo-in.jpeg" alt="50" className='w-40 mb-4 rounded-full mx-auto'/>
             
            
 
