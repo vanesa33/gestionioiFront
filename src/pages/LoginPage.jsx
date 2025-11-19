@@ -39,7 +39,7 @@ if (isAuthenticated) navigate("/");
   {/* Lado izquierdo - Logo y texto */}
   <div className="w-1/2 flex flex-col justify-center items-center text-white p-8">
  
-    <img src="/logoDeIoI.jpg" alt="60" className="w-40 p-8 max-w-sm" />
+    <img src="/logoDeIoI.jpg" alt="50" className="w-50 p-8 max-w-sm" />
     <h1 className="text-2xl font-bold">Instalaciones Odontológicas Integrales</h1>
     <p className="text-sm mt-2">SISTEMA DE TKT</p>
   </div>
