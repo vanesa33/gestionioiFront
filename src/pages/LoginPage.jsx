@@ -2,6 +2,7 @@ import {useForm} from 'react-hook-form'
 import { useAuth } from '../context/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import logoDeIoI from '../img/logoDeIoI.jpg';
 
 function LoginPage() {
  
@@ -39,7 +40,7 @@ if (isAuthenticated) navigate("/");
   {/* Lado izquierdo - Logo y texto */}
   <div className="w-1/2 flex flex-col justify-center items-center text-white p-8">
  
-    <img src="./logoDeIoI.jpg" alt="50" className="w-50 p-8 max-w-sm" />
+    <img src={logoDeIoI} alt="logo" className="w-50 p-8 max-w-sm" />
     <h1 className="text-2xl font-bold">Instalaciones Odontológicas Integrales</h1>
     <p className="text-sm mt-2">SISTEMA DE TKT</p>
   </div>
