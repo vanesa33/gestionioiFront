@@ -191,4 +191,3 @@ export function imprimirIngreso(ingreso) {
   ventana.print();
 }
 
-}
