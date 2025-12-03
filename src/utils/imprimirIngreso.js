@@ -1,3 +1,5 @@
+import logoDeIoI from '../img/logoDeIoI.jpg';
+
 export function imprimirIngreso(ingreso) {
   const ventana = window.open("", "_blank", "width=800,height=600");
 
@@ -18,7 +20,7 @@ export function imprimirIngreso(ingreso) {
 
   const contenido = `
     <div class="logo">
-      <img src="../src/img/logo-ioi.jpeg" alt="Logo Empresa">
+      <img src={logoDeIoI} alt="Logo Empresa">
     </div>
     <h1>Orden Técnica N° ${ingreso.numorden}</h1>
     <h2>Fecha: ${new Date(ingreso.fecha).toLocaleDateString()}</h2>
