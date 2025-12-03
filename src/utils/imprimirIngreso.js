@@ -190,4 +190,3 @@ export function imprimirIngreso(ingreso) {
   ventana.focus();
   ventana.print();
 }
-
