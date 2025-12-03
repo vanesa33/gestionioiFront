@@ -4,7 +4,7 @@ import {  useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "/supabaseClient.js"
 //import { jsPDF } from "jspdf";
-import { imprimirIngreso } from "../utils/imprimirIngreso.js";
+import { imprimirIngreso } from "../imprimirIngreso.js";
 
 function TasksFromPage() {
 
