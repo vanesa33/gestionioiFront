@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useTasks } from "../context/useTasks";
 import { useNavigate } from "react-router-dom";
 import { getTodosIngresosRequest } from "../api/ingresos";
+import { imprimirOrdenBuscar } from "../imprimirOrdenBuscar";
+
 import * as XLSX from "xlsx";
 
 
@@ -346,9 +348,13 @@ function TasksBuscarOrden() {
               >
                 Eliminar
               </button>
-              <button 
-                className="px-4 py-2 btn bg-blue-500 text-white rounded"
-                >Imprimir</button>  
+             <button
+                 onClick={() => imprimirOrdenBuscar(ordenSeleccionada)}
+                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                 >
+                  Imprimir
+                </button>
+
             </div>
           </div>
         </div>
