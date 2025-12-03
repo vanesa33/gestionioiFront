@@ -79,11 +79,26 @@ export function imprimirOrdenBuscar(orden) {
           <div class="fila"><span class="label">Total:</span> ${orden.total}</div>
           <div class="fila"><span class="label">Presupuesto:</span> ${orden.presu}</div>
           <div class="fila"><span class="label">Salida:</span> ${orden.salida}</div>
+         <div class="fila"><span class="label">Garantia</span> </div>
+
         </div>
 
         <div class="recuadro">
           <div class="fila"><span class="label">Creado por:</span> ${orden.usuario_nombre}</div>
         </div>
+
+
+ <div class="firma">
+      <div>Técnico</div>
+      <div>Conforme Cliente</div>
+    </div>
+
+     <div class="footer">
+      Servicio Técnico Centro: M.T. de Alvear 2181 3º10 CABA — 011 3690-5558 · 
+      Servicio Técnico Pompeya: Carlos Berg 3492 CABA — 011 3103-4611 · 
+      Email: info@ioi-sa.com.ar
+    </div>
+  `;
 
         <script>
           window.onload = () => window.print();
@@ -95,3 +110,4 @@ export function imprimirOrdenBuscar(orden) {
 
   ventana.document.close();
 }
+
