@@ -90,6 +90,15 @@ function TasksFromClientIng() {
                   {...register("mail")}
                   disabled={formBloqueado}
                 />
+
+                 <input
+                  type="text"
+                  placeholder="N°"
+                  className="p-2 rounded border w-full text-gray-900"
+                  {...register("numero")}
+                  disabled={formBloqueado}
+                />
+             
               </div>
             </div>
 
@@ -107,18 +116,12 @@ function TasksFromClientIng() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
                 <input
                   type="text"
-                  placeholder="Calle"
+                  placeholder="Calle y Numero"
                   className="p-2 rounded border w-full text-gray-900"
                   {...register("calle")}
                   disabled={formBloqueado}
                 />
-                <input
-                  type="text"
-                  placeholder="N°"
-                  className="p-2 rounded border w-full text-gray-900"
-                  {...register("numero")}
-                  disabled={formBloqueado}
-                />
+               
                 <input
                   type="text"
                   placeholder="Piso"
