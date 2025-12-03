@@ -22,7 +22,7 @@ export function imprimirIngreso(ingreso) {
       <img  src=${logoDeIoI} alt="Logo Empresa">
     </div>
     <h1>Orden Técnica N° ${ingreso.numorden}</h1>
-    <h2>Fecha: ${new Date(ingreso.fecha).toLocaleDateString()}</h2>
+    <h2>Solicitud: ${new Date(ingreso.fecha).toLocaleDateString()}</h2>
 
     <table>
       <tr><th>Cliente</th><td>${ingreso.nombre || ""} ${ingreso.apellido || ""}</td></tr>
@@ -37,9 +37,22 @@ export function imprimirIngreso(ingreso) {
       <tr><th>Total</th><td>$${ingreso.total || "—"}</td></tr>
       <tr><th>IVA</th><td>${ingreso.iva || "—"}</td></tr>
       <tr><th>Presupuesto</th><td>${ingreso.presu || "—"}</td></tr>
-      <tr><th>Salida</th><td>${ingreso.salida || "—"}</td></tr>
+      <tr><th>Fecha de Service</th><td>${ingreso.salida || "—"}</td></tr>
       <tr><th>Creado por</th><td>${ingreso.usuario_nombre || "—"}</td></tr>
-    </table>
+      <tr><th>Garantía</th></tr>    
+            
+    </table>   
+
+     <table>
+       <tr><th>Firma Digital</th><td>Conforme Cliente</td></tr>
+      
+     </table
+
+     <table> 
+     <tr><th>Servicio Técnico Centro</th><td>M.T. de Alvear 2181 3º 10 CABA  cel: 011 3690-5558</td></tr>
+     <tr><th>Servicio Técnico Pompeya</th><td> Carlos Berg 3492 CABA cel: 011 3103-4611</td></tr>
+     <tr>Mail: info@ioi-sa.com.ar
+     </table>
 
     ${
       ingreso.imagenurl
