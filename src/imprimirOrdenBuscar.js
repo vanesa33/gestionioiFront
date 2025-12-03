@@ -100,14 +100,12 @@ export function imprimirOrdenBuscar(orden) {
     </div>
   `;
 
-        <script>
-          window.onload = () => window.print();
-        </script>
-
+       
       </body>
     </html>
   `);
 
   ventana.document.close();
 }
+
 
