@@ -1,5 +1,3 @@
-import logoDeIoI from '../img/logoDeIoI.jpg';
-
 export function imprimirIngreso(ingreso) {
   const ventana = window.open("", "_blank", "width=800,height=600");
 
