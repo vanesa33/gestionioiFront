@@ -48,17 +48,11 @@ export function imprimirIngreso(ingreso) {
        <tr><th>Firma Digital</th><td>Conforme Cliente</td></tr>
       
      </table>
-     <tr>
-
-
-       
-     
-     </tr>
-      
+         
      <table> 
      <tr><th>Servicio Técnico Centro</th><td> M.T. de Alvear 2181 3º 10 CABA  cel: 011 3690-5558</td></tr>
      <tr><th>Servicio Técnico Pompeya</th><td> Carlos Berg 3492 CABA cel: 011 3103-4611</td></tr>
-     <tr>Mail: info@ioi-sa.com.ar</tr>
+     <tr><th>Mail: info@ioi-sa.com.ar</th></tr>
      </table>
 
     ${
