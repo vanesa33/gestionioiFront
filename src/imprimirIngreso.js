@@ -154,7 +154,7 @@ export function imprimirIngreso(ingreso) {
       <tr><th>IVA</th><td>${ingreso.iva || "—"}</td></tr>
       <tr><th>Salida</th><td>${ingreso.salida || "—"}</td></tr>
       <tr><th>Creado por</th><td>${ingreso.usuario_nombre || "—"}</td></tr>
-      <tr><th>Garantia</th><td>${ || "—"}</td></tr>
+      <tr><th>Garantia</th><td></td></tr>
     </table>
 <div>La garantía cubre únicamente defectos de reparación durante el periodo acordado no incluye daños por mal uso</div>
 <di></div>
@@ -192,4 +192,5 @@ export function imprimirIngreso(ingreso) {
   ventana.focus();
   ventana.print();
 }
+
 
