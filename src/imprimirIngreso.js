@@ -156,7 +156,7 @@ export function imprimirIngreso(ingreso) {
       <tr><th>Creado por</th><td>${ingreso.usuario_nombre || "—"}</td></tr>
       <tr><th>Garantia</th><td></td></tr>
     </table>
-<div><h3>La garantía cubre únicamente defectos de reparación durante el periodo acordado no incluye daños por mal uso</h3></div>
+<div><h5>La garantía cubre únicamente defectos de reparación durante el periodo acordado no incluye daños por mal uso</h5></div>
 <di>
 <tr></tr>
 </div>
@@ -194,6 +194,7 @@ export function imprimirIngreso(ingreso) {
   ventana.focus();
   ventana.print();
 }
+
 
 
 
