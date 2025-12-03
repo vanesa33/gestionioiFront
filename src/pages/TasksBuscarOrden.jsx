@@ -3,6 +3,8 @@ import { useTasks } from "../context/useTasks";
 import { useNavigate } from "react-router-dom";
 import { getTodosIngresosRequest } from "../api/ingresos";
 import * as XLSX from "xlsx";
+import { imprimirIngreso } from "../imprimirIngreso.js";
+
 
 function TasksBuscarOrden() {
   const { ingresos, deleteIngreso } = useTasks();
@@ -16,6 +18,7 @@ function TasksBuscarOrden() {
   const [filasPorPagina, setFilasPorPagina] = useState(9);
   const [modalAbierto, setModalAbierto] = useState(false);
   const [ordenSeleccionada, setOrdenSeleccionada] = useState(null);
+   const [datosOrden, setDatosOrden] = useState(null)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -344,15 +347,9 @@ function TasksBuscarOrden() {
               >
                 Eliminar
               </button>
-              <button
-                onClick={() => {
-                  alert(`Orden ${ordenSeleccionada.numorden} seleccionada`);
-                  cerrarModal();
-                }}
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-              >
-                Seleccionar
-              </button>
+              <button onClick={() => imprimirIngreso(datosOrden)}
+                className="px-4 py-2 btn bg-blue-500 text-white rounded"
+                >Imprimir</button>  
             </div>
           </div>
         </div>
