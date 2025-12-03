@@ -19,7 +19,7 @@ export function imprimirIngreso(ingreso) {
 
   const contenido = `
     <div class="logo">
-      <img  src={logoDeIoI} alt="Logo Empresa">
+      <img  src=${logoDeIoI} alt="Logo Empresa">
     </div>
     <h1>Orden Técnica N° ${ingreso.numorden}</h1>
     <h2>Fecha: ${new Date(ingreso.fecha).toLocaleDateString()}</h2>
