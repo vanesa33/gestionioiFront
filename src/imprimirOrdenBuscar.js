@@ -13,7 +13,6 @@ export function imprimirOrdenBuscar(orden) {
     : "";
 
   ventana.document.write(`
-    <html>
       <head>
         <title>Orden Técnica ${orden.numorden}</title>
         <style>
@@ -52,7 +51,6 @@ export function imprimirOrdenBuscar(orden) {
         </style>
       </head>
 
-      <body>
 
         <img src="/logo-ioi.jpeg" class="logo" />
 
@@ -99,12 +97,12 @@ export function imprimirOrdenBuscar(orden) {
       Email: info@ioi-sa.com.ar
     </div>
   `;       
-      </body>
-    </html>
+     
   `);
 
   ventana.document.close();
 }
+
 
 
 
