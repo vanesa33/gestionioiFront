@@ -3,7 +3,6 @@ import { useTasks } from "../context/useTasks";
 import { useNavigate } from "react-router-dom";
 import { getTodosIngresosRequest } from "../api/ingresos";
 import { imprimirOrdenBuscar } from "../imprimirOrdenBuscar";
-
 import * as XLSX from "xlsx";
 
 
