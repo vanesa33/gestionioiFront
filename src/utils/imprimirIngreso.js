@@ -153,17 +153,7 @@ export function imprimirIngreso(ingreso) {
       <div>Conforme del Cliente</div>
     </div>
 
-    ${
-      ingreso.imagenurl
-        ? `
-        <div class="imagenOrden">
-          <h3>Imagen del Equipo</h3>
-          <img src="${ingreso.imagenurl}" alt="Imagen del equipo">
-        </div>
-      `
-        : ""
-    }
-
+  
     <div class="footer">
       Servicio Técnico Centro: M.T. de Alvear 2181 3º 10 CABA — 011 3690-5558<br>
       Servicio Técnico Pompeya: Carlos Berg 3492 CABA — 011 3103-4611<br>
