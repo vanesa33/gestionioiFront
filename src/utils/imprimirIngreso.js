@@ -2,7 +2,7 @@ import logoDeIoI from '../img/logoDeIoI.jpg';
 
 export function imprimirIngreso(ingreso) {
   const ventana = window.open("", "_blank", "width=900,height=600");
-
+ 
   const estilo = `
     <style>
       body {
