@@ -158,23 +158,14 @@ export function imprimirIngreso(ingreso) {
     </table>
 <div><h5>La garantía cubre únicamente defectos de reparación durante el periodo acordado no incluye daños por mal uso</h5></div>
 <di>
-<tr></tr>
 </div>
+<p></p>
     <div class="firma">
       <div>Técnico</div>
       <div>Conforme Cliente</div>
     </div>
 
-    ${
-      ingreso.imagenurl
-        ? `
-          <div class="imagenOrden">
-            <strong>Imagen del Equipo</strong><br>
-            <img src="${ingreso.imagenurl}">
-          </div>
-        `
-        : ""
-    }
+   
 
     <div class="footer">
       Servicio Técnico Centro: M.T. de Alvear 2181 3º10 CABA — 011 3690-5558 · 
@@ -194,6 +185,7 @@ export function imprimirIngreso(ingreso) {
   ventana.focus();
   ventana.print();
 }
+
 
 
 
