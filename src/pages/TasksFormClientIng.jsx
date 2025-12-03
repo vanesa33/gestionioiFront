@@ -93,7 +93,7 @@ function TasksFromClientIng() {
 
                  <input
                   type="text"
-                  placeholder="N°"
+                  placeholder="N° DE CUIT"
                   className="p-2 rounded border w-full text-gray-900"
                   {...register("numero")}
                   disabled={formBloqueado}
