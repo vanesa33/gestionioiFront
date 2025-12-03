@@ -98,14 +98,13 @@ export function imprimirOrdenBuscar(orden) {
       Servicio Técnico Pompeya: Carlos Berg 3492 CABA — 011 3103-4611 · 
       Email: info@ioi-sa.com.ar
     </div>
-  `;
-
-       
+  `;       
       </body>
     </html>
   `);
 
   ventana.document.close();
 }
+
 
 
