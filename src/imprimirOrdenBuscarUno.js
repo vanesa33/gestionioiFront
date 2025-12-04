@@ -6,6 +6,16 @@ export function imprimirOrdenBuscarUno(orden) {
   const contenidoHTML = `
     <div style="font-family: Arial; padding: 20px;">
 
+     const contenido = `
+    <div class="encabezado">
+      <img src="${logoDeIoI}" alt="Logo Empresa">
+      <div class="empresa">
+        <strong>IOI S.A.</strong><br>
+        Servicio Técnico Especializado<br>
+        www.ioi-sa.com.ar
+      </div>
+    </div>
+
       <h1 style="text-align:center">Orden Técnica Nº ${orden.numorden}</h1>
 
       <h3>Datos del Cliente</h3>
@@ -28,10 +38,26 @@ export function imprimirOrdenBuscarUno(orden) {
         <p><strong>Repuesto:</strong> ${orden.repuesto}</p>
         <p><strong>Mano de Obra:</strong> ${orden.manoobra}</p>
         <p><strong>Total:</strong> ${orden.total}</p>
+           <tr><th>Garantia</th><td></td></tr>
       </div>
 
       <p><strong>Creado por:</strong> ${orden.usuario_nombre}</p>
 
+    </div>
+  `;
+
+  <div><h5>La garantía cubre únicamente defectos de reparación durante el periodo acordado no incluye daños por mal uso</h5></div>
+
+  <p></p>
+    <div class="firma">
+      <div>Técnico</div>
+      <div>Conforme Cliente</div>
+    </div>
+
+    <div class="footer">
+      Servicio Técnico Centro: M.T. de Alvear 2181 3º10 CABA — 011 3690-5558 · 
+      Servicio Técnico Pompeya: Carlos Berg 3492 CABA — 011 3103-4611 · 
+      Email: info@ioi-sa.com.ar
     </div>
   `;
 
@@ -44,4 +70,5 @@ export function imprimirOrdenBuscarUno(orden) {
     ventana.print();
   };
 }
+
 
