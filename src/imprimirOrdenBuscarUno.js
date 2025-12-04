@@ -1,3 +1,4 @@
+import logoDeIoI from './img/logoDeIoI.jpg';
 export function imprimirOrdenBuscarUno(orden) {
   if (!orden) return;
 
@@ -70,5 +71,6 @@ export function imprimirOrdenBuscarUno(orden) {
     ventana.print();
   };
 }
+
 
 
