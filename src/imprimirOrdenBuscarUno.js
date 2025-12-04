@@ -1,4 +1,4 @@
-mport logoDeIoI from './img/logoDeIoI.jpg';
+import logoDeIoI from './img/logoDeIoI.jpg';
 
 export function imprimirOrdenBuscarUno(orden) {
   if (!orden) return;
@@ -82,3 +82,48 @@ export function imprimirOrdenBuscarUno(orden) {
 
   <h3>Datos del Cliente</h3>
   <div class="box">
+    <p><strong>Nombre:</strong> ${orden.nombre} ${orden.apellido}</p>
+    <p><strong>Teléfono:</strong> ${orden.telefono}</p>
+  </div>
+
+  <h3>Datos del Equipo</h3>
+  <div class="box">
+    <p><strong>Equipo:</strong> ${orden.equipo}</p>
+    <p><strong>N° Serie:</strong> ${orden.nserie}</p>
+    <p><strong>Falla:</strong> ${orden.falla}</p>
+    <p><strong>Observaciones:</strong> ${orden.observa}</p>
+  </div>
+
+  <h3>Costos</h3>
+  <div class="box">
+    <p><strong>Costo Estimado:</strong> ${orden.costo}</p>
+    <p><strong>Repuesto:</strong> ${orden.repuesto}</p>
+    <p><strong>Mano de Obra:</strong> ${orden.manoobra}</p>
+    <p><strong>Total:</strong> ${orden.total}</p>
+    <p><strong>Garantía:</strong></p>
+  </div>
+
+  <p><strong>Creado por:</strong> ${orden.usuario_nombre}</p>
+
+  <div class="firma">
+    <div>Técnico</div>
+    <div>Conforme Cliente</div>
+  </div>
+
+  <div class="footer">
+    Servicio Técnico Centro: M.T. de Alvear 2181 3º10 CABA — 011 3690-5558 · 
+    Servicio Técnico Pompeya: Carlos Berg 3492 CABA — 011 3103-4611 · 
+    Email: info@ioi-sa.com.ar
+  </div>
+
+</body>
+</html>`;
+
+  ventana.document.write(contenidoHTML);
+  ventana.document.close();
+  ventana.onload = () => ventana.print();
+}
+
+
+
+
