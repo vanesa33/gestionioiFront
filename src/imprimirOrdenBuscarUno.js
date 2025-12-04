@@ -6,21 +6,11 @@ export function imprimirOrdenBuscarUno(orden) {
 
   const contenidoHTML = `
 
-   .encabezado {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 2px solid #cc0000;
-        padding-bottom: 10px;
-        margin-bottom: 15px;
-      }
-      .encabezado img {
-        max-height: 60px;
-      }
+   
     <div style="font-family: Arial; padding: 20px;">
 
-     <div class="encabezado">
-      <img src="${logoDeIoI}" alt="Logo Empresa">
+     <div class="encabezado" display: flex justify-content: space-between  align-items: center border-bottom: 2px solid #cc0000 padding-bottom: 10px margin-bottom: 15px>
+      <img src="${logoDeIoI}" alt="Logo Empresa" max-height: 60px>
       <div class="empresa">
         <strong>IOI S.A.</strong><br>
         Servicio Técnico Especializado<br>
@@ -87,6 +77,7 @@ export function imprimirOrdenBuscarUno(orden) {
     ventana.print();
   };
 }
+
 
 
 
