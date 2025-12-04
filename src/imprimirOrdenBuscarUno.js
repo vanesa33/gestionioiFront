@@ -1,4 +1,4 @@
-export function imprimirOrdenBuscar(orden) {
+export function imprimirOrdenBuscarUno(orden) {
   if (!orden) return;
 
   const ventana = window.open("", "_blank", "width=800,height=1000");
@@ -44,3 +44,4 @@ export function imprimirOrdenBuscar(orden) {
     ventana.print();
   };
 }
+
