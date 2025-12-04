@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useTasks } from "../context/useTasks";
 import { useNavigate } from "react-router-dom";
 import { getTodosIngresosRequest } from "../api/ingresos";
-import { imprimirOrdenBuscar } from "../imprimirOrdenBuscar.js";
+import { imprimirOrdenBuscarUno } from "../imprimirOrdenBuscarUno.js";
 import * as XLSX from "xlsx";
 
 
