@@ -58,7 +58,7 @@ export function imprimirOrdenBuscarUno(orden) {
   const contenidoHTML = `
     <html>
       <head>
-        <title>Orden Técnica Nº ${orden.numorden}</title>
+<h1 style="text-align:center">Orden Técnica Nº ${orden.numorden}</h1>
         <style>
           body {
             font-family: Arial, sans-serif;
@@ -188,6 +188,7 @@ export function imprimirOrdenBuscarUno(orden) {
 
   ventana.onload = () => ventana.print();
 }
+
 
 
 
