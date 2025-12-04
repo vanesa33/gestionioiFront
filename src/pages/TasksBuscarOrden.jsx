@@ -5,7 +5,6 @@ import { getTodosIngresosRequest } from "../api/ingresos";
 import { imprimirOrdenBuscarUno } from "../imprimirOrdenBuscarUno.js";
 import * as XLSX from "xlsx";
 
-
 function TasksBuscarOrden() {
   const { ingresos, deleteIngreso } = useTasks();
   console.log("Ingresos:", ingresos);
