@@ -59,8 +59,8 @@ export function imprimirOrdenBuscarUno(orden) {
     .firma {
       display: flex;
       justify-content: space-between;
-      margin-top: 25px;             /* 🔥 más cerca del contenido */
-      padding: 0 20px;
+      margin-top: 30px;             /* 🔥 más cerca del contenido */
+      padding: 0 25px;
       font-size: 13px;
     }
 
@@ -132,6 +132,7 @@ export function imprimirOrdenBuscarUno(orden) {
   ventana.document.close();
   ventana.onload = () => ventana.print();
 }
+
 
 
 
