@@ -7,15 +7,7 @@ export function imprimirOrdenBuscarUno(orden) {
   const contenidoHTML = `
     <div style="font-family: Arial; padding: 20px;">
 
-     const contenido = `
-    <div class="encabezado">
-      <img src="${logoDeIoI}" alt="Logo Empresa">
-      <div class="empresa">
-        <strong>IOI S.A.</strong><br>
-        Servicio Técnico Especializado<br>
-        www.ioi-sa.com.ar
-      </div>
-    </div>
+     
 
       <h1 style="text-align:center">Orden Técnica Nº ${orden.numorden}</h1>
 
@@ -55,12 +47,7 @@ export function imprimirOrdenBuscarUno(orden) {
       <div>Conforme Cliente</div>
     </div>
 
-    <div class="footer">
-      Servicio Técnico Centro: M.T. de Alvear 2181 3º10 CABA — 011 3690-5558 · 
-      Servicio Técnico Pompeya: Carlos Berg 3492 CABA — 011 3103-4611 · 
-      Email: info@ioi-sa.com.ar
-    </div>
-  `;
+    
 
   ventana.document.write(contenidoHTML);
 
@@ -71,6 +58,7 @@ export function imprimirOrdenBuscarUno(orden) {
     ventana.print();
   };
 }
+
 
 
 
