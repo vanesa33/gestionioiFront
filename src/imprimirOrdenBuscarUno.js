@@ -12,56 +12,66 @@ export function imprimirOrdenBuscarUno(orden) {
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 20px;
+      padding: 15px 25px;
+      font-size: 13px;              /* 🔥 Reducido para que entre más contenido */
+      min-height: 100vh;
       position: relative;
-      min-height: 95vh;
-    }
-
-    .logo-centro {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .logo-centro img {
-      width: 120px;
-      height: auto;
-    }
-
-    .empresa {
-      text-align: center;
-      font-size: 14px;
-      margin-bottom: 15px;
     }
 
     h1 {
       text-align: center;
-      margin-top: 0;
+      font-size: 20px;              /* 🔥 Más pequeño */
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 16px;              /* 🔥 Más pequeño */
+      margin: 8px 0;
+    }
+
+    .logo-centro img {
+      width: 90px;                  /* 🔥 Logo más chico aún */
+      height: auto;
+    }
+
+    .logo-centro {
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .empresa {
+      text-align: center;
+      font-size: 12px;
+      margin-bottom: 12px;
+      line-height: 1.2;
     }
 
     .box {
       border: 1px solid #000;
-      padding: 10px;
-      margin-bottom: 15px;
+      padding: 8px;                 /* 🔥 menos padding */
+      margin-bottom: 10px;
+    }
+
+    .box p {
+      margin: 3px 0;                /* 🔥 líneas más juntas */
     }
 
     .firma {
       display: flex;
       justify-content: space-between;
-      margin-top: 40px;
-      font-size: 16px;
+      margin-top: 25px;             /* 🔥 más cerca del contenido */
       padding: 0 20px;
+      font-size: 13px;
     }
 
     .footer {
-      position: absolute;
-      bottom: 10px;
-      left: 0;
       width: 100%;
       text-align: center;
-      font-size: 12px;
+      font-size: 11px;              /* 🔥 Más pequeño */
       color: #444;
-      padding-top: 10px;
+      padding-top: 8px;
       border-top: 1px solid #ccc;
+      margin-top: 20px;             /* 🔥 separa sin superponer */
     }
   </style>
 </head>
@@ -100,7 +110,6 @@ export function imprimirOrdenBuscarUno(orden) {
     <p><strong>Repuesto:</strong> ${orden.repuesto}</p>
     <p><strong>Mano de Obra:</strong> ${orden.manoobra}</p>
     <p><strong>Total:</strong> ${orden.total}</p>
-    <p><strong>Garantía:</strong></p>
   </div>
 
   <p><strong>Creado por:</strong> ${orden.usuario_nombre}</p>
