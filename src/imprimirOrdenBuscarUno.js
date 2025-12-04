@@ -104,11 +104,6 @@ export function imprimirOrdenBuscarUno(orden) {
 
   <p><strong>Creado por:</strong> ${orden.usuario_nombre}</p>
 
-  <h5>
-    La garantía cubre únicamente defectos de reparación durante el periodo acordado. 
-    No incluye daños por mal uso.
-  </h5>
-
   <div class="firma">
     <div>Técnico</div>
     <div>Conforme Cliente</div>
@@ -127,6 +122,7 @@ export function imprimirOrdenBuscarUno(orden) {
   ventana.document.close();
   ventana.onload = () => ventana.print();
 }
+
 
 
 
