@@ -1,74 +1,84 @@
+mport logoDeIoI from './img/logoDeIoI.jpg';
+
 export function imprimirOrdenBuscarUno(orden) {
-  const ventana = window.open("", "_blank");
+  if (!orden) return;
 
-  const html = `
-    <html>
-      <head>
-        <style>
-          body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-          }
+  const ventana = window.open("", "_blank", "width=800,height=1000");
 
-          .contenido {
-            padding-bottom: 120px;
-          }
+  const contenidoHTML = `<!DOCTYPE html>
+<html>
+<head>
+  <title>Orden Técnica Nº ${orden.numorden}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      position: relative;
+      min-height: 95vh;
+    }
 
-          footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            padding: 10px 0;
-            font-size: 12px;
-            border-top: 1px solid #000;
-            background: white;
-          }
+    .logo-centro {
+      text-align: center;
+      margin-bottom: 10px;
+    }
 
-          h1 {
-            text-align: center;
-            margin-top: 0;
-          }
+    .logo-centro img {
+      width: 120px;
+      height: auto;
+    }
 
-          .firma {
-            margin-top: 50px;
-            text-align: center;
-          }
+    .empresa {
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
 
-          .firma-linea {
-            margin-top: 40px;
-            border-top: 1px solid black;
-            width: 250px;
-            margin-left: auto;
-            margin-right: auto;
-          }
-        </style>
-      </head>
+    h1 {
+      text-align: center;
+      margin-top: 0;
+    }
 
-      <body>
-        <h1>Orden Técnica Nº ${orden.numorden}</h1>
+    .box {
+      border: 1px solid #000;
+      padding: 10px;
+      margin-bottom: 15px;
+    }
 
-        <div class="contenido">
-          <p><strong>Cliente:</strong> ${orden.client_nombre}</p>
-          <p><strong>Equipo:</strong> ${orden.equipo}</p>
-          <p><strong>Falla:</strong> ${orden.falla}</p>
-          <p><strong>Fecha:</strong> ${orden.fecha}</p>
+    .firma {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+      font-size: 16px;
+      padding: 0 20px;
+    }
 
-          <div class="firma">
-            <p>Firma del Cliente</p>
-            <div class="firma-linea"></div>
-          </div>
-        </div>
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      color: #444;
+      padding-top: 10px;
+      border-top: 1px solid #ccc;
+    }
+  </style>
+</head>
 
-        <footer>
-          © Servicio Técnico – Página 1
-        </footer>
+<body>
 
-      </body>
-    </html>
-  `;
+  <div class="logo-centro">
+    <img src="${logoDeIoI}" alt="Logo Empresa" />
+  </div>
 
-  ventana.document.write(html);
-  ventana.d
+  <div class="empresa">
+    <strong>IOI S.A.</strong><br>
+    Servicio Técnico Especializado<br>
+    www.ioi-sa.com.ar
+  </div>
+
+  <h1>Orden Técnica Nº ${orden.numorden}</h1>
+
+  <h3>Datos del Cliente</h3>
+  <div class="box">
