@@ -1,7 +1,7 @@
-const imprimirOrdenBuscarUno = (orden) => {
+export function imprimirOrdenBuscarUno(orden) {
   const ventana = window.open("", "_blank");
 
-  ventana.document.write(`
+  const html = `
     <html>
       <head>
         <style>
@@ -11,12 +11,10 @@ const imprimirOrdenBuscarUno = (orden) => {
             padding: 20px;
           }
 
-          /* Contenedor general */
           .contenido {
-            padding-bottom: 120px; /* espacio para el footer */
+            padding-bottom: 120px;
           }
 
-          /* Footer fijo abajo */
           footer {
             position: fixed;
             bottom: 0;
@@ -26,6 +24,7 @@ const imprimirOrdenBuscarUno = (orden) => {
             padding: 10px 0;
             font-size: 12px;
             border-top: 1px solid #000;
+            background: white;
           }
 
           h1 {
@@ -33,19 +32,43 @@ const imprimirOrdenBuscarUno = (orden) => {
             margin-top: 0;
           }
 
-          /* Recuadro de firma con espacio mayor */
           .firma {
-            margin-top: 50px; /* Más separación del último recuadro */
+            margin-top: 50px;
             text-align: center;
           }
 
           .firma-linea {
-            margin-top: 40px; /* baja la línea de firma */
+            margin-top: 40px;
             border-top: 1px solid black;
             width: 250px;
             margin-left: auto;
+            margin-right: auto;
+          }
+        </style>
+      </head>
 
+      <body>
+        <h1>Orden Técnica Nº ${orden.numorden}</h1>
 
+        <div class="contenido">
+          <p><strong>Cliente:</strong> ${orden.client_nombre}</p>
+          <p><strong>Equipo:</strong> ${orden.equipo}</p>
+          <p><strong>Falla:</strong> ${orden.falla}</p>
+          <p><strong>Fecha:</strong> ${orden.fecha}</p>
 
+          <div class="firma">
+            <p>Firma del Cliente</p>
+            <div class="firma-linea"></div>
+          </div>
+        </div>
 
+        <footer>
+          © Servicio Técnico – Página 1
+        </footer>
 
+      </body>
+    </html>
+  `;
+
+  ventana.document.write(html);
+  ventana.d
