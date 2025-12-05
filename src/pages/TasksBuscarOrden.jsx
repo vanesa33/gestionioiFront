@@ -147,7 +147,7 @@ function TasksBuscarOrden() {
 
              
       <button
-         onClick={() => exportarIngresosToExcel (resultadosFiltrados)}
+         onClick={() => exportarIngresosExcel (ingresos)}
        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 shadow mb-3"
        >
   📥 Descargar Excel
