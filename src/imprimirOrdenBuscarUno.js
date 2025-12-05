@@ -40,8 +40,8 @@ export function imprimirOrdenBuscarUno(orden) {
 
     .box {
       border: 1px solid #000;
-      padding: 10px;
-      margin-bottom: 15px;
+      padding: 5px;
+      margin-bottom: 10px;
     }
 
     .firma {
@@ -102,7 +102,6 @@ export function imprimirOrdenBuscarUno(orden) {
     <p><strong>Total:</strong> ${orden.total}</p>
     <p><strong>Garantía:</strong></p>
   </div>
-
   <p><strong>Creado por:</strong> ${orden.usuario_nombre}</p>
 
   <div class="firma">
@@ -123,6 +122,7 @@ export function imprimirOrdenBuscarUno(orden) {
   ventana.document.close();
   ventana.onload = () => ventana.print();
 }
+
 
 
 
