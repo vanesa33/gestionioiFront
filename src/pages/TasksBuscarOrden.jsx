@@ -285,7 +285,7 @@ function TasksBuscarOrden() {
               <strong>N° Orden:</strong> {ordenSeleccionada.numorden}
             </p>
             <p>
-              <strong>Fecha:</strong> {ordenSeleccionada.fecha}
+              <strong>Fecha:</strong>  {ordenSeleccionada.fecha ? new Date(ordenSeleccionada.fecha).toISOString().split("T")[0] : ""}
             </p>
             <p>
               <strong>Cliente:</strong> {ordenSeleccionada.nombre}{" "}
