@@ -41,7 +41,7 @@ export function imprimirOrdenBuscarUno(orden) {
     .box {
       border: 1px solid #000;
       padding: 5px;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
     .firma {
@@ -122,6 +122,7 @@ export function imprimirOrdenBuscarUno(orden) {
   ventana.document.close();
   ventana.onload = () => ventana.print();
 }
+
 
 
 
