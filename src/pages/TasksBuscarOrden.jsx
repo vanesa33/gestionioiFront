@@ -3,6 +3,7 @@ import { useTasks } from "../context/useTasks";
 import { useNavigate } from "react-router-dom";
 import { getTodosIngresosRequest } from "../api/ingresos";
 import { imprimirOrdenBuscarUno } from "../imprimirOrdenBuscarUno.js";
+import { exportarIngresosExcel } from "../exportExcel";
 import * as XLSX from "xlsx";
 
 function TasksBuscarOrden() {
@@ -113,31 +114,7 @@ function TasksBuscarOrden() {
   // Sacamos lista única de usuarios para el select
   const usuariosUnicos = Array.from(new Set(ingreso.map((i) => i.usuario_nombre)));
 
-  function exportToExcel() {
-  const data = resultadosFiltrados.map((orden) => ({
-    Orden: orden.numorden,
-    Fecha: orden.fecha ? new Date(orden.fecha).toISOString().split("T")[0] : "",
-    Cliente:`${orden.nombre} ${orden.apellido}`,
-    Teléfono: orden.telefono,
-    Serie: orden.nserie,
-    Falla: orden.falla,
-    Observaciones: orden.observa,
-    "Costo Estimado": orden.costo,
-    Repuesto: orden.repuesto,
-    "Mano de Obra": orden.manoobra,
-    Total: orden.total,
-    IVA: orden.iva,
-    Presupuesto: orden.presu,
-    Salida: orden.salida,
-    "Creado por": orden.usuario_nombre,
-  }));
-
-  const worksheet = XLSX.utils.json_to_sheet(data);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Órdenes");
-
-  XLSX.writeFile(workbook, "ordenes_filtradas.xlsx");
-}
+ 
 
   return (
     <div className="p-4 bg-gray-200 min-h-screen">
@@ -170,7 +147,7 @@ function TasksBuscarOrden() {
 
              
       <button
-         onClick={exportToExcel}
+         onClick=() => exportarIngresosToExcel (ingresos)}
        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 shadow mb-3"
        >
   📥 Descargar Excel
