@@ -68,6 +68,7 @@ function TasksFromPage() {
       setValue("falla",     ing.falla);
       setValue("observa",   ing.observa);
       setValue("costo",     ing.costo);
+      setValue("presu",     ing.presu);
       setOrdenGenerada(ing.numorden);
     } else {
       setValue("fecha", hoy);
@@ -247,6 +248,7 @@ const editarOrden = () => {
                 <input type="text" placeholder="Equipo" className="p-2 rounded border" disabled={formBloqueado} {...register("equipo")} />
                 <input type="text" placeholder="N° de Serie" className="p-2 rounded border" disabled={formBloqueado} {...register("nserie")} />
                 <input type="date" placeholder="Fecha" className="p-2 rounded border" disabled={formBloqueado} {...register("fecha")} />
+                <input type="text" placeholder="Garantía" className="p-2 rounded border" disabled={formBloqueado} {...register("presu")} />
                 <textarea placeholder="Falla" className="p-2 rounded border col-span-1 md:col-span-2" disabled={formBloqueado} {...register("falla")}></textarea>
                 <textarea placeholder="Materiales" className="p-2 rounded border col-span-1 md:col-span-2" disabled={formBloqueado} {...register("observa")}></textarea>
                 <input type="text" placeholder="Costo estimado $00,00" className="p-2 rounded border" disabled={formBloqueado} {...register("costo")} />
