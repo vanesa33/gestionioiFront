@@ -169,23 +169,21 @@ const handleDelete = async () => {
         </div>
 
          <div>
-          <label className="block font-semibold text-gray-600">IVA</label>
-          <input
-            type="text"
-            {...register("iva")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-            placeholder="si/no"
-          />
+         <label className="block font-semibold text-gray-600">IVA</label>
+           <select className="p-2 rounded border block font-semibold text-gray-600"  {...register("iva")}>
+                  <option value="Sí">Sí</option>
+                  <option value="No">No</option>
+                </select>
         </div>
 
          <div>
-          <label className="block font-semibold text-gray-600">Presupuesto</label>
-          <input
-            type="text"
-            {...register("presu")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-            placeholder="$"
-          />
+          <label className="block font-semibold text-gray-600">Garantía</label>
+
+          <select className="p-2 rounded border block font-semibold text-gray-600"  {...register("presu")}>
+                  <option value="Sí">Sí</option>
+                  <option value="No">No</option>
+                </select>
+                </div>
         </div>
 
          <div>
