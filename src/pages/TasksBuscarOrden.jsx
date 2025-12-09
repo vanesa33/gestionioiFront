@@ -185,7 +185,7 @@ function TasksBuscarOrden() {
           <th className="p-3 text-center">Mano de Obra</th>
           <th className="p-3 text-center">Total</th>
           <th className="p-3 text-center">IVA</th>
-          <th className="p-3 text-center">Presupuesto</th>
+          <th className="p-3 text-center">Garantía</th>
           <th className="p-3 text-center">Salida</th>
           <th className="p-3 text-center">Creado por</th>
         </tr>
