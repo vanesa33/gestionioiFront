@@ -300,7 +300,7 @@ function TasksBuscarOrden() {
             <strong>IVA:</strong> {ordenSeleccionada.iva}
             </p>
             <p>
-              <strong>Presupuesto:</strong> {ordenSeleccionada.presu}
+              <strong>Garantía</strong> {ordenSeleccionada.presu}
             </p>
             <p>
               <strong>Salida:</strong> {ordenSeleccionada.salida ? new Date(ordenSeleccionada.salida).toISOString().split("T")[0] : ""}
