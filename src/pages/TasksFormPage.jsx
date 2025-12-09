@@ -251,7 +251,7 @@ const editarOrden = () => {
                 <input type="text" placeholder="Garantía" className="p-2 rounded border" disabled={formBloqueado} {...register("presu")} />
                 <textarea placeholder="Falla" className="p-2 rounded border col-span-1 md:col-span-2" disabled={formBloqueado} {...register("falla")}></textarea>
                 <textarea placeholder="Materiales" className="p-2 rounded border col-span-1 md:col-span-2" disabled={formBloqueado} {...register("observa")}></textarea>
-                <input type="text" placeholder="Costo estimado $00,00" className="p-2 rounded border" disabled={formBloqueado} {...register("costo")} />
+                
               </div>
             </div>
 
