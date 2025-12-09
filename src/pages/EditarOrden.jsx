@@ -183,7 +183,7 @@ const handleDelete = async () => {
                   <option value="Sí">Sí</option>
                   <option value="No">No</option>
                 </select>
-                </div>
+               
         </div>
 
          <div>
