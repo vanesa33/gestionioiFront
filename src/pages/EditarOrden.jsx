@@ -15,6 +15,7 @@ function EditarOrden() {
       try {
         const res = await getIngresoRequest(iid);
         const data = res.data;
+         console.log("IVA desde la BD:", data.iva); // LOG 1
 
         reset({
           equipo: data.equipo ?? "",
@@ -63,17 +64,19 @@ useEffect(() => {
  
   const montoIva = iva === "Sí" ? sumaBase * 0.21 : 0;
 
+  
+
   setValue("montoIva", montoIva.toFixed(2));
   setValue("MontoSinIva", sumaBase.toFixed(2));
-  setValue("total", totalFinal.toFixed(2));
-
-  console.log("IVA desde la BD:", data.iva);
-console.log("Datos enviados:", data);
+  setValue("total", totalFinal.toFixed(2));  
 
 }, [costo, repuesto, manoobra, iva, setValue]);
 
   const onSubmit = async (data) => {
     try {
+
+          console.log("Datos enviados:", data); // LOG 2
+
           
       data.costo = data.costo ? Number(data.costo) : null;
       data.repuesto = data.repuesto ? Number(data.repuesto) : null;
