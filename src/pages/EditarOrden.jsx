@@ -7,7 +7,7 @@ import { getIngresoRequest, upDateingresoRequest, deleteIngresoRequest } from ".
 function EditarOrden() {
   const { iid } = useParams();
   const navigate = useNavigate();
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, watch, setValue } = useForm();
   const [numOrden, setNumOrden] = useState(iid);
 
   useEffect(() => {
@@ -41,6 +41,32 @@ function EditarOrden() {
 
     cargarDatos();
   }, [iid, reset]);
+
+  // Escuchar valores
+const costo = watch("costo") || 0;
+const repuesto = watch("repuesto") || 0;
+const manoobra = watch("manoobra") || 0;
+const iva = watch("iva");
+
+// Recalcular automáticamente TOTAL
+useEffect(() => {
+  const sumaBase =
+    Number(costo) +
+    Number(repuesto) +
+    Number(manoobra);
+
+  let totalFinal = sumaBase;
+
+  if (iva === "Sí") {
+    totalFinal = sumaBase * 1.21; // suma el 21%
+  }
+ 
+  const montoIva = iva === "Sí" ? sumaBase * 0.21 : 0;
+
+  setValue("montoIva", montoIva.toFixed(2));
+  setValue("MontoSinIva", sumaBase.toFixed(2));
+  setValue("total", totalFinal.toFixed(2));
+}, [costo, repuesto, manoobra, iva, setValue]);
 
   const onSubmit = async (data) => {
     try {
@@ -129,12 +155,12 @@ const handleDelete = async () => {
         </div>
 
         <div>
-          <label className="block font-semibold text-gray-600">Costo Estimado</label>
+          <label className="block font-semibold text-gray-600">Costo</label>
           <input
             type="number"
             {...register("costo")}
             className="w-full border border-gray-300 p-2 rounded text-gray-600"
-            placeholder="Costo estimado"
+            placeholder="Costo"
           />
         </div>
 
@@ -159,6 +185,17 @@ const handleDelete = async () => {
         </div>
 
          <div>
+         <label className="block font-semibold text-gray-600">IVA</label>
+           <select className="p-2 rounded border block font-semibold text-gray-600"  {...register("iva")}>
+                  <option value="Sí">Sí</option>
+                  <option value="No">No</option>
+                </select>
+        </div>
+
+             <input type="hidden" {...register("montoIva")} />
+             <input type="hidden" {...register("totalSinIva")} />
+
+         <div>
           <label className="block font-semibold text-gray-600">Total</label>
           <input
             type="number"
@@ -168,13 +205,24 @@ const handleDelete = async () => {
           />
         </div>
 
-         <div>
-         <label className="block font-semibold text-gray-600">IVA</label>
-           <select className="p-2 rounded border block font-semibold text-gray-600"  {...register("iva")}>
-                  <option value="Sí">Sí</option>
-                  <option value="No">No</option>
-                </select>
-        </div>
+
+        <div className="mt-4 p-3 border rounded bg-gray-50">
+          <p className="font-semibold text-gray-700">
+           Total sin IVA: <span className="font-bold">${watch("totalSinIva")}</span>
+            </p>
+
+             <p className={`font-semibold 
+              ${iva === "Sí" ? "text-yellow-600" : "text-gray-400"}`}>
+              IVA 21%: <span className="font-bold">${watch("montoIva")}</span>
+             </p>
+
+              <p className={`text-lg mt-2 
+                 ${iva === "Sí" ? "text-green-700 font-bold" : "text-gray-700 font-semibold"}`}>
+                 Total Final: <span>${watch("total")}</span>
+                  </p>
+                  </div>           
+
+        
 
          <div>
           <label className="block font-semibold text-gray-600">Garantía</label>
