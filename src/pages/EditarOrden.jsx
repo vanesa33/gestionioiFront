@@ -66,6 +66,10 @@ useEffect(() => {
   setValue("montoIva", montoIva.toFixed(2));
   setValue("MontoSinIva", sumaBase.toFixed(2));
   setValue("total", totalFinal.toFixed(2));
+
+  console.log("IVA desde la BD:", data.iva);
+console.log("Datos enviados:", data);
+
 }, [costo, repuesto, manoobra, iva, setValue]);
 
   const onSubmit = async (data) => {
