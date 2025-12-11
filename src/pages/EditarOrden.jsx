@@ -254,7 +254,7 @@ const handleDelete = async () => {
                 </select>
                
         
-        </div>
+      
 
          <div>
           <label className="block font-semibold text-gray-600">Fecha de Salida</label>
