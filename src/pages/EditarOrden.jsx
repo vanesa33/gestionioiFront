@@ -66,7 +66,7 @@ useEffect(() => {
   const montoIva = iva === "Sí" ? sumaBase * 0.21 : 0;
 
   setValue("montoIva", montoIva.toFixed(2));
-  setValue("MontoSinIva", sumaBase.toFixed(2));
+  setValue("montoSinIva", sumaBase.toFixed(2));
   setValue("total", totalFinal.toFixed(2));
 }, [costo, repuesto, manoobra, iva, setValue]);
 
