@@ -206,7 +206,7 @@ const handleDelete = async () => {
 
     {/* HIDDEN INPUTS CORREGIDOS */}
     <input type="hidden" {...register("montoIva")} />
-    <input type="hidden" {...register("MontoSinIva")} />
+    <input type="hidden" {...register("montoSinIva")} />
   </div>
 
   {/* TOTAL */}
@@ -232,7 +232,7 @@ const handleDelete = async () => {
 
         <div className="mt-4 p-3 border rounded bg-gray-50">
   <p className="font-semibold text-gray-700">
-    Total sin IVA: <span className="font-bold">${watch("MontoSinIva")}</span>
+    Total sin IVA: <span className="font-bold">${watch("montoSinIva")}</span>
   </p>
 
   <p className={`font-semibold 
