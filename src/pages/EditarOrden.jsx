@@ -199,6 +199,10 @@ const handleDelete = async () => {
           <label className="block font-semibold text-gray-600">Total</label>
           <input
             type="number"
+            min="0"
+            max="999999999"
+            step="any"
+
             {...register("total")}
             className="w-full border border-gray-300 p-2 rounded text-gray-600"
             placeholder="$"
