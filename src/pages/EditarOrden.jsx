@@ -3,18 +3,27 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { getIngresoRequest, upDateingresoRequest, deleteIngresoRequest } from "../api/ingresos";
 
-
 function EditarOrden() {
   const { iid } = useParams();
   const navigate = useNavigate();
-  const { register, handleSubmit, reset, watch, setValue  } = useForm();
+  const { register, handleSubmit, reset, watch, setValue } = useForm();
   const [numOrden, setNumOrden] = useState(iid);
 
+  // watchers
+  const costo = Number(watch("costo") || 0);
+  const repuesto = Number(watch("repuesto") || 0);
+  const manoobra = Number(watch("manoobra") || 0);
+  const iva = watch("iva");
+
+  // cargar datos y normalizar iva
   useEffect(() => {
     const cargarDatos = async () => {
       try {
         const res = await getIngresoRequest(iid);
         const data = res.data;
+
+        // Normalizar IVA a "Sí" o "No" (evita null/undefined)
+        const ivaNormalizado = data.iva === "Sí" ? "Sí" : "No";
 
         reset({
           equipo: data.equipo ?? "",
@@ -22,83 +31,90 @@ function EditarOrden() {
           observa: data.observa ?? "",
           fecha: data.fecha ? data.fecha.split("T")[0] : "",
           nserie: data.nserie ?? "",
-          costo: data.costo ?? "",
-          repuesto: data.repuesto ?? "",
-          manoobra: data.manoobra ?? "",
-          total: data.total ?? "",
-          iva: data.iva === "Sí" ? "Sí" : "No", 
-          presu: data.presu ?? "",
+          costo: data.costo ?? 0,
+          repuesto: data.repuesto ?? 0,
+          manoobra: data.manoobra ?? 0,
+          total: data.total ?? 0,
+          iva: ivaNormalizado,
+          presu: data.presu ?? "No",
           salida: data.salida ? data.salida.split("T")[0] : "",
           imagenurl: data.imagenurl ?? "",
           client_id: data.client_id ?? ""
         });
 
-        console.log("formulario despues del reset:", data);
+        // inicializar campos calculados
+        const sumaBase = Number(data.costo || 0) + Number(data.repuesto || 0) + Number(data.manoobra || 0);
+        const montoIva = ivaNormalizado === "Sí" ? sumaBase * 0.21 : 0;
+        const totalFinal = ivaNormalizado === "Sí" ? sumaBase * 1.21 : sumaBase;
+
+        setValue("totalSinIva", sumaBase.toFixed(2));
+        setValue("montoIva", montoIva.toFixed(2));
+        setValue("total", totalFinal.toFixed(2));
 
         setNumOrden(data.numorden ?? iid);
+
+        console.log("FORM LOAD -> ivaRaw:", data.iva, "ivaNorm:", ivaNormalizado);
       } catch (error) {
         console.error("Error al cargar los datos de la orden:", error);
       }
     };
 
     cargarDatos();
-  }, [iid, reset]);
+  }, [iid, reset, setValue]);
 
-  // Escuchar valores
-const costo = watch("costo") || 0;
-const repuesto = watch("repuesto") || 0;
-const manoobra = watch("manoobra") || 0;
-const iva = watch("iva");
+  // recalcular cuando cambien los montos o iva
+  useEffect(() => {
+    const sumaBase = Number(costo || 0) + Number(repuesto || 0) + Number(manoobra || 0);
+    const montoIva = iva === "Sí" ? sumaBase * 0.21 : 0;
+    const totalFinal = iva === "Sí" ? sumaBase * 1.21 : sumaBase;
 
-// Recalcular automáticamente TOTAL
-useEffect(() => {
-  const sumaBase =
-    Number(costo) +
-    Number(repuesto) +
-    Number(manoobra);
-
-  let totalFinal = sumaBase;
-
-  if (iva === "Sí") {
-    totalFinal = sumaBase * 1.21; // suma el 21%
-  }
- 
-  const montoIva = iva === "Sí" ? sumaBase * 0.21 : 0;
-
-  setValue("montoIva", montoIva.toFixed(2));
-  setValue("totalSinIva", sumaBase.toFixed(2));
-  setValue("total", totalFinal.toFixed(2));
-}, [costo, repuesto, manoobra, iva, setValue]);
+    // IMPORTANTE: usar siempre el mismo nombre: totalSinIva
+    setValue("totalSinIva", sumaBase.toFixed(2));
+    setValue("montoIva", montoIva.toFixed(2));
+    setValue("total", totalFinal.toFixed(2));
+  }, [costo, repuesto, manoobra, iva, setValue]);
 
   const onSubmit = async (data) => {
-  try {
-   data.iva = data.iva === "Sí" ? "Sí" : "No";  // 👈 IMPORTANTE
+    try {
+      // Forzar formato correcto para IVA (texto "Sí"/"No")
+      data.iva = data.iva === "Sí" ? "Sí" : "No";
 
-    data.costo = data.costo ? Number(data.costo) : null;
-    data.repuesto = data.repuesto ? Number(data.repuesto) : null;
-    
+      // Asegurar tipos numericos
+      data.costo = data.costo !== "" && data.costo !== null ? Number(data.costo) : null;
+      data.repuesto = data.repuesto !== "" && data.repuesto !== null ? Number(data.repuesto) : null;
+      data.manoobra = data.manoobra !== "" && data.manoobra !== null ? Number(data.manoobra) : null;
+      data.montoIva = data.montoIva ? Number(data.montoIva) : 0;
+      data.totalSinIva = data.totalSinIva ? Number(data.totalSinIva) : 0;
+      data.total = data.total ? Number(data.total) : 0;
 
-    await upDateingresoRequest(iid, data);
-    alert("Orden actualizada con éxito");
-    navigate("/ingresos/todos");
-  } catch (error) {
-    console.error("Error al actualizar la orden:", error);
-    alert("Hubo un error al guardar los cambios");
-  }
-};
-const handleDelete = async () => {
-    if(window.confirm("Seguro que deseas eliminar esta orden?")) {
-        try {
-            await deleteIngresoRequest(iid);
-            alert("Orden eliminada con éxito");
-            navigate("/tasks/Buscarorden");
-        } catch (error) {
-            console.error("Error al eliminar la orden:", error);
-            alert("Hubo un erro al eliminar la orden");
-        }
+      // LOG para depurar exactamente lo que se envía
+      console.log("ANTES REQUEST - payload:", data);
+
+      const resp = await upDateingresoRequest(iid, data);
+
+      // LOG respuesta backend
+      console.log("RESPUESTA BACKEND:", resp && resp.data ? resp.data : resp);
+
+      alert("Orden actualizada con éxito");
+      navigate("/ingresos/todos");
+    } catch (error) {
+      console.error("Error al actualizar la orden:", error);
+      alert("Hubo un error al guardar los cambios");
     }
-};
+  };
 
+  const handleDelete = async () => {
+    if (window.confirm("Seguro que deseas eliminar esta orden?")) {
+      try {
+        await deleteIngresoRequest(iid);
+        alert("Orden eliminada con éxito");
+        navigate("/tasks/Buscarorden");
+      } catch (error) {
+        console.error("Error al eliminar la orden:", error);
+        alert("Hubo un erro al eliminar la orden");
+      }
+    }
+  };
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
@@ -107,218 +123,116 @@ const handleDelete = async () => {
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        {/* campos simples */}
         <div>
           <label className="block font-semibold text-gray-600">Equipo</label>
-          <input
-            type="text"
-            {...register("equipo")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-            placeholder="Ingrese el equipo"
-          />
+          <input type="text" {...register("equipo")} className="w-full border border-gray-300 p-2 rounded text-gray-600" />
         </div>
 
         <div>
           <label className="block font-semibold text-gray-600">Falla</label>
-          <input
-            type="text"
-            {...register("falla")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-            placeholder="Ingrese la falla"
-          />
+          <input type="text" {...register("falla")} className="w-full border border-gray-300 p-2 rounded text-gray-600" />
         </div>
 
         <div>
           <label className="block font-semibold text-gray-600">Observaciones</label>
-          <input
-            type="text"
-            {...register("observa")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-            placeholder="Observaciones"
-          />
+          <input type="text" {...register("observa")} className="w-full border border-gray-300 p-2 rounded text-gray-600" />
         </div>
 
         <div>
           <label className="block font-semibold text-gray-600">Fecha</label>
-          <input
-            type="date"
-            {...register("fecha")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-          />
+          <input type="date" {...register("fecha")} className="w-full border border-gray-300 p-2 rounded text-gray-600" />
         </div>
 
         <div>
           <label className="block font-semibold text-gray-600">N° Serie</label>
-          <input
-            type="text"
-            {...register("nserie")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-            placeholder="Número de serie"
-          />
+          <input type="text" {...register("nserie")} className="w-full border border-gray-300 p-2 rounded text-gray-600" />
         </div>
 
         <div>
           <label className="block font-semibold text-gray-600">Costo</label>
-          <input
-            type="number"
-            {...register("costo")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-            placeholder="Costo $"
-          />
+          <input type="number" {...register("costo")} className="w-full border border-gray-300 p-2 rounded text-gray-600" />
         </div>
 
-         <div>
+        <div>
           <label className="block font-semibold text-gray-600">Costo de Repuesto</label>
-          <input
-            type="number"
-            {...register("repuesto")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-            placeholder="$"
-          />
+          <input type="number" {...register("repuesto")} className="w-full border border-gray-300 p-2 rounded text-gray-600" />
         </div>
 
-         <div>
+        <div>
           <label className="block font-semibold text-gray-600">Mano de Obra</label>
-          <input
-            type="number"
-            {...register("manoobra")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-            placeholder="$"
-          />
-        </div>                
-          
-        
+          <input type="number" {...register("manoobra")} className="w-full border border-gray-300 p-2 rounded text-gray-600" />
+        </div>
 
-        
+        {/* IVA + Garantía + Total (limpio y bien anidado) */}
+        <div className="flex gap-4">
+          <div className="flex-1">
+            <label className="block font-semibold text-gray-600">IVA</label>
+            <select className="p-2 rounded border block font-semibold text-gray-600" {...register("iva")}>
+              <option value="Sí">Sí</option>
+              <option value="No">No</option>
+            </select>
 
-      <div className="flex gap-4">
+            {/* Hidden fields - nombres consistentes: totalSinIva y montoIva */}
+            <input type="hidden" {...register("montoIva")} />
+            <input type="hidden" {...register("totalSinIva")} />
+          </div>
 
-  {/* IVA */}
-  <div className="flex-1">
-    <label className="block font-semibold text-gray-600">IVA</label>
+          <div className="flex-1">
+            <label className="block font-semibold text-gray-600">Garantía</label>
+            <select className="p-2 rounded border block font-semibold text-gray-600" {...register("presu")}>
+              <option value="Sí">Sí</option>
+              <option value="No">No</option>
+            </select>
+          </div>
 
-    <select
-      className="p-2 rounded border block font-semibold text-gray-600"
-      {...register("iva")}
-    >
-      <option value="Sí">Sí</option>
-      <option value="No">No</option>
-    </select>
+          <div className="flex-1">
+            <label className="block font-semibold text-gray-600">Total</label>
+            <input
+              type="number"
+              min="0"
+              max="999999999"
+              step="any"
+              {...register("total")}
+              className={`w-full border border-gray-300 p-2 rounded ${iva === "Sí" ? "bg-yellow-200 font-bold text-gray-900" : "bg-gray-100 font-semibold text-gray-700"}`}
+              readOnly
+            />
+          </div>
+        </div>
 
-    {/* HIDDEN INPUTS CORREGIDOS */}
-    <input type="hidden" {...register("montoIva")} />
-    <input type="hidden" {...register("totalSinIva")} />
-  </div>
-
-  {/* TOTAL */}
-  <div className="flex-1">
-    <label className="block font-semibold text-gray-600">Total</label>
-
-    <input
-      type="number"
-      min="0"
-      max="999999999"
-      step="any"
-      {...register("total")}
-      className={`w-full border border-gray-300 p-2 rounded 
-        ${iva === "Sí" ? "bg-yellow-200 font-bold text-gray-900" 
-                       : "bg-gray-100 font-semibold text-gray-700"}
-      `}
-      readOnly
-      placeholder="$"
-    />
-  </div>
-
-</div>
-
+        {/* Bloque visual de totales */}
         <div className="mt-4 p-3 border rounded bg-gray-50">
-  <p className="font-semibold text-gray-700">
-    Total sin IVA: <span className="font-bold">${watch("montoSinIva")}</span>
-  </p>
+          <p className="font-semibold text-gray-700">Total sin IVA: <span className="font-bold">${watch("totalSinIva")}</span></p>
+          <p className={`font-semibold ${iva === "Sí" ? "text-yellow-600" : "text-gray-400"}`}>IVA 21%: <span className="font-bold">${watch("montoIva")}</span></p>
+          <p className={`text-lg mt-2 ${iva === "Sí" ? "text-green-700 font-bold" : "text-gray-700 font-semibold"}`}>Total Final: <span>${watch("total")}</span></p>
+        </div>
 
-  <p className={`font-semibold 
-    ${iva === "Sí" ? "text-yellow-600" : "text-gray-400"}`}>
-    IVA 21%: <span className="font-bold">${watch("totalSinIva")}</span>
-  </p>
-
-  <p className={`text-lg mt-2 
-    ${iva === "Sí" ? "text-green-700 font-bold" : "text-gray-700 font-semibold"}`}>
-    Total Final: <span>${watch("total")}</span>
-  </p>
-</div>
-
-      <label className="block font-semibold text-gray-600">Garantía</label>
-
-          <select className="p-2 rounded border block font-semibold text-gray-600"  {...register("presu")}>
-                  <option value="Sí">Sí</option>
-                  <option value="No">No</option>
-                </select>
-               
-        
-      
-
-         <div>
+        <div>
           <label className="block font-semibold text-gray-600">Fecha de Salida</label>
-          <input
-            type="date"
-            {...register("salida")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-            placeholder="fecha de salida"
-          />
+          <input type="date" {...register("salida")} className="w-full border border-gray-300 p-2 rounded text-gray-600" />
         </div>
 
         <div>
           <label className="block font-semibold text-gray-600">Imagen URL</label>
-          <input
-            type="text"
-            {...register("imagenurl")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-            placeholder="URL de imagen (opcional)"
-          />
+          <input type="text" {...register("imagenurl")} className="w-full border border-gray-300 p-2 rounded text-gray-600" />
         </div>
 
         <div className="text-gray-500 text-sm">
           ID del cliente asignado:{" "}
           <span className="font-bold text-gray-700">
-            {/* Este valor ya estará en el form si lo envía el backend */}
-            <input
-              type="text"
-              {...register("client_id")}
-              className="border border-gray-300 p-1 rounded text-gray-600"
-              readOnly
-            />
+            <input type="text" {...register("client_id")} className="border border-gray-300 p-1 rounded text-gray-600" readOnly />
           </span>
         </div>
 
         <div className="flex justify-between mt-6">
-          <button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow"
-          >
-            Guardar Cambios
-          </button>
-
-            <button
-             type="button"
-             onClick={handleDelete}
-             className="bg-red-500 text-white px-6 py-2 rounded shadow
-             hover:bg-red-600">
-                  Eliminar Orden
-            </button>
-
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-            className="bg-gray-400 hover:bg-gray-500 text-white px-6 py-2 rounded shadow"
-          >
-            Cancelar
-          </button>
+          <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow">Guardar Cambios</button>
+          <button type="button" onClick={handleDelete} className="bg-red-500 text-white px-6 py-2 rounded shadow hover:bg-red-600">Eliminar Orden</button>
+          <button type="button" onClick={() => navigate(-1)} className="bg-gray-400 hover:bg-gray-500 text-white px-6 py-2 rounded shadow">Cancelar</button>
         </div>
-                        
       </form>
     </div>
-
-  
   );
 }
 
 export default EditarOrden;
+
