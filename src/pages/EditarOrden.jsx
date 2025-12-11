@@ -1,3 +1,5 @@
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { getIngresoRequest, upDateingresoRequest, deleteIngresoRequest } from "../api/ingresos";
 
