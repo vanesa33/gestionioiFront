@@ -66,7 +66,7 @@ useEffect(() => {
   const montoIva = iva === "Sí" ? sumaBase * 0.21 : 0;
 
   setValue("montoIva", montoIva.toFixed(2));
-  setValue("montoSinIva", sumaBase.toFixed(2));
+  setValue("totalSinIva", sumaBase.toFixed(2));
   setValue("total", totalFinal.toFixed(2));
 }, [costo, repuesto, manoobra, iva, setValue]);
 
@@ -206,7 +206,7 @@ const handleDelete = async () => {
 
     {/* HIDDEN INPUTS CORREGIDOS */}
     <input type="hidden" {...register("montoIva")} />
-    <input type="hidden" {...register("montoSinIva")} />
+    <input type="hidden" {...register("totalSinIva")} />
   </div>
 
   {/* TOTAL */}
@@ -237,7 +237,7 @@ const handleDelete = async () => {
 
   <p className={`font-semibold 
     ${iva === "Sí" ? "text-yellow-600" : "text-gray-400"}`}>
-    IVA 21%: <span className="font-bold">${watch("montoIva")}</span>
+    IVA 21%: <span className="font-bold">${watch("totalSinIva")}</span>
   </p>
 
   <p className={`text-lg mt-2 
