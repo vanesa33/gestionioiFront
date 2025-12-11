@@ -232,7 +232,7 @@ const handleDelete = async () => {
 
         <div className="mt-4 p-3 border rounded bg-gray-50">
   <p className="font-semibold text-gray-700">
-    Total sin IVA: <span className="font-bold">${watch("totalSinIva")}</span>
+    Total sin IVA: <span className="font-bold">${watch("MontoSinIva")}</span>
   </p>
 
   <p className={`font-semibold 
