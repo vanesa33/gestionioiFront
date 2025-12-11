@@ -204,7 +204,10 @@ const handleDelete = async () => {
             step="any"
 
             {...register("total")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
+           className={`w-full border border-gray-300 p-2 rounded 
+            ´ ${iva === "Sí" ? "bg-yellow-200 font-bold text-gray-900" : "bg-gray-100 font-semibold text-gray-700"}
+             `}
+            readOnly
             placeholder="$"
           />
         </div>
