@@ -27,7 +27,7 @@ function EditarOrden() {
           repuesto: data.repuesto ?? "",
           manoobra: data.manoobra ?? "",
           total: data.total ?? "",
-          iva: data.iva ?? "",
+          iva: data.iva === "Sí" ? "Sí" : "No",
           presu: data.presu ?? "",
           salida: data.salida ? data.salida.split("T")[0] : "",
           imagenurl: data.imagenurl ?? "",
@@ -75,7 +75,7 @@ useEffect(() => {
   const onSubmit = async (data) => {
     try {
 
-          console.log("Datos enviados:", data); // LOG 2
+           data.iva = data.iva === "Sí" ? "Sí" : "No"; 
 
           
       data.costo = data.costo ? Number(data.costo) : null;
