@@ -26,7 +26,7 @@ function EditarOrden() {
           repuesto: data.repuesto ?? "",
           manoobra: data.manoobra ?? "",
           total: data.total ?? "",
-          iva: data.iva ?? "",
+          iva: data.iva === "Sí" ? "Sí" : "No", 
           presu: data.presu ?? "",
           salida: data.salida ? data.salida.split("T")[0] : "",
           imagenurl: data.imagenurl ?? "",
