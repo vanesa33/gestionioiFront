@@ -72,14 +72,11 @@ useEffect(() => {
 
   const onSubmit = async (data) => {
   try {
-    // Convierte vacíos a null y texto a número donde corresponda
-    const numFields = ["costo", "repuesto", "manoobra", "total"];
-    numFields.forEach((f) => {
-      if (data[f] === "" || data[f] === undefined) data[f] = null;
-      else data[f] = Number(data[f]);
-    });
+   data.iva = data.iva === "Sí" ? "Sí" : "No";  // 👈 IMPORTANTE
 
-    console.log("Datos procesados antes de enviar:", data);
+    data.costo = data.costo ? Number(data.costo) : null;
+    data.repuesto = data.repuesto ? Number(data.repuesto) : null;
+    
 
     await upDateingresoRequest(iid, data);
     alert("Orden actualizada con éxito");
