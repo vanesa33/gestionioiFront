@@ -206,8 +206,11 @@ const handleDelete = async () => {
 
  <div>
           <label className="block font-semibold text-gray-600">Total</label>
-          <input
+          <input            
             type="number"
+            min="0"
+            max="999999999"
+            step="any"
             {...register("total")}
            className={`w-full border border-gray-300 p-2 rounded 
             ´ ${iva === "Sí" ? "bg-yellow-200 font-bold text-gray-900" : "bg-gray-100 font-semibold text-gray-700"}
