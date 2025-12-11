@@ -190,32 +190,45 @@ const handleDelete = async () => {
 
         
 
-        <div className="flex gap-4">
-          <div className="flex-1">
-          <label className="block font-semibold text-gray-600">IVA</label>
-           <select className="p-2 rounded border block font-semibold text-gray-600"  {...register("iva")}>
-                  <option value="Sí">Sí</option>
-                  <option value="No">No</option>
-                </select>
-        
-<input type="hidden" {...register("montoIva")} />
-<input type="hidden" {...register("totalSinIva")} />
+      <div className="flex gap-4">
 
- <div>
-          <label className="block font-semibold text-gray-600">Total</label>
-          <input            
-            type="number"
-            min="0"
-            max="999999999"
-            step="any"
-            {...register("total")}
-           className={`w-full border border-gray-300 p-2 rounded 
-            ´ ${iva === "Sí" ? "bg-yellow-200 font-bold text-gray-900" : "bg-gray-100 font-semibold text-gray-700"}
-             `}
-            readOnly
-            placeholder="$"
-          />
-        </div>
+  {/* IVA */}
+  <div className="flex-1">
+    <label className="block font-semibold text-gray-600">IVA</label>
+
+    <select
+      className="p-2 rounded border block font-semibold text-gray-600"
+      {...register("iva")}
+    >
+      <option value="Sí">Sí</option>
+      <option value="No">No</option>
+    </select>
+
+    {/* HIDDEN INPUTS CORREGIDOS */}
+    <input type="hidden" {...register("montoIva")} />
+    <input type="hidden" {...register("MontoSinIva")} />
+  </div>
+
+  {/* TOTAL */}
+  <div className="flex-1">
+    <label className="block font-semibold text-gray-600">Total</label>
+
+    <input
+      type="number"
+      min="0"
+      max="999999999"
+      step="any"
+      {...register("total")}
+      className={`w-full border border-gray-300 p-2 rounded 
+        ${iva === "Sí" ? "bg-yellow-200 font-bold text-gray-900" 
+                       : "bg-gray-100 font-semibold text-gray-700"}
+      `}
+      readOnly
+      placeholder="$"
+    />
+  </div>
+
+</div>
 
         <div className="mt-4 p-3 border rounded bg-gray-50">
   <p className="font-semibold text-gray-700">
