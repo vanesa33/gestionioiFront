@@ -25,7 +25,7 @@ const data = ingresos.map((i) => ({
   "IVA": i.iva || "",
   "Total": mostrarMonto(i.total),
   "Garantía": i.presu ? "Sí" : "No",
-  "Salida": i.salida ? new Date(i.salida).toLocaleDateString("es-AR") : "",
+  "Orden Cerrada": i.salida ? new Date(i.salida).toLocaleDateString("es-AR") : "",
 }));
 
   // ---------------------------
@@ -108,3 +108,4 @@ const data = ingresos.map((i) => ({
   // ---------------------------
   XLSX.writeFile(wb, "Ingresos.xlsx");
 }
+
