@@ -3,8 +3,8 @@ import { useTasks } from "../context/useTasks";
 import { useNavigate } from "react-router-dom";
 import { getTodosIngresosRequest } from "../api/ingresos";
 import * as XLSX from "xlsx";
-import { imprimirIngreso } from "../utils/imprimirIngreso";
-import { exportarIngresosExcel } from "../utils/exportExcel";
+import { imprimirOrdenBuscarUno } from "../imprimirOrdenBuscarUno.js";
+import { exportarIngresosExcel } from "../exportExcel";
 
 function TasksBuscarOrden() {
   const { ingresos, deleteIngreso } = useTasks();
