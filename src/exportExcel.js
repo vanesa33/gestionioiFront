@@ -9,22 +9,24 @@ export function exportarIngresosExcel(ingresos) {
   // ---------------------------
   // 1) Convertir datos para Excel
   // ---------------------------
-  const data = ingresos.map((i) => ({
-    "N° Orden": i.numorden,
-    "Cliente": i.cliente_nombre || "",
-    "Equipo": i.equipo || "",
-    "Falla": i.falla || "",
-    "Observación": i.observa || "",
-    "Fecha": i.fecha ? new Date(i.fecha).toLocaleDateString("es-AR") : "",
-    "N° Serie": i.nserie || "",
-    "Costo": i.costo || "",
-    "Repuesto": i.repuesto || "",
-    "Mano de Obra": i.manoobra || "",
-    "IVA": i.iva || "",
-    "Total": i.total || "",
-    "Presupuesto": i.presu ? "Sí" : "No",
-    "Salida": i.salida ? new Date(i.salida).toLocaleDateString("es-AR") : "",
-  }));
+const mostrarMonto = (v) => (Number(v) > 0 ? Number(v) : "");
+
+const data = ingresos.map((i) => ({
+  "N° Orden": i.numorden,
+  "Cliente": i.cliente_nombre || "",
+  "Equipo": i.equipo || "",
+  "Falla": i.falla || "",
+  "Observación": i.observa || "",
+  "Fecha": i.fecha ? new Date(i.fecha).toLocaleDateString("es-AR") : "",
+  "N° Serie": i.nserie || "",
+  "Costo": mostrarMonto(i.costo),
+  "Repuesto": mostrarMonto(i.repuesto),
+  "Mano de Obra": mostrarMonto(i.manoobra),
+  "IVA": i.iva || "",
+  "Total": mostrarMonto(i.total),
+  "Garantía": i.presu ? "Sí" : "No",
+  "Salida": i.salida ? new Date(i.salida).toLocaleDateString("es-AR") : "",
+}));
 
   // ---------------------------
   // 2) Crear workbook y worksheet
