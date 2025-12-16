@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useTasks } from "../context/useTasks";
 import { useNavigate } from "react-router-dom";
 import { getTodosIngresosRequest } from "../api/ingresos";
-import { imprimirOrdenBuscarUno } from "../imprimirOrdenBuscarUno.js";
-import { exportarIngresosExcel } from "../exportExcel";
 import * as XLSX from "xlsx";
+import { imprimirIngreso } from "../utils/imprimirIngreso";
+import { exportarIngresosExcel } from "../utils/exportExcel";
 
 function TasksBuscarOrden() {
   const { ingresos, deleteIngreso } = useTasks();
@@ -18,7 +18,6 @@ function TasksBuscarOrden() {
   const [filasPorPagina, setFilasPorPagina] = useState(9);
   const [modalAbierto, setModalAbierto] = useState(false);
   const [ordenSeleccionada, setOrdenSeleccionada] = useState(null);
-   const [datosOrden, setDatosOrden] = useState(null)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -111,10 +110,10 @@ function TasksBuscarOrden() {
     }
   };
 
+  const mostrarMonto = (v) => (v > 0 ? v : "-");
+
   // Sacamos lista única de usuarios para el select
   const usuariosUnicos = Array.from(new Set(ingreso.map((i) => i.usuario_nombre)));
-
- 
 
   return (
     <div className="p-4 bg-gray-200 min-h-screen">
@@ -147,10 +146,10 @@ function TasksBuscarOrden() {
 
              
       <button
-         onClick={() => exportarIngresosExcel (resultadosFiltrados)}
+         onClick={() => exportarIngresosExcel (resultadosFiltrados)} 
        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 shadow mb-3"
        >
-  📥 Descargar Excel
+    Descargar Excel
       </button>
 
       </div>
@@ -185,44 +184,99 @@ function TasksBuscarOrden() {
           <th className="p-3 text-center">Mano de Obra</th>
           <th className="p-3 text-center">Total</th>
           <th className="p-3 text-center">IVA</th>
-          <th className="p-3 text-center">Garantía</th>
-          <th className="p-3 text-center">Salida</th>
+          <th className="p-3 text-center">Garantia</th>
+          <th className="p-3 text-center">Orden Cerrada</th>
           <th className="p-3 text-center">Creado por</th>
         </tr>
       </thead>
       <tbody>
-        {ordenesPaginadas.length === 0 ? (
-          <tr>
-            <td colSpan="15" className="p-4 text-center text-gray-500">
-              No se encontraron resultados.
-            </td>
-          </tr>
-        ) : (
-          ordenesPaginadas.map((orden) => (
-            <tr
-              key={orden.iid}
-              className="border-t hover:bg-gray-100 cursor-pointer text-gray-800 text-center"
-              onClick={() => abrirModal(orden)}
+  {ordenesPaginadas.length === 0 ? (
+    <tr>
+      <td colSpan="15" className="p-4 text-center text-gray-500">
+        No se encontraron resultados.
+      </td>
+    </tr>
+  ) : (
+    ordenesPaginadas.map((orden) => {
+      //const esCerrada = orden.salida && orden.salida !== "";
+
+      return (
+        <tr
+  key={orden.iid}
+  className={`border-t text-center
+    ${orden.salida
+      ? "bg-gray-900 text-white cursor-not-allowed opacity-80"
+      : "cursor-pointer text-gray-800 hover:bg-gray-100"
+    }`}
+  onClick={() => !orden.salida && abrirModal(orden)}
+>
+          <td className="p-2">{orden.numorden}</td>
+
+          <td className="p-2">
+            {orden.fecha
+              ? new Date(orden.fecha).toISOString().split("T")[0]
+              : ""}
+          </td>
+          
+          
+
+          <td className="p-2">{orden.nserie}</td>
+          <td className="p-2">{orden.equipo}</td>
+          <td className="p-2">{orden.falla}</td>
+          <td>{mostrarMonto(orden.costo)}</td>
+          <td>{mostrarMonto(orden.repuesto)}</td>
+          <td>{mostrarMonto(orden.manoobra)}</td>
+          <td>{mostrarMonto(orden.total)}</td>
+
+          {/* IVA: solo badge */}
+          <td className="p-2">
+            <span
+              className={`px-2 py-1 rounded-lg font-semibold  ${
+                orden.iva === "Sí"
+                  ? "bg-green-300 text-green-800"
+                  : orden.iva === "No"
+                  ? "" : ""
+              }`}
             >
-              <td className="p-2">{orden.numorden}</td>
-              <td className="p-2">
-                {orden.fecha ? new Date(orden.fecha).toISOString().split("T")[0] : ""}
-              </td>             
-              <td className="p-2">{orden.nserie}</td>
-              <td className="p-2">{orden.equipo}</td>
-              <td className="p-2">{orden.falla}</td>              
-              <td className="p-2">{orden.costo}</td>
-              <td className="p-2">{orden.repuesto}</td>
-              <td className="p-2">{orden.manoobra}</td>
-              <td className="p-2">{orden.total}</td>
-              <td className="p-2">{orden.iva}</td>
-              <td className="p-2">{orden.presu}</td>
-              <td className="p-2">{orden.salida ? new Date(orden.salida).toISOString().split("T")[0] : ""}</td>
-              <td className="p-2">{orden.usuario_nombre}</td>
-            </tr>
-          ))
-        )}
-      </tbody>
+              {orden.iva || ""}
+            </span>
+          </td>
+
+          {/* PRESU (garantía): solo badge */}
+          <td className="p-2">
+            <span
+              className={`px-2 py-1 rounded-lg font-semibold ${
+                orden.presu === "Sí"
+                  ? "bg-green-300 text-green-800 "
+                  
+                  : ""
+              }`}
+            >
+              {orden.presu}
+            </span>
+          </td>
+
+          {/* SALIDA: si tiene → negro con letras blancas */}
+         <td className="p-2">
+  {orden.salida && (
+    <span
+      className="px-2 py-1 rounded-lg font-semibold text-xs flex items-center justify-center gap-1 bg-gray-950 text-white truncate"
+      title="Orden cerrada"
+    >
+      <span>
+        {new Date(orden.salida).toISOString().split("T")[0]}
+      </span>
+      <span className="text-yellow-400">🔒</span>
+    </span>
+  )}
+</td>
+
+          <td className="p-2">{orden.usuario_nombre}</td>
+        </tr>
+      );
+    })
+  )}
+</tbody>
     </table>
   </div>
 </div>
@@ -258,57 +312,57 @@ function TasksBuscarOrden() {
               &times;
             </button>
             <h2 className="text-xl text-gray-700 font-bold mb-4">Detalles de la Orden</h2>
-            <p>
+            <>
               <strong>N° Orden:</strong> {ordenSeleccionada.numorden}
-            </p>
-            <p>
-              <strong>Fecha:</strong>  {ordenSeleccionada.fecha ? new Date(ordenSeleccionada.fecha).toISOString().split("T")[0] : ""}
-            </p>
-            <p>
+            </>
+            <>
+              <strong>Fecha:</strong> {ordenSeleccionada.fecha}
+            </>
+            <>
               <strong>Cliente:</strong> {ordenSeleccionada.nombre}{" "}
               {ordenSeleccionada.apellido}
-            </p>
-            <p>
+            </>
+            <>
               <strong>Telefono:</strong> {ordenSeleccionada.telefono}
-            </p>
-            <p>
+            </>
+            <>
               <strong>Equipo:</strong> {ordenSeleccionada.equipo}
-            </p>
-            <p>
+            </>
+            <>
               <strong>Falla:</strong> {ordenSeleccionada.falla}
-            </p>
-            <p>
-              <p>
+            </>
+            <>
+              <>
               <strong>Observaciones:</strong> {ordenSeleccionada.observa}
-            </p>
-            <p></p>
+            </>
+            <></>
               <strong>N° Serie:</strong> {ordenSeleccionada.nserie}
-            </p>
-            <p>
+            </>
+            <>
               <strong>Costo Estimado:</strong> {ordenSeleccionada.costo}
-            </p>
-            <p>
-              <strong>Repuesto:</strong> {ordenSeleccionada.repuesto}
-            </p>
-            <p>
+            </>
+            <>
+              <strong>Garantía</strong> {ordenSeleccionada.repuesto}
+            </>
+            <>
              <strong>Mano de Obra:</strong> {ordenSeleccionada.manoobra}
-            </p>
-            <p>
+            </>
+            <>
             <strong>Total:</strong> {ordenSeleccionada.total}
-            </p>
-            <p>
+            </>
+            <>
             <strong>IVA:</strong> {ordenSeleccionada.iva}
-            </p>
-            <p>
-              <strong>Garantía</strong> {ordenSeleccionada.presu}
-            </p>
-            <p>
-              <strong>Salida:</strong> {ordenSeleccionada.salida ? new Date(ordenSeleccionada.salida).toISOString().split("T")[0] : ""}
-            </p>
+            </>
+            <>
+              <strong>Presupuesto:</strong> {ordenSeleccionada.presu}
+            </>
+            <>
+              <strong>Salida:</strong> {ordenSeleccionada.salida}
+            </>
           
-            <p>
+            <>
               <strong>Creado por:</strong> {ordenSeleccionada.usuario_nombre}
-            </p>
+            </>
 
             <div className="flex justify-end mt-4 gap-3">
               <button
@@ -323,13 +377,14 @@ function TasksBuscarOrden() {
               >
                 Eliminar
               </button>
-             <button
-                 onClick={() => imprimirOrdenBuscarUno(ordenSeleccionada)}
-                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                 >
-                  Imprimir
-                </button>
-
+              <button
+                onClick={() => {
+                  imprimirIngreso(ordenSeleccionada);
+                }}
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+              >
+                Imprimir
+              </button>
             </div>
           </div>
         </div>
