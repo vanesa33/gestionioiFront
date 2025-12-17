@@ -101,7 +101,7 @@ export function imprimirOrdenBuscarUno(orden) {
     <p><strong>Mano de Obra:</strong> ${orden.manoobra}</p>
     <p><strong>Total:</strong> ${orden.total}</p>
     <p><strong>Garantía:</strong> ${orden.presu}</p>
-     <p><strong>Orden Cerrada:</strong> ${orden.salida}</p>
+     
   </div>
   <p><strong>Creado por:</strong> ${orden.usuario_nombre}</p>
 
@@ -123,6 +123,7 @@ export function imprimirOrdenBuscarUno(orden) {
   ventana.document.close();
   ventana.onload = () => ventana.print();
 }
+
 
 
 
