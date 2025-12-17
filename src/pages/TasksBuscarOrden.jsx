@@ -227,7 +227,7 @@ function TasksBuscarOrden() {
           
           <td>{mostrarMonto(orden.repuesto)}</td>
           <td>{mostrarMonto(orden.manoobra)}</td>
-          <td>{mostrarMonto(orden.total)}</td>
+         
 
           {/* IVA: solo badge */}
           <td className="p-2">
@@ -242,6 +242,7 @@ function TasksBuscarOrden() {
               {orden.iva || ""}
             </span>
           </td>
+           <td>{mostrarMonto(orden.total)}</td>
 
           {/* PRESU (garantía): solo badge */}
           <td className="p-2">
