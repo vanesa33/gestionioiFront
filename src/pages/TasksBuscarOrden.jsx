@@ -224,7 +224,7 @@ function TasksBuscarOrden() {
           <td className="p-2">{orden.nserie}</td>
           <td className="p-2">{orden.equipo}</td>
           <td className="p-2">{orden.falla}</td>
-          <td>{mostrarMonto(orden.costo)}</td>
+          
           <td>{mostrarMonto(orden.repuesto)}</td>
           <td>{mostrarMonto(orden.manoobra)}</td>
           <td>{mostrarMonto(orden.total)}</td>
