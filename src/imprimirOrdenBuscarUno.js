@@ -91,6 +91,7 @@ export function imprimirOrdenBuscarUno(orden) {
     <p><strong>Equipo:</strong> ${orden.equipo}</p>
     <p><strong>N° Serie:</strong> ${orden.nserie}</p>
     <p><strong>Falla:</strong> ${orden.falla}</p>
+    <p><strong>Fecha de Ingreso:</strong> ${orden.fecha}</p>
     <p><strong>Observaciones:</strong> ${orden.observa}</p>
   </div>
 
@@ -123,6 +124,7 @@ export function imprimirOrdenBuscarUno(orden) {
   ventana.document.close();
   ventana.onload = () => ventana.print();
 }
+
 
 
 
