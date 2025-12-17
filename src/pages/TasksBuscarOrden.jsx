@@ -6,6 +6,7 @@ import * as XLSX from "xlsx";
 import { imprimirOrdenBuscarUno } from "../imprimirOrdenBuscarUno.js";
 import { exportarIngresosExcel } from "../exportExcel";
 
+
 function TasksBuscarOrden() {
   const { ingresos, deleteIngreso } = useTasks();
   console.log("Ingresos:", ingresos);
@@ -19,6 +20,8 @@ function TasksBuscarOrden() {
   const [modalAbierto, setModalAbierto] = useState(false);
   const [ordenSeleccionada, setOrdenSeleccionada] = useState(null);
   const navigate = useNavigate();
+
+  const ordenCerrada = Boolean(ordenSeleccionada?.salida);
 
   useEffect(() => {
     const loadTodosIngresos = async () => {
@@ -42,32 +45,49 @@ function TasksBuscarOrden() {
   }
 
   // Filtro general
-  const textoBusqueda = busqueda.toLowerCase();
+ const textoBusqueda = busqueda.toLowerCase().trim();
 
-  const resultadosFiltrados = ingreso.filter((o) => {
-    const fechaStr = o.fecha ? new Date(o.fecha).toISOString().split("T")[0] : "";
-    const numordenStr = o.numorden ? String(o.numorden).toLowerCase() : "";
-    const nombreStr = o.nombre ? String(o.nombre).toLowerCase() : "";
-    const apellidoStr = o.apellido ? String(o.apellido).toLowerCase() : "";
-    const telefonoStr = o.telefono ? String(o.telefono).toLowerCase() : "";
-    const nserieStr = o.nserie ? String(o.nserie).toLowerCase() : "";
-    const usuarioStr = o.usuario_nombre ? String(o.usuario_nombre).toLowerCase() : "";
+const resultadosFiltrados = ingreso.filter((o) => {
+  const apellidoStr = o.apellido ? o.apellido.toLowerCase() : "";
+  const telefonoStr = o.telefono ? String(o.telefono).toLowerCase() : "";
+  const nserieStr = o.nserie ? String(o.nserie).toLowerCase() : "";
+  const usuarioStr = o.usuario_nombre ? o.usuario_nombre.toLowerCase() : "";
+  const salidaStr = o.salida
+    ? new Date(o.salida).toISOString().split("T")[0]
+    : "";
+  const presuStr = o.presu ? o.presu.toLowerCase() : "garantia";
 
-    const coincideBusqueda =
-      numordenStr.includes(textoBusqueda) ||
-      fechaStr.includes(textoBusqueda) ||
-      nombreStr.includes(textoBusqueda) ||
-      apellidoStr.includes(textoBusqueda) ||
-      telefonoStr.includes(textoBusqueda) ||
-      nserieStr.includes(textoBusqueda) ||
-      usuarioStr.includes(textoBusqueda);
+  const esCerrada = o.salida !== null;
+  const esAbierta = o.salida === null;
 
-    const coincideUsuario =
-      filtroUsuario === "" || usuarioStr === filtroUsuario.toLowerCase();
+ 
 
-    return coincideBusqueda && coincideUsuario;
-  });
+  // 👈 IMPORTANTE: let
+  let coincideBusqueda =
+    apellidoStr.includes(textoBusqueda) ||
+    telefonoStr.includes(textoBusqueda) ||
+    nserieStr.includes(textoBusqueda) ||
+    usuarioStr.includes(textoBusqueda) ||
+    salidaStr.includes(textoBusqueda) ||
+    presuStr.includes(textoBusqueda);
 
+  // 🔒 filtro por estado SOLO si escribió algo
+  if (textoBusqueda !== "") {
+    if (["cerrada", "cerrado"].includes(textoBusqueda)) {
+      coincideBusqueda = esCerrada;
+    }
+
+    if (["abierta", "abierto"].includes(textoBusqueda)) {
+      coincideBusqueda = esAbierta;
+    }
+  }
+
+  const coincideUsuario =
+    filtroUsuario === "" ||
+    usuarioStr === filtroUsuario.toLowerCase();
+
+  return coincideBusqueda && coincideUsuario;
+});
   // Paginación
   const totalPaginas = Math.max(1, Math.ceil(resultadosFiltrados.length / filasPorPagina));
   const paginaSegura = Math.min(paginaActual, totalPaginas);
@@ -122,7 +142,7 @@ function TasksBuscarOrden() {
       {/* Primer filtro (general) */}
       <input
         type="text"
-        placeholder="Buscar por número, fecha, cliente..."
+        placeholder="Buscar por número, fecha, cliente, cerrada..."
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
         className="p-2 border text-gray-700 rounded w-full mb-4"
@@ -178,14 +198,13 @@ function TasksBuscarOrden() {
           <th className="p-3 text-center">Fecha</th>         
           <th className="p-3 text-center">Serie</th>
            <th className="p-3 text-center">Equipo</th>
-          <th className="p-3 text-center">Falla</th>          
-         
+          <th className="p-3 text-center">Falla</th>      
+          
           <th className="p-3 text-center">Repuesto</th>
           <th className="p-3 text-center">Mano de Obra</th>
           <th className="p-3 text-center">IVA</th>
-          <th className="p-3 text-center">Total</th>
-          
-          <th className="p-3 text-center">Garantia</th>
+          <th className="p-3 text-center">Total</th>          
+          <th className="p-3 text-center">Garantia</th>          
           <th className="p-3 text-center">Orden Cerrada</th>
           <th className="p-3 text-center">Creado por</th>
         </tr>
@@ -209,7 +228,7 @@ function TasksBuscarOrden() {
       ? "bg-gray-900 text-white cursor-not-allowed opacity-80"
       : "cursor-pointer text-gray-800 hover:bg-gray-100"
     }`}
-  onClick={() => !orden.salida && abrirModal(orden)}
+     onClick={() => abrirModal(orden)}
 >
           <td className="p-2">{orden.numorden}</td>
 
@@ -224,7 +243,7 @@ function TasksBuscarOrden() {
           <td className="p-2">{orden.nserie}</td>
           <td className="p-2">{orden.equipo}</td>
           <td className="p-2">{orden.falla}</td>
-          
+         
           <td>{mostrarMonto(orden.repuesto)}</td>
           <td>{mostrarMonto(orden.manoobra)}</td>
          
@@ -242,9 +261,11 @@ function TasksBuscarOrden() {
               {orden.iva || ""}
             </span>
           </td>
+
+         
            <td>{mostrarMonto(orden.total)}</td>
 
-          {/* PRESU (garantía): solo badge */}
+            {/* PRESU (garantía): solo badge */}
           <td className="p-2">
             <span
               className={`px-2 py-1 rounded-lg font-semibold ${
@@ -257,6 +278,7 @@ function TasksBuscarOrden() {
               {orden.presu}
             </span>
           </td>
+
 
           {/* SALIDA: si tiene → negro con letras blancas */}
          <td className="p-2">
@@ -391,31 +413,43 @@ function TasksBuscarOrden() {
       </div>
 
       {/* FOOTER BUTTONS */}
-      <div className="flex justify-end gap-3 px-6 py-4 border-t bg-gray-50">
+<div className="flex justify-end gap-3 px-6 py-4 border-t bg-gray-50">
+  {/* EDITAR */}
+ <button
+  onClick={!ordenCerrada ? manejarEditar : undefined}
+  disabled={ordenCerrada}
+  title={
+    ordenCerrada
+      ? "Orden cerrada. Contacte al administrador"
+      : "Editar orden"
+  }
+  className={`px-4 py-2 rounded font-semibold
+    ${
+      ordenCerrada
+        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+        : "bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
+    }
+  `}
+>
+  Editar
+</button>
 
-        {!ordenSeleccionada.salida && (
-          <button
-            onClick={manejarEditar}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            Editar
-          </button>
-        )}
+  {/* ELIMINAR */}
+  <button
+    onClick={manejarEliminar}
+    className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+  >
+    Eliminar
+  </button>
 
-        <button
-          onClick={manejarEliminar}
-          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-        >
-          Eliminar
-        </button>
-
-        <button
-          onClick={() => imprimirIngreso(ordenSeleccionada)}
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          Imprimir
-        </button>
-      </div>
+  {/* IMPRIMIR */}
+  <button
+    onClick={() =>imprimirOrdenBuscarUno(ordenSeleccionada)}
+    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+  >
+    Imprimir
+  </button>
+</div>
     </div>
   </div>
 )}
