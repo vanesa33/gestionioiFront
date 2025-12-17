@@ -6,6 +6,12 @@ export function imprimirOrdenBuscarUno(orden) {
   const ventana = window.open("", "_blank", "width=800,height=1000");
 
   const contenidoHTML = `<!DOCTYPE html>
+ function formatearFecha(fecha) {
+  if (!fecha) return "";
+  return new Date(fecha).toLocaleDateString("es-AR");
+}
+
+  
 <html>
 <head>
   <title>Orden Técnica Nº ${orden.numorden}</title>
@@ -91,7 +97,7 @@ export function imprimirOrdenBuscarUno(orden) {
     <p><strong>Equipo:</strong> ${orden.equipo}</p>
     <p><strong>N° Serie:</strong> ${orden.nserie}</p>
     <p><strong>Falla:</strong> ${orden.falla}</p>
-    <p><strong>Fecha de Ingreso:</strong> ${orden.fecha}</p>
+   <p><strong>Fecha de Ingreso:</strong> ${formatearFecha(orden.fecha)}</p>
     <p><strong>Observaciones:</strong> ${orden.observa}</p>
   </div>
 
@@ -124,6 +130,7 @@ export function imprimirOrdenBuscarUno(orden) {
   ventana.document.close();
   ventana.onload = () => ventana.print();
 }
+
 
 
 
