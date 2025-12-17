@@ -304,92 +304,121 @@ function TasksBuscarOrden() {
       </div>
 
       {/* Modal */}
-      {modalAbierto && ordenSeleccionada && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 text-gray-700 rounded shadow-md w-full max-w-lg relative">
-            <button
-              onClick={cerrarModal}
-              className="absolute top-2 right-2 text-gray-500 hover:text-black text-xl"
-            >
-              &times;
-            </button>
-            <h2 className="text-xl text-gray-700 font-bold mb-4">Detalles de la Orden</h2>
-            <>
-              <strong>N° Orden:</strong> {ordenSeleccionada.numorden}
-            </>
-            <>
-              <strong>Fecha:</strong> {ordenSeleccionada.fecha}
-            </>
-            <>
-              <strong>Cliente:</strong> {ordenSeleccionada.nombre}{" "}
-              {ordenSeleccionada.apellido}
-            </>
-            <>
-              <strong>Telefono:</strong> {ordenSeleccionada.telefono}
-            </>
-            <>
-              <strong>Equipo:</strong> {ordenSeleccionada.equipo}
-            </>
-            <>
-              <strong>Falla:</strong> {ordenSeleccionada.falla}
-            </>
-            <>
-              <>
-              <strong>Observaciones:</strong> {ordenSeleccionada.observa}
-            </>
-            <></>
-              <strong>N° Serie:</strong> {ordenSeleccionada.nserie}
-            </>
-            
-            
-            <>
-             <strong>Mano de Obra:</strong> {ordenSeleccionada.manoobra}
-            </>
-            <>
-              <strong>Costo de Repuesto</strong> {ordenSeleccionada.repuesto}
-            </>
-              <>
-            <strong>IVA:</strong> {ordenSeleccionada.iva}
-            </>
-            <>
-            <strong>Total:</strong> {ordenSeleccionada.total}
-            </>
-            
-          
-            <>
-              <strong>Garantía</strong> {ordenSeleccionada.presu}
-            </>
-          
-          
-            <>
-              <strong>Creado por:</strong> {ordenSeleccionada.usuario_nombre}
-            </>
+     {modalAbierto && ordenSeleccionada && (
+  <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
+    <div className="bg-white rounded-xl shadow-xl w-full max-w-3xl relative overflow-hidden">
 
-            <div className="flex justify-end mt-4 gap-3">
-              <button
-                onClick={manejarEditar}
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              >
-                Editar
-              </button>
-              <button
-                onClick={manejarEliminar}
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-              >
-                Eliminar
-              </button>
-              <button
-                onClick={() => {
-                  imprimirOrdenBuscarUno(ordenSeleccionada);
-                }}
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-              >
-                Imprimir
-              </button>
-            </div>
-          </div>
+      {/* HEADER */}
+      <div className="flex justify-between items-center px-6 py-4 border-b bg-gray-100">
+        <div>
+          <h2 className="text-xl font-bold text-gray-700">
+            Orden Técnica #{ordenSeleccionada.numorden}
+          </h2>
+          <p className="text-sm text-gray-500">
+            {ordenSeleccionada.fecha
+              ? new Date(ordenSeleccionada.fecha).toISOString().split("T")[0]
+              : ""}
+          </p>
         </div>
-      )}
+
+        {ordenSeleccionada.salida && (
+          <span className="px-3 py-1 text-sm rounded-full bg-gray-900 text-white flex items-center gap-1">
+            🔒 Orden cerrada
+          </span>
+        )}
+
+        <button
+          onClick={cerrarModal}
+          className="text-gray-400 hover:text-black text-2xl"
+        >
+          &times;
+        </button>
+      </div>
+
+      {/* BODY */}
+      <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700 text-sm">
+
+        {/* CLIENTE */}
+        <div>
+          <h3 className="font-semibold text-gray-600 mb-2">Cliente</h3>
+          <p><b>Nombre:</b> {ordenSeleccionada.nombre} {ordenSeleccionada.apellido}</p>
+          <p><b>Teléfono:</b> {ordenSeleccionada.telefono}</p>
+        </div>
+
+        {/* EQUIPO */}
+        <div>
+          <h3 className="font-semibold text-gray-600 mb-2">Equipo</h3>
+          <p><b>Equipo:</b> {ordenSeleccionada.equipo}</p>
+          <p><b>N° Serie:</b> {ordenSeleccionada.nserie}</p>
+        </div>
+
+        {/* FALLA */}
+        <div className="md:col-span-2">
+          <h3 className="font-semibold text-gray-600 mb-2">Falla / Observaciones</h3>
+          <p className="bg-gray-100 rounded p-3">
+            {ordenSeleccionada.falla || ordenSeleccionada.observa || "-"}
+          </p>
+        </div>
+
+        {/* COSTOS */}
+        <div>
+          <h3 className="font-semibold text-gray-600 mb-2">Costos</h3>
+          <p><b>Repuesto:</b> ${ordenSeleccionada.repuesto || "-"}</p>
+          <p><b>Mano de obra:</b> ${ordenSeleccionada.manoobra || "-"}</p>
+          <p><b>IVA:</b> {ordenSeleccionada.iva}</p>
+        </div>
+
+        {/* FACTURACIÓN */}
+        <div>
+          <h3 className="font-semibold text-gray-600 mb-2">Facturación</h3>
+          <p className="text-lg font-bold text-gray-800">
+            Total: ${ordenSeleccionada.total}
+          </p>
+          <p><b>Garantía</b> {ordenSeleccionada.presu}</p>
+          
+        </div>
+
+        {/* FOOTER INFO */}
+        <div className="md:col-span-2 text-xs text-gray-500 border-t pt-3">
+          Creado por: <b>{ordenSeleccionada.usuario_nombre}</b>
+          {ordenSeleccionada.salida && (
+            <>
+              {" · "}Salida:{" "}
+              {new Date(ordenSeleccionada.salida).toISOString().split("T")[0]}
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* FOOTER BUTTONS */}
+      <div className="flex justify-end gap-3 px-6 py-4 border-t bg-gray-50">
+
+        {!ordenSeleccionada.salida && (
+          <button
+            onClick={manejarEditar}
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Editar
+          </button>
+        )}
+
+        <button
+          onClick={manejarEliminar}
+          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+        >
+          Eliminar
+        </button>
+
+        <button
+          onClick={() => imprimirIngreso(ordenSeleccionada)}
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+        >
+          Imprimir
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }
