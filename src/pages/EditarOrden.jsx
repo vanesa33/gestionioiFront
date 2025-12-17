@@ -121,6 +121,15 @@ const handleDelete = async () => {
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+
+        <div>
+          <label className="block font-semibold text-gray-600">Fecha</label>
+          <input
+            type="date"
+            {...register("fecha")}
+            className="w-full border border-gray-300 p-2 rounded text-gray-600"
+          />
+        </div>
         <div>
           <label className="block font-semibold text-gray-600">Equipo</label>
           <input
@@ -128,6 +137,15 @@ const handleDelete = async () => {
             {...register("equipo")}
             className="w-full border border-gray-300 p-2 rounded text-gray-600"
             placeholder="Ingrese el equipo"
+          />
+        </div>
+         <div>
+          <label className="block font-semibold text-gray-600">N° Serie</label>
+          <input
+            type="text"
+            {...register("nserie")}
+            className="w-full border border-gray-300 p-2 rounded text-gray-600"
+            placeholder="Número de serie"
           />
         </div>
 
@@ -151,24 +169,9 @@ const handleDelete = async () => {
           />
         </div>
 
-        <div>
-          <label className="block font-semibold text-gray-600">Fecha</label>
-          <input
-            type="date"
-            {...register("fecha")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-          />
-        </div>
+        
 
-        <div>
-          <label className="block font-semibold text-gray-600">N° Serie</label>
-          <input
-            type="text"
-            {...register("nserie")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-            placeholder="Número de serie"
-          />
-        </div>
+       
 
         <label className="block font-semibold text-gray-600">Garantía</label>
 
@@ -183,17 +186,7 @@ const handleDelete = async () => {
              🔧 Orden en garantía — no se cobran costos
             </div>
           )}
-          <label className="block font-semibold text-gray-600">Costo</label>
          
-          <input
-            type="number"
-            {...register("costo")}
-            disabled={esGarantia}
-            className={`w-full border p-2 rounded text-gray-600
-                     ${esGarantia ? "bg-gray-100 cursor-not-allowed" : ""}
-                       `}
-            placeholder="Costo $"
-          />
         </div>
 
          <div>
@@ -275,7 +268,7 @@ const handleDelete = async () => {
         </div>
 
          <div>
-          <label className="block font-semibold text-gray-600">Fecha de Salida</label>
+          <label className="block font-semibold text-gray-600">Fecha de Salida / Cerrar Orden</label>
           <input
             type="date"
             {...register("salida")}
