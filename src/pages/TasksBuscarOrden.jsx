@@ -179,11 +179,12 @@ function TasksBuscarOrden() {
           <th className="p-3 text-center">Serie</th>
            <th className="p-3 text-center">Equipo</th>
           <th className="p-3 text-center">Falla</th>          
-          <th className="p-3 text-center">Costo Estimado</th>
+         
           <th className="p-3 text-center">Repuesto</th>
           <th className="p-3 text-center">Mano de Obra</th>
-          <th className="p-3 text-center">Total</th>
           <th className="p-3 text-center">IVA</th>
+          <th className="p-3 text-center">Total</th>
+          
           <th className="p-3 text-center">Garantia</th>
           <th className="p-3 text-center">Orden Cerrada</th>
           <th className="p-3 text-center">Creado por</th>
@@ -338,27 +339,26 @@ function TasksBuscarOrden() {
             <></>
               <strong>N° Serie:</strong> {ordenSeleccionada.nserie}
             </>
-            <>
-              <strong>Costo Estimado:</strong> {ordenSeleccionada.costo}
-            </>
-            <>
-              <strong>Garantía</strong> {ordenSeleccionada.repuesto}
-            </>
+            
+            
             <>
              <strong>Mano de Obra:</strong> {ordenSeleccionada.manoobra}
             </>
             <>
-            <strong>Total:</strong> {ordenSeleccionada.total}
+              <strong>Costo de Repuesto</strong> {ordenSeleccionada.repuesto}
             </>
-            <>
+              <>
             <strong>IVA:</strong> {ordenSeleccionada.iva}
             </>
             <>
-              <strong>Presupuesto:</strong> {ordenSeleccionada.presu}
+            <strong>Total:</strong> {ordenSeleccionada.total}
             </>
+            
+          
             <>
-              <strong>Salida:</strong> {ordenSeleccionada.salida}
+              <strong>Garantía</strong> {ordenSeleccionada.presu}
             </>
+          
           
             <>
               <strong>Creado por:</strong> {ordenSeleccionada.usuario_nombre}
