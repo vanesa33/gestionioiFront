@@ -1,16 +1,16 @@
 import logoDeIoI from './img/logoDeIoI.jpg';
 
+ function formatearFecha(fecha) {
+  if (!fecha) return "";
+  return new Date(fecha).toLocaleDateString("es-AR");
+ }
+
 export function imprimirOrdenBuscarUno(orden) {
   if (!orden) return;
 
   const ventana = window.open("", "_blank", "width=800,height=1000");
 
   const contenidoHTML = `<!DOCTYPE html>
- function formatearFecha(fecha) {
-  if (!fecha) return "";
-  return new Date(fecha).toLocaleDateString("es-AR");
-}
-
   
 <html>
 <head>
@@ -130,6 +130,7 @@ export function imprimirOrdenBuscarUno(orden) {
   ventana.document.close();
   ventana.onload = () => ventana.print();
 }
+
 
 
 
