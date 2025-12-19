@@ -13,7 +13,7 @@ const mostrarMonto = (v) => (Number(v) > 0 ? Number(v) : "");
 
 const data = ingresos.map((i) => ({
   "N° Orden": i.numorden,
-  "Cliente": i.apellido || "",
+  "Cliente": i.nombre_apellido || "",
   "Equipo": i.equipo || "",
   "Falla": i.falla || "",
   "Observación": i.observa || "",
@@ -110,6 +110,7 @@ const data = ingresos.map((i) => ({
   // ---------------------------
   XLSX.writeFile(wb, "Ingresos.xlsx");
 }
+
 
 
 
