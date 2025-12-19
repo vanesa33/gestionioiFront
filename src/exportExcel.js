@@ -13,7 +13,7 @@ const mostrarMonto = (v) => (Number(v) > 0 ? Number(v) : "");
 
 const data = ingresos.map((i) => ({
   "N° Orden": i.numorden,
-  "Cliente": i.cliente_nombre || "",
+  "Cliente": i.apellido_nombre || "",
   "Equipo": i.equipo || "",
   "Falla": i.falla || "",
   "Observación": i.observa || "",
@@ -26,6 +26,8 @@ const data = ingresos.map((i) => ({
   "Total": mostrarMonto(i.total),
   "Garantía": i.presu ? "Sí" : "No",
   "Orden Cerrada": i.salida ? new Date(i.salida).toLocaleDateString("es-AR") : "",
+   "Creado Por": i.usuario_nombre,
+  
 }));
 
   // ---------------------------
@@ -108,4 +110,5 @@ const data = ingresos.map((i) => ({
   // ---------------------------
   XLSX.writeFile(wb, "Ingresos.xlsx");
 }
+
 
