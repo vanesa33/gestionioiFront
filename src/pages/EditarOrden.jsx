@@ -9,6 +9,8 @@ function EditarOrden() {
   const navigate = useNavigate();
   const { register, handleSubmit, reset, watch, setValue  } = useForm();
   const [numOrden, setNumOrden] = useState(iid);
+  const [ordenCerrada, setOrdenCerrada] = useState(false);
+  const [tipoOrden, setTipoOrden] = useState("");
 
   useEffect(() => {
     const cargarDatos = async () => {
@@ -33,9 +35,13 @@ function EditarOrden() {
           client_id: data.client_id ?? ""
         });
 
+        setTipoOrden(data.tipo_orden);
+
+        setOrdenCerrada(!!data.salida);
+
         console.log("formulario despues del reset:", data);
 
-        setNumOrden(data.numorden ?? iid);
+        setNumOrden(data.numorden_visual || data.numorden);
       } catch (error) {
         console.error("Error al cargar los datos de la orden:", error);
       }
@@ -116,20 +122,30 @@ const handleDelete = async () => {
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
-      <h2 className="text-2xl font-bold text-center mb-6 text-gray-700">
-        Editar Orden Técnica #{numOrden}
-      </h2>
+      <div className="text-center mb-6">
+  <span
+    className={`inline-block px-3 py-1 rounded-full text-xs font-bold mb-2
+      ${tipoOrden === "SERVICE"
+        ? "bg-blue-100 text-blue-800"
+        : "bg-green-100 text-green-800"}
+    `}
+  >
+    {tipoOrden === "SERVICE" ? "🔧 SERVICE" : "🛠 REPARACIÓN"}
+  </span>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+  <h2 className="text-2xl font-bold text-gray-700 mt-2">
+    Orden Técnica #{numOrden}
+  </h2>
+</div>
 
-        <div>
-          <label className="block font-semibold text-gray-600">Fecha</label>
-          <input
-            type="date"
-            {...register("fecha")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-          />
+      {ordenCerrada && (
+        <div className="p-2 mb-4 rounded bg-red-100 text-red-800 text-sm font-semibold">
+          ⚠️ Esta orden está cerrada y no puede ser editada.
         </div>
+      )}
+
+      <form onSubmit={handleSubmit(onSubmit)} 
+      className={`space-y-4 ${ordenCerrada ? "pointer-events-none opacity-70" : ""}`}>
         <div>
           <label className="block font-semibold text-gray-600">Equipo</label>
           <input
@@ -137,15 +153,6 @@ const handleDelete = async () => {
             {...register("equipo")}
             className="w-full border border-gray-300 p-2 rounded text-gray-600"
             placeholder="Ingrese el equipo"
-          />
-        </div>
-         <div>
-          <label className="block font-semibold text-gray-600">N° Serie</label>
-          <input
-            type="text"
-            {...register("nserie")}
-            className="w-full border border-gray-300 p-2 rounded text-gray-600"
-            placeholder="Número de serie"
           />
         </div>
 
@@ -169,9 +176,24 @@ const handleDelete = async () => {
           />
         </div>
 
-        
+        <div>
+          <label className="block font-semibold text-gray-600">Fecha</label>
+          <input
+            type="date"
+            {...register("fecha")}
+            className="w-full border border-gray-300 p-2 rounded text-gray-600"
+          />
+        </div>
 
-       
+        <div>
+          <label className="block font-semibold text-gray-600">N° Serie</label>
+          <input
+            type="text"
+            {...register("nserie")}
+            className="w-full border border-gray-300 p-2 rounded text-gray-600"
+            placeholder="Número de serie"
+          />
+        </div>
 
         <label className="block font-semibold text-gray-600">Garantía</label>
 
@@ -287,6 +309,19 @@ const handleDelete = async () => {
           />
         </div>
 
+        <div className="text-gray-500 text-sm mb-2">
+        Tipo de orden:{" "}
+         <span
+        className={`font-bold
+             ${tipoOrden === "SERVICE"
+          ? "text-blue-700"
+           : "text-green-700"}
+            `}
+          >
+         {tipoOrden}
+          </span>
+        </div>
+
         <div className="text-gray-500 text-sm">
           ID del cliente asignado:{" "}
           <span className="font-bold text-gray-700">
@@ -300,10 +335,15 @@ const handleDelete = async () => {
           </span>
         </div>
 
-        <div className="flex justify-between mt-6">
+        <div className="flex justify-between mt-6 pointer-events-auto">
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow"
+            disabled={ordenCerrada}
+            className={`bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 
+            ${ordenCerrada 
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-blue-600 hover:bg-blue-700"}
+            `}
           >
             Guardar Cambios
           </button>
@@ -311,8 +351,13 @@ const handleDelete = async () => {
             <button
              type="button"
              onClick={handleDelete}
-             className="bg-red-500 text-white px-6 py-2 rounded shadow
-             hover:bg-red-600">
+             disabled={ordenCerrada}
+             className={`bg-red-500 text-white px-6 py-2 rounded shadow
+              ${ordenCerrada 
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-red-500 hover:bg-red-600"}
+              `}
+              >  
                   Eliminar Orden
             </button>
 
