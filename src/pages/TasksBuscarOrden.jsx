@@ -6,14 +6,14 @@ import * as XLSX from "xlsx";
 import { imprimirOrdenBuscarUno } from "../imprimirOrdenBuscarUno.js";
 import { exportarIngresosExcel } from "../exportExcel";
 
-
 function TasksBuscarOrden() {
-  const { ingresos, deleteIngreso } = useTasks();
-  console.log("Ingresos:", ingresos);
+  const {  deleteIngreso } = useTasks();
 
   const [ingreso, setIngreso] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [filtroUsuario, setFiltroUsuario] = useState(""); // ⬅️ agregado
+
+  const [filtroTipo, setFiltroTipo] = useState(""); // ⬅️ agregado
 
   const [paginaActual, setPaginaActual] = useState(1);
   const [filasPorPagina, setFilasPorPagina] = useState(9);
@@ -38,7 +38,7 @@ function TasksBuscarOrden() {
 
   useEffect(() => {
     setPaginaActual(1);
-  }, [busqueda, filtroUsuario, filasPorPagina]); // ⬅️ ahora también escucha filtroUsuario
+  }, [busqueda, filtroUsuario, filtroTipo, filasPorPagina]); // ⬅️ ahora también escucha filtroUsuario
 
   if (!Array.isArray(ingreso)) {
     return <div className="p-4">Cargando ingresos...</div>;
@@ -86,7 +86,14 @@ const resultadosFiltrados = ingreso.filter((o) => {
     filtroUsuario === "" ||
     usuarioStr === filtroUsuario.toLowerCase();
 
-  return coincideBusqueda && coincideUsuario;
+  const coincideTipo =
+  filtroTipo === "" ||
+  filtroTipo === "TODOS" ||
+  o.tipo_orden === filtroTipo.toLowerCase();
+
+  console.log("coincideTipo", coincideTipo, o.tipo_orden, filtroTipo);
+
+return coincideBusqueda && coincideUsuario && coincideTipo;
 });
   // Paginación
   const totalPaginas = Math.max(1, Math.ceil(resultadosFiltrados.length / filasPorPagina));
@@ -148,6 +155,16 @@ const resultadosFiltrados = ingreso.filter((o) => {
         className="p-2 border text-gray-700 rounded w-full mb-4"
       />
 
+      <select
+       className="border p-2 rounded text-gray-600"
+       value={filtroTipo}
+       onChange={(e) => setFiltroTipo(e.target.value)}
+       >
+       <option value="TODOS">Todas</option>
+       <option value="REPARACION">reparacion</option>
+       <option value="SERVICE">service</option>
+      </select>
+
       {/* Segundo filtro (Creado por) */}
       <div className="flex items-center gap-5 mb-5" >
         <label className="mr-2 text-gray-700 font-semibold">Creado por:</label>
@@ -173,6 +190,8 @@ const resultadosFiltrados = ingreso.filter((o) => {
       </button>
 
       </div>
+
+      
       
       {/* Filas por página */}
       <div className="mb-4">
@@ -195,6 +214,7 @@ const resultadosFiltrados = ingreso.filter((o) => {
       <thead>
         <tr className="bg-gray-800 text-white text-sm uppercase tracking-wide">
           <th className="p-3 text-center">Orden</th>
+           <th className="p-3 text-center">Tipo</th>
           <th className="p-3 text-center">Fecha</th>         
           <th className="p-3 text-center">Serie</th>
            <th className="p-3 text-center">Equipo</th>
@@ -230,15 +250,27 @@ const resultadosFiltrados = ingreso.filter((o) => {
     }`}
      onClick={() => abrirModal(orden)}
 >
-          <td className="p-2">{orden.numorden}</td>
+          <td className="p-2">{orden.numorden_visual || orden.numorden}</td>
 
+          
+          
           <td className="p-2">
+  <span
+    className={`px-2 py-1 rounded text-xs font-bold
+      ${orden.tipo_orden === "service"
+        ? "bg-blue-100 text-blue-800"
+        : "bg-green-100 text-green-800"}
+    `}
+  >
+    {orden.tipo_orden.toLowerCase() === "service" ? "Service" : "reparacion"}
+  </span>
+</td>
+
+<td className="p-2">
             {orden.fecha
               ? new Date(orden.fecha).toISOString().split("T")[0]
               : ""}
           </td>
-          
-          
 
           <td className="p-2">{orden.nserie}</td>
           <td className="p-2">{orden.equipo}</td>
@@ -444,7 +476,7 @@ const resultadosFiltrados = ingreso.filter((o) => {
 
   {/* IMPRIMIR */}
   <button
-    onClick={() =>imprimirOrdenBuscarUno(ordenSeleccionada)}
+    onClick={() => imprimirOrdenBuscarUno(ordenSeleccionada)}
     className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
   >
     Imprimir
