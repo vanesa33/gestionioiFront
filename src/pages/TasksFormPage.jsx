@@ -391,6 +391,6 @@ const editarOrden = () => {
   );
 }
 export default TasksFromPage;
-export default TasksFromPage;
+
 
 
