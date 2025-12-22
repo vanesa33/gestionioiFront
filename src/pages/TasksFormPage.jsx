@@ -6,6 +6,7 @@ import { supabase } from "/supabaseClient.js"
 //import { jsPDF } from "jspdf";
 import { imprimirIngreso } from "../imprimirIngreso.js";
 
+
 function TasksFromPage() {
 
   const {iid} = useParams();
@@ -18,6 +19,11 @@ function TasksFromPage() {
 
   const navigate = useNavigate();
   const { register, handleSubmit, watch, setValue, reset} = useForm();
+  const coloresPresu = {
+                  "Sí": "#F9E79F", // Amarillo claro
+                  "No": "#ABEBC6" // verde claro
+                };
+
   const { createIngreso,  getIngreso } = useTasks();
   const [selectedFile, setSelectedFile] = useState(null);
   // eslint-disable-next-line no-unused-vars
@@ -68,7 +74,8 @@ function TasksFromPage() {
       setValue("falla",     ing.falla);
       setValue("observa",   ing.observa);
       setValue("costo",     ing.costo);
-      setValue("presu",     ing.presu);
+            setValue("presu",     ing.presu);
+
       setOrdenGenerada(ing.numorden);
     } else {
       setValue("fecha", hoy);
@@ -79,6 +86,7 @@ function TasksFromPage() {
   
  const [isSubmitting, setIsSubmitting] = useState(false);
 
+ 
 useEffect(() => {
   reset({
     client_id: client_id,
@@ -86,46 +94,8 @@ useEffect(() => {
   });
 }, [client_id, reset]);
 
-/*const imprimirOrden = (orden) => {
-   const doc = new jsPDF();
 
-   doc.setFontSize(18);
-   doc.text(`Orden Técnica N° ${orden.numorden}`, 10, 20);
 
-   doc.setFontSize(12);
-   doc.text(`Cliente ID: ${orden.client_id}`, 10, 30);
-   doc.text(`Equipo: ${orden.equipo}`, 10, 40);
-   doc.text(`Falla: ${orden.falla}`, 10, 50);
-   doc.text(`fecha: ${orden.fecha}`, 10, 60);
-
-   if (orden.imagenurl) {
-    // Si la imagen está en formato URL
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = orden.imagenurl;
-    img.onload = () => {
-      doc.addImage(img, "JPEG", 10, 70, 50, 50);
-      imprimirPDF(doc);
-    };
-  } else {
-    imprimirPDF(doc);
-  }
-};*/
-  
-/*const imprimirPDF = (doc) => {
-  const blob = doc.output("blob");
-  const url = URL.createObjectURL(blob);
-
-  const iframe = document.createElement("iframe");
-  iframe.style.display = "none";
-  iframe.src = url;
-
-  document.body.appendChild(iframe);
-  iframe.onload = () => {
-    iframe.contentWindow.focus();
-    iframe.contentWindow.print();
-  };
-};*/
 
 const onSubmit = async (data) => {
   try {
@@ -211,6 +181,8 @@ const editarOrden = () => {
  
   formBloqueado: {formBloqueado ? "true" : "false"}
 </div>
+
+
   return (
 
     <>
@@ -246,18 +218,52 @@ const editarOrden = () => {
                 </div>
 
                 <input type="text" placeholder="Equipo" className="p-2 rounded border" disabled={formBloqueado} {...register("equipo")} />
+                
+                <div className="flex flex-col">
+  <label className="text-xs font-semibold text-gray-700 mb-1">
+    Tipo de orden
+  </label>
+
+  <select
+    className="p-2 rounded border"
+    disabled={formBloqueado}
+    {...register("tipo_orden", { required: true })}
+  >
+    <option value="SERVICE">service</option>
+    <option value="REPARACION">reparacion</option>
+  </select>
+</div>
+
                 <input type="text" placeholder="N° de Serie" className="p-2 rounded border" disabled={formBloqueado} {...register("nserie")} />
                 <input type="date" placeholder="Fecha" className="p-2 rounded border" disabled={formBloqueado} {...register("fecha")} />
+
+               
                 
-               <select className="p-2 rounded border" disabled={formBloqueado} {...register("presu")}>
+               
+
+                 <select
+                  className="p-2 rounded border"
+                  style={{ backgroundColor: coloresPresu[watch("presu")] || "white",
+                    opacity: 1,
+                    pointerEvents: formBloqueado ? "none" : "auto",
+                  }}
+                  
+                   {...register("presu")}>
                   <option value="">Garantía</option>
                   <option value="Sí">Sí</option>
                   <option value="No">No</option>
                 </select>
-                
-                <textarea placeholder="Falla" className="p-2 rounded border col-span-1 md:col-span-2" disabled={formBloqueado} {...register("falla")}></textarea>
-                <textarea placeholder="Materiales" className="p-2 rounded border col-span-1 md:col-span-2" disabled={formBloqueado} {...register("observa")}></textarea>
-                
+
+
+                <textarea 
+                placeholder="Falla" className="p-2 rounded border col-span-1 md:col-span-2" disabled={formBloqueado} {...register("falla")}>
+                </textarea>
+
+                <textarea 
+                placeholder="Materiales" className="p-2 rounded border col-span-1 md:col-span-2" disabled={formBloqueado} {...register("observa")}>                  
+                </textarea>
+
+               
               </div>
             </div>
 
@@ -384,6 +390,7 @@ const editarOrden = () => {
     </>
   );
 }
+export default TasksFromPage;
 export default TasksFromPage;
 
 
