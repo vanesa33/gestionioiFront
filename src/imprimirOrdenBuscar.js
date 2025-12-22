@@ -17,6 +17,7 @@ export function imprimirOrdenBuscar(orden) {
 
       <h3>Datos del Equipo</h3>
       <div style="border:1px solid #000; padding:10px; margin-bottom:15px;">
+      <p><strong>Tipo de Orden:</strong> ${orden.tipo_orden}</p>
         <p><strong>Equipo:</strong> ${orden.equipo}</p>
         <p><strong>N° Serie:</strong> ${orden.nserie}</p>
         <p><strong>Falla:</strong> ${orden.falla}</p>
@@ -45,6 +46,7 @@ export function imprimirOrdenBuscar(orden) {
     ventana.print();
   };
 }
+
 
 
 
