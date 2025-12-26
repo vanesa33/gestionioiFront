@@ -183,6 +183,25 @@ const editarOrden = () => {
 </div>
 
 
+  const handleImprimir = async () => {
+  try {
+    if (!iid && !ultimoIngresoId?.iid) {
+      alert("No hay orden para imprimir");
+      return;
+    }
+
+    const idParaImprimir = iid || ultimoIngresoId.iid;
+
+    const res = await getIngreso(idParaImprimir);
+    imprimirIngreso(res.data);
+
+  } catch (error) {
+    console.error("Error al imprimir:", error);
+    alert("Error al obtener la orden para imprimir");
+  }
+};
+
+
   return (
 
     <>
@@ -292,23 +311,12 @@ const editarOrden = () => {
               
 
                <button
-                  type="button"
-                   className="btn bg-blue-500 text-white px-4 py-2 rounded
-                  hover:bg-red-600 hidden md:flex"
-                   onClick={() => imprimirIngreso({
-                      numorden: ordenGenerada,
-                       fecha: watch("fecha"),
-                       cliente: watch("clienteNombre"),
-                       equipo: watch("equipo"),
-                       falla: watch("falla"),
-                       observa: watch("observa"),
-                       nserie: watch("nserie"),
-                       costo: watch("costo"),
-                       imagenurl: imagenurl // o el estado donde guardes la imagen subida
-                        })}
-                         >
-                          Imprimir
-                           </button>
+                 type="button"
+                  className="btn bg-blue-500 text-white px-4 py-2 rounded hover:bg-red-600 hidden md:flex"
+                  onClick={handleImprimir}
+                     >
+                    Imprimir
+                   </button>
 
                 <button type="button" onClick={() => navigate("/")} className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-600 hidden md:flex">
                   Inicio
@@ -367,9 +375,12 @@ const editarOrden = () => {
             </p>
             <div className="flex justify-center gap-4">
 
-              <button onClick={() => imprimirIngreso(datosOrden)}
+             <button
+                onClick={handleImprimir}
                 className="px-4 py-2 btn bg-blue-500 text-white rounded"
-                >Imprimir</button>  
+              >
+                 Imprimir
+              </button>
 
               <button
                 onClick={() => setMostrarModal(false)}
