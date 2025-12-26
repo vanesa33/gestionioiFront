@@ -405,6 +405,3 @@ const handleImprimir = async () => {
   );
 }
 export default TasksFromPage;
-}
-
-export default TasksFromPage;
