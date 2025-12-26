@@ -172,29 +172,21 @@ function TasksFromPage() {
 
   // ✅ imprimir robusto: soporta getIngreso que devuelve data o response
   const handleImprimir = async () => {
-    try {
-      const id = datosOrden?.iid || ultimoIngresoId?.iid || iid;
-
-      if (!id) {
-        alert("No hay orden para imprimir");
-        return;
-      }
-
-      const r = await getIngreso(id);
-      const ordenObj = r?.numorden ? r : r?.data ? r.data : null;
-
-      if (!ordenObj?.numorden) {
-        console.error("Orden inválida:", r);
-        alert("No se pudo obtener la orden para imprimir");
-        return;
-      }
-
-      imprimirIngreso(ordenObj);
-    } catch (error) {
-      console.error(error);
-      alert("Error al obtener la orden para imprimir");
+  try {
+    if (!ultimoIngresoId?.iid) {
+      alert("No hay orden para imprimir");
+      return;
     }
-  };
+
+    const res = await getIngreso(ultimoIngresoId.iid);
+    imprimirIngreso(res.data);
+
+  } catch (error) {
+    console.error(error);
+    alert("Error al obtener la orden para imprimir");
+  }
+};
+
 
   return (
     <>
