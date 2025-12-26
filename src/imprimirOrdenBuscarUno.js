@@ -16,60 +16,113 @@ export function imprimirOrdenBuscarUno(orden) {
 <head>
   <title>Orden Técnica Nº ${orden.numorden}</title>
   <style>
+  /* =======================
+     CONFIGURACIÓN IMPRESIÓN
+     ======================= */
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
+  @media print {
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      position: relative;
-      min-height: 95vh;
-    }
-
-    .logo-centro {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .logo-centro img {
-      width: 120px;
-      height: auto;
-    }
-
-    .empresa {
-      text-align: center;
-      font-size: 14px;
-      margin-bottom: 15px;
-    }
-
-    h1 {
-      text-align: center;
-      margin-top: 0;
-    }
-
-    .box {
-      border: 1px solid #000;
-      padding: 5px;
-      margin-bottom: 5px;
-    }
-
-    .firma {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 40px;
-      font-size: 16px;
-      padding: 0 20px;
-    }
-
-    .footer {
-      position: absolute;
-      bottom: 10px;
-      left: 0;
-      width: 100%;
-      text-align: center;
+      margin: 0;
+      padding: 0;
       font-size: 12px;
-      color: #444;
-      padding-top: 10px;
-      border-top: 1px solid #ccc;
     }
-  </style>
+  }
+
+  /* =======================
+     ESTILOS GENERALES
+     ======================= */
+  body {
+    font-family: Arial, sans-serif;
+    padding: 0;
+    position: relative;
+    min-height: 100%;
+  }
+
+  p {
+    margin: 2px 0;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 18px;
+    margin: 5px 0;
+  }
+
+  h3 {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+
+  /* =======================
+     LOGO Y EMPRESA
+     ======================= */
+  .logo-centro {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .logo-centro img {
+    width: 90px;
+    height: auto;
+  }
+
+  .empresa {
+    text-align: center;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  /* =======================
+     CAJAS
+     ======================= */
+  .box {
+    border: 1px solid #000;
+    padding: 4px;
+    margin-bottom: 4px;
+    page-break-inside: avoid;
+  }
+
+  /* =======================
+     COSTOS EN 2 COLUMNAS
+     ======================= */
+  .costos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+  }
+
+  /* =======================
+     FIRMA
+     ======================= */
+  .firma {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-size: 14px;
+    padding: 0 20px;
+    page-break-inside: avoid;
+  }
+
+  /* =======================
+     FOOTER FIJO
+     ======================= */
+  .footer {
+    position: fixed;
+    bottom: 5mm;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    color: #444;
+    padding-top: 5px;
+    border-top: 1px solid #ccc;
+  }
+</style>
+
 </head>
 
 <body>
@@ -103,7 +156,7 @@ export function imprimirOrdenBuscarUno(orden) {
   </div>
 
   <h3>Costos</h3>
-  <div class="box">
+  <div class="box costos">
      <p><strong>Garantía:</strong> ${orden.presu}</p>
     <p><strong>Repuesto:</strong> ${orden.repuesto}</p>
     <p><strong>Mano de Obra:</strong> ${orden.manoobra}</p>
@@ -132,6 +185,7 @@ export function imprimirOrdenBuscarUno(orden) {
   ventana.document.close();
   ventana.onload = () => ventana.print();
 }
+
 
 
 
