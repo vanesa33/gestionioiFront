@@ -133,16 +133,13 @@ function TasksFromPage() {
       };
 
       // ✅ SOLO UNA VEZ (antes lo estabas creando 2 veces)
-      const res = await createIngreso(ingresoCompleto);
-      console.log("Respuesta del backend", res?.data);
+     const ingresoCreado = await createIngreso(ingresoCompleto);
 
-      // ✅ Guardamos lo que devuelve el backend
-      setDatosOrden(res.data);
-      setUltimoIngresoId(res.data);
+console.log("Respuesta del backend", ingresoCreado);
 
-      const { iid: newIid, numorden: orden } = res.data;
-      console.log(newIid);
+setUltimoIngresoId(ingresoCreado);
 
+const { iid, numorden } = ingresoCreado;
       setOrdenGenerada(orden);
       setFormBloqueado(true);
       setMostrarModal(true);
