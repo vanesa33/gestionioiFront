@@ -34,6 +34,7 @@ function TasksFromPage() {
   const [ isUploading, setIsUploading] = useState(false);
 
  
+const [ultimoIngresoId, setUltimoIngresoId] = useState(null);
 
   const [ordenGenerada, setOrdenGenerada] = useState("");
   //const [file, setFile] = useState(null);
@@ -141,6 +142,9 @@ const onSubmit = async (data) => {
     const res = await createIngreso(ingresoCompleto);
     console.log("Respuesta del backend", res.data);
 
+    const res = await createIngreso(data);
+setUltimoIngresoId(res.data);
+
     setDatosOrden(res.data);
 
     const { iid, numorden: orden } = res.data;
@@ -183,16 +187,16 @@ const editarOrden = () => {
 </div>
 
 
-  const handleImprimir = async () => {
+ const handleImprimir = async () => {
   try {
-    if (!iid && !ultimoIngresoId?.iid) {
+    const id = iid || ultimoIngresoId?.iid;
+
+    if (!id) {
       alert("No hay orden para imprimir");
       return;
     }
 
-    const idParaImprimir = iid || ultimoIngresoId.iid;
-
-    const res = await getIngreso(idParaImprimir);
+    const res = await getIngreso(id);
     imprimirIngreso(res.data);
 
   } catch (error) {
@@ -200,7 +204,6 @@ const editarOrden = () => {
     alert("Error al obtener la orden para imprimir");
   }
 };
-
 
   return (
 
