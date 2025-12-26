@@ -137,9 +137,9 @@ export function imprimirIngreso(ingreso) {
 
     <div class="seccion">Datos del Cliente</div>
     <table>
-    <td>
+   <tr> <td>
   ${ingreso.cliente_nombre || ""} ${ingreso.cliente_apellido || ""}
-</td>
+</td></tr>
 
 <tr>
   <th>Teléfono</th>
@@ -191,6 +191,7 @@ export function imprimirIngreso(ingreso) {
   ventana.focus();
   ventana.print();
 }
+
 
 
 
