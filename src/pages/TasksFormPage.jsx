@@ -34,7 +34,7 @@ function TasksFromPage() {
   const [ isUploading, setIsUploading] = useState(false);
 
  
-const [ultimoIngresoId, setUltimoIngresoId] = useState(null);
+
 
   const [ordenGenerada, setOrdenGenerada] = useState("");
   //const [file, setFile] = useState(null);
