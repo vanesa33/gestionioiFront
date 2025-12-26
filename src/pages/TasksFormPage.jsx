@@ -152,20 +152,30 @@ function TasksFromPage() {
   const handleImprimir = async () => {
   try {
     const id = ultimoIngreso?.iid || iid;
+    if (!id) return alert("No hay orden");
 
-    if (!id) {
-      alert("No hay orden para imprimir");
+    const res = await getIngreso(id);
+
+    const orden = res?.numorden
+      ? res
+      : res?.data
+      ? res.data
+      : res?.ingreso
+      ? res.ingreso
+      : null;
+
+    if (!orden) {
+      console.error("Orden inválida:", res);
+      alert("La orden no tiene formato válido");
       return;
     }
 
-    const ingreso = await getIngreso(id); // 👈 ya es el objeto
-    imprimirIngreso(ingreso);              // 👈 SIN .data
-
-  } catch (error) {
-    console.error(error);
-    alert("Error al obtener la orden para imprimir");
+    imprimirIngreso(orden);
+  } catch (e) {
+    console.error(e);
   }
 };
+
   return (
     <>
       <form
