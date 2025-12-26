@@ -168,22 +168,21 @@ const { iid, numorden } = ingresoCreado;
   };
 
   // ✅ imprimir robusto: soporta getIngreso que devuelve data o response
-  const handleImprimir = async () => {
+ const handleImprimir = async () => {
   try {
     if (!ultimoIngresoId?.iid) {
       alert("No hay orden para imprimir");
       return;
     }
 
-    const res = await getIngreso(ultimoIngresoId.iid);
-    imprimirIngreso(res.data);
+    const ingreso = await getIngreso(ultimoIngresoId.iid);
+    imprimirIngreso(ingreso);
 
   } catch (error) {
     console.error(error);
     alert("Error al obtener la orden para imprimir");
   }
 };
-
 
   return (
     <>
