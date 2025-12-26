@@ -131,8 +131,8 @@ export function imprimirIngreso(ingreso) {
 
     <div class="seccion">Datos del Cliente</div>
     <table>
-      <tr><th>Cliente</th><td>${ingreso.nombre || ""} ${ingreso.apellido || ""}</td></tr>
-      <tr><th>Contacto</th><td>${ingreso.telefono || "—"}</td></tr>
+      <tr><th>Cliente</th><td>${orden.nombre || ""} ${orden.apellido || ""}</td></tr>
+      <tr><th>Contacto</th><td>${orden.telefono || "—"}</td></tr>
     </table>
 
     <div class="seccion">Datos del Servicio</div>
@@ -173,6 +173,7 @@ export function imprimirIngreso(ingreso) {
   ventana.focus();
   ventana.print();
 }
+
 
 
 
