@@ -150,21 +150,22 @@ function TasksFromPage() {
   };
 
   const handleImprimir = async () => {
-    try {
-      const id = ultimoIngreso?.iid || iid;
-      if (!id) {
-        alert("No hay orden para imprimir");
-        return;
-      }
+  try {
+    const id = ultimoIngreso?.iid || iid;
 
-      const res = await getIngreso(id);
-      imprimirIngreso(res.data);
-    } catch (error) {
-      console.error(error);
-      alert("Error al obtener la orden para imprimir");
+    if (!id) {
+      alert("No hay orden para imprimir");
+      return;
     }
-  };
 
+    const ingreso = await getIngreso(id); // 👈 ya es el objeto
+    imprimirIngreso(ingreso);              // 👈 SIN .data
+
+  } catch (error) {
+    console.error(error);
+    alert("Error al obtener la orden para imprimir");
+  }
+};
   return (
     <>
       <form
