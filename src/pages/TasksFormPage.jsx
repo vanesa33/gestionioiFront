@@ -190,20 +190,21 @@ const editarOrden = () => {
 
 const handleImprimir = async () => {
   try {
-    if (!ingresoCreado?.iid) {
+    if (!ultimoIngresoId?.iid) {
       alert("No hay orden para imprimir");
       return;
     }
 
-    const res = await getIngreso(ingresoCreado.iid);
-    imprimirIngreso(res.data);
+    const res = await getIngreso(ultimoIngresoId.iid);
+
+    // getIngreso YA devuelve el ingreso, no axios
+    imprimirIngreso(res);
 
   } catch (error) {
     console.error(error);
     alert("Error al obtener la orden para imprimir");
   }
 };
-
 
   return (
 
