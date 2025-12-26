@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form";
 import { useTasks } from "../context/useTasks";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { supabase } from "../supabase/client";
-import { imprimirIngreso } from "../utils/imprimirIngreso";
+import { supabase } from "/supabaseClient.js"
+import { imprimirIngreso } from "../imprimirIngreso";
 
 export default function TasksFormPage() {
   const { createIngreso, updateIngreso } = useTasks();
