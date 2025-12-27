@@ -270,7 +270,7 @@ return coincideBusqueda && coincideUsuario && coincideTipo;
   </span>
 </td>
 
- </td>
+
          <td className="p-2 font-semibold truncate max-w-[160px]" title={`${orden.nombre} ${orden.apellido}`}>
                  {orden.nombre} {orden.apellido}
               </td>
@@ -279,7 +279,7 @@ return coincideBusqueda && coincideUsuario && coincideTipo;
             {orden.fecha
               ? new Date(orden.fecha).toISOString().split("T")[0]
               : ""}
-         
+          </td>
           <td className="p-2">{orden.nserie}</td>
           <td className="p-2">{orden.equipo}</td>         
           <td>{mostrarMonto(orden.repuesto)}</td>
