@@ -48,6 +48,8 @@ function TasksBuscarOrden() {
  const textoBusqueda = busqueda.toLowerCase().trim();
 
 const resultadosFiltrados = ingreso.filter((o) => {
+  const nombreStr = o.nombre ? o.nombre.toLowerCase() : "";
+
   const apellidoStr = o.apellido ? o.apellido.toLowerCase() : "";
   const telefonoStr = o.telefono ? String(o.telefono).toLowerCase() : "";
   const nserieStr = o.nserie ? String(o.nserie).toLowerCase() : "";
@@ -64,6 +66,7 @@ const resultadosFiltrados = ingreso.filter((o) => {
 
   // 👈 IMPORTANTE: let
   let coincideBusqueda =
+     nombreStr.includes(textoBusqueda) || 
     apellidoStr.includes(textoBusqueda) ||
     telefonoStr.includes(textoBusqueda) ||
     nserieStr.includes(textoBusqueda) ||
