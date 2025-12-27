@@ -218,10 +218,11 @@ return coincideBusqueda && coincideUsuario && coincideTipo;
         <tr className="bg-gray-800 text-white text-sm uppercase tracking-wide">
           <th className="p-3 text-center">Orden</th>
            <th className="p-3 text-center">Tipo</th>
+          <th className="p-3 text-center">Cliente</th>
           <th className="p-3 text-center">Fecha</th>         
           <th className="p-3 text-center">Serie</th>
            <th className="p-3 text-center">Equipo</th>
-          <th className="p-3 text-center">Falla</th>      
+            
           
           <th className="p-3 text-center">Repuesto</th>
           <th className="p-3 text-center">Mano de Obra</th>
@@ -274,11 +275,11 @@ return coincideBusqueda && coincideUsuario && coincideTipo;
               ? new Date(orden.fecha).toISOString().split("T")[0]
               : ""}
           </td>
-
+         <td className="p-2 font-semibold truncate max-w-[160px]" title={`${orden.nombre} ${orden.apellido}`}>
+                 {orden.nombre} {orden.apellido}
+              </td>
           <td className="p-2">{orden.nserie}</td>
-          <td className="p-2">{orden.equipo}</td>
-          <td className="p-2">{orden.falla}</td>
-         
+          <td className="p-2">{orden.equipo}</td>         
           <td>{mostrarMonto(orden.repuesto)}</td>
           <td>{mostrarMonto(orden.manoobra)}</td>
          
