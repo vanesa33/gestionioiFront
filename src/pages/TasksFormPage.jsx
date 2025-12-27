@@ -4,6 +4,7 @@ import {  useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "/supabaseClient.js"
 //import { jsPDF } from "jspdf";
+import { getIngresoRequest } from "../api/ingresos.js";
 import { imprimirIngreso } from "../imprimirIngreso.js";
 
 
@@ -188,15 +189,24 @@ const editarOrden = () => {
 </div>
 
 
-const handleImprimir = () => {
-  if (!datosOrden || !datosOrden.numorden) {
+const handleImprimir = async () => {
+  if (!datosOrden || !datosOrden.iid) {
     alert("No hay una orden válida para imprimir");
     console.warn("Orden inválida:", datosOrden);
     return;
   }
 
-  imprimirIngreso(datosOrden);
+  try {
+    // 👉 volver a pedir la orden con JOIN
+    const res = await getIngresoRequest(datosOrden.iid);
+
+    imprimirIngreso(res.data);
+  } catch (error) {
+    console.error("Error al imprimir orden:", error);
+    alert("No se pudo obtener la orden para imprimir");
+  }
 };
+
   return (
 
     <>
