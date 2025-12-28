@@ -13,21 +13,20 @@ const mostrarMonto = (v) => (Number(v) > 0 ? Number(v) : "");
 
 const data = ingresos.map((i) => ({
   "N° Orden": i.numorden,
-  "Cliente": i.nombre && i.apellido || "",
   "Tipo de Orden" : i.tipo_orden || "",
+  "Cliente": i.nombre && i.apellido || "",
+   "Fecha": i.fecha ? new Date(i.fecha).toLocaleDateString("es-AR") : "",
   "Equipo": i.equipo || "",
-  "Falla": i.falla || "",
-  "Observación": i.observa || "",
-  "Fecha": i.fecha ? new Date(i.fecha).toLocaleDateString("es-AR") : "",
   "N° Serie": i.nserie || "",
-  "Costo": mostrarMonto(i.costo),
-  "Repuesto": mostrarMonto(i.repuesto),
+    "Falla": i.falla || "",
+   "Repuesto": mostrarMonto(i.repuesto),
   "Mano de Obra": mostrarMonto(i.manoobra),
-  "IVA": i.iva || "",
-  "Total": mostrarMonto(i.total),
-  "Garantía": i.presu ? "Sí" : "No",
+   "IVA": i.iva || "", 
+   "Total": mostrarMonto(i.total),
+   "Garantía": i.presu ? "Sí" : "No",
   "Orden Cerrada": i.salida ? new Date(i.salida).toLocaleDateString("es-AR") : "",
    "Creado Por": i.usuario_nombre,
+  
   
 }));
 
@@ -49,8 +48,8 @@ const data = ingresos.map((i) => ({
 
     if (cell) {
       cell.s = {
-        fill: { fgColor: { rgb: "1F4E78" } }, // azul corporativo
-        font: { bold: true, color: { rgb: "FFFFFF" } }, // blanco
+        fill: { fgColor: { rgb: "95c799" } }, 
+        font: { bold: true, color: { rgb: "164620" } }, // blanco
         alignment: { horizontal: "center", vertical: "center" },
         border: {
           top: { style: "thin", color: { rgb: "000000" } },
@@ -111,6 +110,7 @@ const data = ingresos.map((i) => ({
   // ---------------------------
   XLSX.writeFile(wb, "Ingresos.xlsx");
 }
+
 
 
 
