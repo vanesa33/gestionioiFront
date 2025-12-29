@@ -20,9 +20,9 @@ const data = ingresos.map((i) => ({
   "N° Serie": i.nserie || "",
     "Falla": i.falla || "",
    "Repuesto": mostrarMonto(i.repuesto),
-  "Mano de Obra": mostrarMonto(i.manoobra),
-   "IVA": i.iva || "", 
+  "Mano de Obra": mostrarMonto(i.manoobra),  
    "Total": mostrarMonto(i.total),
+   "IVA": i.iva || "", 
    "Garantía": i.presu ? "Sí" : "No",
   "Orden Cerrada": i.salida ? new Date(i.salida).toLocaleDateString("es-AR") : "",
    "Creado Por": i.usuario_nombre,
@@ -110,6 +110,7 @@ const data = ingresos.map((i) => ({
   // ---------------------------
   XLSX.writeFile(wb, "Ingresos.xlsx");
 }
+
 
 
 
