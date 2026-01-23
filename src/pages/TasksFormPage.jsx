@@ -143,8 +143,8 @@ const onSubmit = async (data) => {
     const res = await createIngreso(ingresoCompleto);
     console.log("Respuesta del backend", res.data);
 
-  const ingresoCreado = await createIngreso(data);
-setUltimoIngresoId(ingresoCreado);
+ // const ingresoCreado = await createIngreso(data);
+//setUltimoIngresoId(ingresoCreado);
 
 
     setDatosOrden(res.data);
