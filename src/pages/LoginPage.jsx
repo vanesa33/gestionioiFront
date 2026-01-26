@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import logoDeIoI from '../img/logoDeIoI.jpg';
+import logoIn from '../img/logo-in.jpeg';
+
 
 function LoginPage() {
 
@@ -59,7 +61,7 @@ if (isAuthenticated) navigate("/");
         
         <div className="w-1/2 flex flex-col justify-center items-center px-8">
       <div className="bg-white bg-opacity-10 backdrop-blur-md rounded-lg p-8 w-full max-w-sm text-white" >
-            <img src=".../public/logo-in.jpeg" alt="50" className='w-40 mb-4 rounded-full mx-auto'/>
+            <img src={logoIn} alt="50" className='w-40 mb-4 rounded-full mx-auto'/>
             
            
 
