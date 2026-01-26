@@ -2,9 +2,12 @@ import {useForm} from 'react-hook-form'
 import { useAuth } from '../context/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import logoDeIoI from '../img/logoDeIoI.jpg';
+import { useState } from 'react';
 
 function LoginPage() {
+
+const [showPassword, setShowPassword] = useState(false);
+
  
 const {register,
      handleSubmit,
@@ -12,10 +15,16 @@ const {register,
 } = useForm();
 const {signin, errors: signinErrors, isAuthenticated} = useAuth();
 const navigate = useNavigate()
-const onSubmit = handleSubmit((data) => {
-            console.log("enviando datos de login", data);
-            signin(data);
-          });
+
+const onSubmit = handleSubmit(async (data) => {
+  const loggedUser = await signin(data);
+
+  if (loggedUser?.must_change_password) {
+    navigate("/cambiar-password");
+  } else {
+    navigate("/");
+  }
+});
 
 useEffect(() => {
 if (isAuthenticated) navigate("/");
@@ -40,7 +49,7 @@ if (isAuthenticated) navigate("/");
   {/* Lado izquierdo - Logo y texto */}
   <div className="w-1/2 flex flex-col justify-center items-center text-white p-8">
  
-    <img src={logoDeIoI} alt="logo" className="w-50 p-8 rounded-full max-w-sm" />
+    <img src="../src/img/logo-ioi.jpeg" alt="Logo" className="w-40 mb-4" />
     <h1 className="text-2xl font-bold">Instalaciones Odontológicas Integrales</h1>
     <p className="text-sm mt-2">SISTEMA DE TKT</p>
   </div>
@@ -49,7 +58,7 @@ if (isAuthenticated) navigate("/");
         
         <div className="w-1/2 flex flex-col justify-center items-center px-8">
       <div className="bg-white bg-opacity-10 backdrop-blur-md rounded-lg p-8 w-full max-w-sm text-white" >
-            <img src="/logo-in.jpeg" alt="50" className='w-40 mb-4 rounded-full mx-auto'/>
+            <img src="../src/img/logo-in.jpeg" alt="50" className='w-40 mb-4 rounded-full mx-auto'/>
             
            
 
@@ -71,22 +80,24 @@ if (isAuthenticated) navigate("/");
 
                     
 
-            <input type="password"
-             {... register("password", {required: true })} 
-            className="w-full p-2 mb-6 rounded bg-white bg-opacity-90 text-black" 
-            placeholder='Password'
-            autoComplete='current-password'
+           <div className="relative mb-6">
+  <input
+    type={showPassword ? "text" : "password"}
+    {...register("password", { required: true })}
+    className="w-full p-2 pr-10 rounded bg-white bg-opacity-90 text-black"
+    placeholder="Password"
+    autoComplete="current-password"
+  />
 
-            />
-            {
-                errors.password && (
-                    <p className='text-red-900 mt-2 mb-4'>
-                        password is required
-                    </p>
-                )
-            }
-
-
+  <button
+    type="button"
+    onClick={() => setShowPassword(!showPassword)}
+    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-700"
+    aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+  >
+    {showPassword ? "🙈" : "👁️"}
+  </button>
+</div>
 
 
               <button type="submit" className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-2 rounded font-semibold hover:opacity-90">
