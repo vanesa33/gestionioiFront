@@ -3,6 +3,7 @@ import { useAuth } from '../context/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import logoDeIoI from '../img/logoDeIoI.jpg';
 
 function LoginPage() {
 
@@ -49,7 +50,7 @@ if (isAuthenticated) navigate("/");
   {/* Lado izquierdo - Logo y texto */}
   <div className="w-1/2 flex flex-col justify-center items-center text-white p-8">
  
-    <img src=".../public/logo-ioi.jpeg" alt="Logo" className="w-40 mb-4" />
+    <img src={logoDeIoI} alt="Logo" className="w-40 mb-4" />
     <h1 className="text-2xl font-bold">Instalaciones Odontológicas Integrales</h1>
     <p className="text-sm mt-2">SISTEMA DE TKT</p>
   </div>
