@@ -21,8 +21,8 @@ function Navbar(){
     return(
         <nav className="bg-red-600 flex  justify-between py-5 px-10">
             <Link to='/'>
-                <img
-                 src="../src/img/logo-ioi.jpeg" alt="Logo"
+                 <img
+                 src="/logo-ioi.jpeg" alt="Logo"
                 className="h-12 w-auto"
                 />
             </Link>             
