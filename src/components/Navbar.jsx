@@ -22,7 +22,7 @@ function Navbar(){
         <nav className="bg-red-600 flex  justify-between py-5 px-10">
             <Link to='/'>
                 <img
-                 src="/logo-ioi.jpeg" alt="Logo"
+                 src="../src/img/logo-ioi.jpeg" alt="Logo"
                 className="h-12 w-auto"
                 />
             </Link>             
@@ -43,40 +43,51 @@ function Navbar(){
                     </svg>
                     </button>
               {openMenu && (
-                <ul className="absolute right-0 mt-2 bg-white text-black rounded shadow-lg min-w-[150px] z-10">
-                  <li>
-                    <Link to="/tasks/new" className="block px-4 py-2 hover:bg-gray-300">
-                      Ingresar Cliente
-                    </Link>
-                  </li>
-                  <li>
+  <ul className="absolute right-0 mt-2 bg-white text-black rounded shadow-lg min-w-[150px] z-10">
 
-                    <button>
-                       <li>
-                    <Link to="/tasks/buscar" className=" right-0 block px-4 py-2 hover:bg-gray-300 min-w-[150px] z-10">
-                      Buscar Cliente
-                    </Link>
-                  </li>
-                    </button>
+    <li>
+      <Link to="/tasks/new" className="block px-2 py-2 hover:bg-gray-300">
+        Ingresar Cliente
+      </Link>
+    </li>
 
-                    <button>
-                       <li>
-                    <Link to="/tasks/Buscarorden" className="block px-4 py-2 hover:bg-gray-300 min-w-[150px] z-10">
-                      Buscar Orden
-                    </Link>
-                  </li>
-                    </button>
+    <li>
+      <Link to="/tasks/buscar" className="block px-2 py-2 hover:bg-gray-300">
+        Buscar Cliente
+      </Link>
+    </li>
 
-                    <button
-                      onClick={logout}
-                      className="w-full text-left px-4 py-2 hover:bg-red-400  z-10"
-                    >
-                      Salir
-                    </button>
+    <li>
+      <Link to="/tasks/Buscarorden" className="block px-2 py-2 hover:bg-gray-300">
+        Buscar Orden
+      </Link>
+    </li>
 
-                    </li>
-                </ul>
-              )}
+    <li>
+      <Link to="/cambiar-password" className="block px-2 py-2 hover:bg-gray-300">
+        Cambiar Password
+      </Link>
+    </li>
+
+    {user?.role_id === 1 && (
+      <li>
+        <Link to="/passuser" className="block px-2 py-2 hover:bg-gray-300">
+          Resetear Password
+        </Link>
+      </li>
+    )}
+
+    <li>
+      <button
+        onClick={logout}
+        className="w-full text-left px-4 py-2 hover:bg-red-400"
+      >
+        Salir
+      </button>
+    </li>
+
+  </ul>
+)}
             </li>
           </>
         ) : (
