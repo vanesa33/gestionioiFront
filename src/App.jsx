@@ -19,6 +19,9 @@ import BuscarOrden from './pages/BuscarOrden';
 import EditClientForm from './pages/EditClientForm';
 import TasksOrdenesTecnico from './pages/TasksOrdenesTecnico';
 import UserList from './pages/UserList';
+import ResetPassword from './pages/ResetPassword';
+import CambiarPassword from './pages/CambiarPassword';
+import AdminRoute from './pages/AdminRoute';
 //import UserIngresosPage from './pages/UserIngresosPage';
 
 
@@ -41,7 +44,9 @@ function App(){
       
 
       <Route element={<ProtectedRoute/>}>
+
       <Route path='/' element={<HomePage />} />
+
       <Route path='/taskmy' element={<TasksPage />} />
       <Route
               path='/api/add-task'
@@ -70,7 +75,19 @@ function App(){
 
       <Route path='/tasks/edit/:id' element={<EditClientForm />} />
 
-            <Route path='/usuarios' element={<UserList />} />
+            <Route path='/passuser' 
+            element={
+              <AdminRoute>
+            <UserList />
+            </AdminRoute>
+          } />
+
+            <Route path="/passuser/:id/reset-password" element={<ResetPassword />} />
+
+                        
+
+
+      <Route path='/cambiar-password' element={<CambiarPassword />} />
 
 
 
@@ -88,14 +105,3 @@ function App(){
 }
 
 export default App;
-
-
-/* <Route path='/inicio' element={<h1>Inicio</h1>} />
-      <Route path='/tkt' element={<h1>Orden de Reparación</h1>} />
-      <Route path='/ingreso' element={<h1>Ingresar Orden y Cliente</h1>} />
-      <Route path='/listado' element={<h1>Lista Completa</h1>} />
-      <Route path='/admin' element={<h1>Inicio de Administrador</h1>} />
-      <Route path='/tecnico' element={<h1>Inicio</h1>} />
-      <Route path='/facturacion' element={<h1>Inicio</h1>} />
-      <Route path='/usuarios' element={<h1>Usuarios</h1>} />
-      <Route path='/busquetkt' element={<h1>Busqueda por tkt's y técnicos</h1>} />*/
