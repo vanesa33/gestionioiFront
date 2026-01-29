@@ -6,12 +6,12 @@ const api = axios.create({
 });
 
 // traer usuarios
-export const getUsersRequest = () => api.get("/passuser");
+export const getUsersRequest = () => api.get("/api/passuser");
 
 // admin → reset password
 export const resetPasswordRequest = (userId) => {
   if (!userId) throw new Error("User ID is required for resetting password");
-  return api.put(`/passuser/${userId}/reset-password`);
+  return api.put(`/api/passuser/${userId}/reset-password`);
 };
 
 // usuario logueado → cambiar su propia password
