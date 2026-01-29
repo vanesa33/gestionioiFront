@@ -1,64 +1,73 @@
-import { Link } from "react-router-dom";
-import imgInClient from "../assets/imgInClient.jpeg";
-import imgBusClient from "../assets/imgBusClient.jpeg";
-import imgInOrden from "../assets/imgInOrden.jpeg";
-import imgBusOrden from "../assets/imgBusOrden.jpeg";
+import { useEffect, useState } from "react";
+import { getUsersRequest } from "../api/users.js";
+import { useAuth } from "../context/useAuth";
+import { useNavigate } from "react-router-dom";
 
-function HomePage() {
-  const buttons = [
-    { img: imgInClient, text: "Ingresar Cliente", to: "/tasks/:id" },
-    { img: imgBusClient, text: "Buscar Cliente", to: "/tasks/buscar" },
-    { img: imgInOrden, text: "Ver Mi Lista de Órdenes", to: "/taskmy" },
-    { img: imgBusOrden, text: "Buscar Todas las Órdenes", to: "/ingresos/todos" },
-  ];
+function UserList() {
+  const [users, setUsers] = useState([]);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
-  const navItems = [
-    { label: "Inicio", to: "/" },
-    { label: "Nueva Orden", to: "/ingresos/nuevo" },
-    { label: "Buscar", to: "/ingresos/buscar" },
-  ];
+  useEffect(() => {
+    if (!user || user.role_id !== 1) {
+      navigate("/");
+      return;
+    }
+
+    const loadUsers = async () => {
+      const res = await getUsersRequest();
+      console.log("url real:", res.config.url);
+      console.log("respuesta correcta", res.data);
+
+      setUsers(Array.isArray(res.data.users) ? res.data.users : []);
+    };
+
+    loadUsers();
+  }, [user, navigate]);
 
   return (
-    <div className="h-screen bg-[#e34232] text-white flex flex-col overflow-hidden">
-      {/* 🔹 Encabezado fijo */}
-      <header className="bg-[#c73428] py-3 text-center text-xl font-bold shadow-md">
-        Inicio
-      </header>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Usuarios</h1>
 
-      {/* 🔹 Contenido principal sin scroll */}
-      <main className="flex-1 grid grid-cols-2 sm:grid-cols-2 gap-4 px-4 py-6 place-items-center">
-        {buttons.map((btn, idx) => (
-          <Link
-            key={idx}
-            to={btn.to}
-            className="flex flex-col items-center justify-center bg-[#ef4d3c] hover:bg-[#f25b4a] rounded-2xl p-4 shadow-lg transition-all duration-200 w-[260px] h-[200px]"
-          >
-            <img
-              src={btn.img}
-              alt={btn.text}
-              className="w-28 h-28 sm:w-32 sm:h-32 mb-2 object-cover rounded-md"
-            />
-            <span className="text-base sm:text-lg text-center font-semibold">
-              {btn.text}
-            </span>
-          </Link>
-        ))}
-      </main>
+      <table className="w-full border">
+        <thead>
+          <tr className="bg-gray-800 text-white">
+            <th className="border p-2">Nombre</th>
+            <th className="border p-2">Email</th>
+            <th className="border p-2">Rol</th>
+            <th className="border p-2">Acciones</th>
+          </tr>
+        </thead>
 
-      {/* 🔹 Barra inferior (solo mobile) */}
-      <nav className="h-14 bg-red-700 text-white flex justify-around items-center sm:hidden">
-        {navItems.map((item, idx) => (
-          <Link
-            key={idx}
-            to={item.to}
-            className="flex flex-col items-center text-xs hover:text-yellow-300 transition"
-          >
-            {item.label}
-          </Link>
-        ))}
-      </nav>
+        <tbody>
+          {Array.isArray(users) && users.length > 0 ? (
+  users.map((u) => (
+    <tr key={u.ruid}>
+      <td className="border p-2">{u.username}</td>
+      <td className="border p-2">{u.email}</td>
+      <td className="border p-2">{u.role_id}</td>
+      <td className="border p-2">
+        <button className="bg-blue-500 text-white px-2 py-1 rounded mr-2"
+          onClick={() => navigate(`/passuser/${u.ruid}/reset-password`)}>
+          Editar
+        </button>
+        <button className="bg-red-500 text-white px-2 py-1 rounded">
+          Eliminar
+        </button>
+      </td>
+    </tr>
+  ))
+) : (
+  <tr>
+    <td colSpan="4" className="text-center p-4">
+      No hay usuarios para mostrar
+    </td>
+  </tr>
+)}
+        </tbody>
+      </table>
     </div>
   );
 }
 
-export default HomePage;
+export default UserList;
