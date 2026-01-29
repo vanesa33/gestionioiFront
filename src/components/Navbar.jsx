@@ -76,8 +76,7 @@ function Navbar(){
     </Link>
   </li>
 )
-   console.log("role:", user?.role_id, typeof user?.role_id);
-
+   
    }
 
 
