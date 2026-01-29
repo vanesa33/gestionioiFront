@@ -75,7 +75,10 @@ function Navbar(){
       Resetear Password
     </Link>
   </li>
-)}
+)
+   console.log("role:", user?.role_id, typeof user?.role_id);
+
+   }
 
 
     <li>
