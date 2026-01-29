@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUsersRequest } from "../api/users.js";
-import { useAuth } from "../context/useAuth";
+import { useAuth } from "../context/useAuth.js";
 import { useNavigate } from "react-router-dom";
 
 function UserList() {
