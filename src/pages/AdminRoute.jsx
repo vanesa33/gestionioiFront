@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";    
-import { useAuth } from "../context/useAuth";
+import { useAuth } from "../context/useAuth.js";
 
 export default function AdminRoute({ children }) {
     const { isAuthenticated, user } = useAuth();
@@ -7,4 +7,5 @@ export default function AdminRoute({ children }) {
         return <Navigate to="/" replace />;
     }
     return children;
+
 }
