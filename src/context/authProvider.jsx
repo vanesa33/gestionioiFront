@@ -25,39 +25,39 @@ export const AuthProvider = ({ children }) => {
 
 
 
-    const signup = async (user) => {
-        
-        
-        try {
+  const signup = async (userData) => {
+  try {
+    setErrors([]);
 
-            
-            const res = await registerRequest(user);
-         
-          // setErrors([]);
-            
-        console.log(res.data);
-        setUser(res.data);
-        setIsAuthenticated(true);
-        setErrors([]);
-        } catch (error) {
-            console.log(error.response)
-            setErrors(error.response.data)
-            console.error("signup error:", error.response?.data || error.message);
-            const resData = error.response.data;
+    // 1. Registro
+    await registerRequest(userData);
 
-            if(Array.isArray(resData.errors)) {
-                setErrors(resData.errors);
+    // 2. Revalidamos sesión (usa cookie/token real)
+    const res = await verifyTokenRequest();
 
-            } else if (typeof resData === 'string') {
-                setErrors([resData]);
+    if (res.data?.user) {
+      setUser(res.data.user);
+      setIsAuthenticated(true);
+    } else {
+      setUser(null);
+      setIsAuthenticated(false);
+    }
 
-            } else if (resData?.message) {
-                setErrors([resData.message]);
-            }else {
-                setErrors(['Error desconocido al registrarse.']);
-            }
-        }
-    };
+  } catch (error) {
+    console.error("signup error:", error);
+
+    const resData = error.response?.data;
+
+    if (Array.isArray(resData?.errors)) {
+      setErrors(resData.errors);
+    } else if (resData?.message) {
+      setErrors([resData.message]);
+    } else {
+      setErrors(["Error desconocido al registrarse"]);
+    }
+  }
+};
+
 
     const signin = async (user) => {
 
