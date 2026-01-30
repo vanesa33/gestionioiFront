@@ -19,7 +19,7 @@ function UserList() {
       console.log("url real:", res.config.url);
       console.log("respuesta correcta", res.data);
 
-      setUsers(Array.isArray(res.data) ? res.data : []);
+      setUsers(Array.isArray(res.data.users) ? res.data.users : []);
     };
 
     loadUsers();
