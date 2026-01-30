@@ -6,6 +6,7 @@ const api = axios.create({
     : "http://localhost:4000",
   withCredentials: true,
 });
+console.log("API URL:", import.meta.env.VITE_API_URL);
 
 // traer usuarios
 export const getUsersRequest = () => api.get("/passuser");
