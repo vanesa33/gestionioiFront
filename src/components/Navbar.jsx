@@ -72,7 +72,7 @@ function Navbar(){
   {user?.role_id === 1 && (
       <li>
         <Link to="/passuser" className="block px-2 py-2 hover:bg-gray-300">
-          Resetear Password
+          Resetear Usuario
         </Link>
       </li>
     )}
