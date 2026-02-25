@@ -75,7 +75,7 @@ try {
   const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
 
   const getRoleBadge = (role) => {
-    const base = "px-2 py-1 rounded text-white text-xs font-semibold";
+    const base = "px-2 py-1 rounded text-white font-semibold";
 
     switch (role) {
       case "ADMIN":
