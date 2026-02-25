@@ -78,11 +78,11 @@ try {
     const base = "px-2 py-1 rounded text-white font-semibold";
 
     switch (role) {
-      case "ADMIN":
+      case "admin":
         return `${base} bg-red-600`;
-      case "FACTURACION":
+      case "facturacion":
         return `${base} bg-blue-600`;
-      case "TECNICO":
+      case "tecnico":
         return `${base} bg-green-600`;
       default:
         return `${base} bg-gray-500`;
