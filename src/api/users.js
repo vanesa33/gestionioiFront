@@ -20,3 +20,15 @@ export const resetPasswordRequest = (userId) => {
 // usuario logueado → cambiar su propia password
 export const cambiarPasswordRequest = (data) =>
   api.put("/cambiar-password", data);
+
+
+export const deleteUserRequest = (userId) => {
+  if (!userId) throw new Error("User ID is required for deletion");
+  return api.delete(`/passuser/${userId}`);
+}
+
+export const updateUserRoleRequest = (userId, newRoleId) => {
+  if (!userId) throw new Error("User ID is required for role update");
+  if (!newRoleId) throw new Error("New Role ID is required for role update");
+  return api.put(`/passuser/${userId}/role`, { role_id: newRoleId });
+}
