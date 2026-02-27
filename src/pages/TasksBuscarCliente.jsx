@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 function BuscarClientes() {
   const [client, setClient] = useState([]);
   const [busqueda, setBusqueda] = useState({
+    user_id: "",
     nombre: "",
     apellido: "",
     telefono: "",
@@ -33,6 +34,7 @@ function BuscarClientes() {
   }, []);
 
   const resultadosFiltrados = client.filter((c) => (
+     (busqueda.user_id === "" || (c.user_id != null ? c.user_id.toString().toLowerCase() : "").includes(busqueda.numero.toLowerCase())) &&
   (busqueda.nombre === "" || c.nombre?.toLowerCase().includes(busqueda.nombre.toLowerCase())) &&
   (busqueda.apellido === "" || c.apellido?.toLowerCase().includes(busqueda.apellido.toLowerCase())) &&
   (busqueda.telefono === "" || (c.telefono != null ? c.telefono.toString().toLowerCase() : "").includes(busqueda.telefono.toLowerCase())) &&
@@ -68,6 +70,16 @@ function BuscarClientes() {
 
       {/* Filtros */}
       <div className="grid grid-cols-2 md:grid-cols-4  text-gray-600 gap-2 mb-4">
+         <input
+          type="text"
+          placeholder="ID"
+          value={busqueda.user_id}
+          onChange={(e) => {
+            setBusqueda({ ...busqueda, user_id: e.target.value });
+            setPaginaActual(1);
+          }}
+          className="p-2 border rounded"
+        />
         <input
           type="text"
           placeholder="Nombre"
