@@ -34,7 +34,7 @@ function BuscarClientes() {
   }, []);
 
   const resultadosFiltrados = client.filter((c) => (
-     (busqueda.user_id === "" || (c.user_id != null ? c.user_id.toString().toLowerCase() : "").includes(busqueda.numero.toLowerCase())) &&
+     (busqueda.id === "" || (c.id != null ? c.user_id.toString().toLowerCase() : "").includes(busqueda.numero.toLowerCase())) &&
   (busqueda.nombre === "" || c.nombre?.toLowerCase().includes(busqueda.nombre.toLowerCase())) &&
   (busqueda.apellido === "" || c.apellido?.toLowerCase().includes(busqueda.apellido.toLowerCase())) &&
   (busqueda.telefono === "" || (c.telefono != null ? c.telefono.toString().toLowerCase() : "").includes(busqueda.telefono.toLowerCase())) &&
@@ -69,7 +69,7 @@ function BuscarClientes() {
       <h1 className="text-xl font-bold text-center mb-4">Buscar Cliente</h1>
 
       {/* Filtros */}
-      <div className="grid grid-cols-2 md:grid-cols-4  text-gray-600 gap-2 mb-4">
+      <div className="grid grid-cols-2 md:grid-cols-5  text-gray-600 gap-2 mb-3">
          <input
           type="text"
           placeholder="ID"
