@@ -36,7 +36,7 @@ function BuscarClientes() {
   const resultadosFiltrados = client.filter((c) => (
   (busqueda.user_id === "" ||
     (c.id != null &&
-      c.id.toString().includes(busqueda.user_id))) &&
+      c.id.toString() === busqueda.user_id)) &&
   (busqueda.nombre === "" || c.nombre?.toLowerCase().includes(busqueda.nombre.toLowerCase())) &&
   (busqueda.apellido === "" || c.apellido?.toLowerCase().includes(busqueda.apellido.toLowerCase())) &&
   (busqueda.telefono === "" || (c.telefono != null ? c.telefono.toString().toLowerCase() : "").includes(busqueda.telefono.toLowerCase())) &&
