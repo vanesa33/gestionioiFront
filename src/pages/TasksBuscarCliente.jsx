@@ -34,7 +34,6 @@ function BuscarClientes() {
   }, []);
 
   const resultadosFiltrados = client.filter((c) => (
-     const resultadosFiltrados = client.filter((c) => (
   (busqueda.user_id === "" ||
     (c.id != null &&
       c.id.toString().includes(busqueda.user_id))) &&
