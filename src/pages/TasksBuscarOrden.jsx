@@ -188,7 +188,7 @@ const esteMes = () => {
       {/* Primer filtro (general) */}
       <input
         type="text"
-        placeholder="Buscar por número, fecha, cliente, cerrada..."
+        placeholder="Buscar por número, cliente, cerrada..."
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
         className="p-2 border text-gray-700 rounded w-full mb-4"
