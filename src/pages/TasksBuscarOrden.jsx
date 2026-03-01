@@ -205,6 +205,8 @@ const resultadosFiltrados = ingreso.filter((o) => {
   )}
 </div>
 
+      <div className="flex items-center gap-5 mb-5" >
+         <label className="mr-2 text-gray-700 font-semibold">Tipo de Orden:</label>
       <select
        className="border p-2 rounded text-gray-600"
        value={filtroTipo}
@@ -216,7 +218,7 @@ const resultadosFiltrados = ingreso.filter((o) => {
       </select>
 
       {/* Segundo filtro (Creado por) */}
-      <div className="flex items-center gap-5 mb-5" >
+      
         <label className="mr-2 text-gray-700 font-semibold">Creado por:</label>
         <select
           value={filtroUsuario}
