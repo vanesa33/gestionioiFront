@@ -154,6 +154,33 @@ const resultadosFiltrados = ingreso.filter((o) => {
   // Sacamos lista única de usuarios para el select
   const usuariosUnicos = Array.from(new Set(ingreso.map((i) => i.usuario_nombre)));
 
+  / 📅 PRESETS DE FECHA (SIN LIBRERÍAS)
+const hoy = () => {
+  const today = new Date().toISOString().split("T")[0];
+  setFechaDesde(today);
+  setFechaHasta(today);
+};
+
+const ultimos7Dias = () => {
+  const hoy = new Date();
+  const desde = new Date();
+  desde.setDate(hoy.getDate() - 7);
+
+  setFechaDesde(desde.toISOString().split("T")[0]);
+  setFechaHasta(hoy.toISOString().split("T")[0]);
+};
+
+const esteMes = () => {
+  const ahora = new Date();
+  const desde = new Date(ahora.getFullYear(), ahora.getMonth(), 1);
+  const hasta = new Date(ahora.getFullYear(), ahora.getMonth() + 1, 0);
+
+  setFechaDesde(desde.toISOString().split("T")[0]);
+  setFechaHasta(hasta.toISOString().split("T")[0]);
+};
+
+
+
   return (
     <div className="p-4 bg-gray-200 min-h-screen">
       <h1 className="text-2xl text-gray-600 font-bold mb-4">Buscar Orden Técnica</h1>
@@ -190,6 +217,30 @@ const resultadosFiltrados = ingreso.filter((o) => {
       className="border p-2 rounded text-gray-700"
     />
   </div>
+
+      {/* PRESETS DE FECHA */}
+<div className="flex gap-2">
+  <button
+    onClick={hoy}
+    className="h-[42px] px-3 bg-gray-300 rounded hover:bg-gray-400"
+  >
+    🗓️ Hoy
+  </button>
+
+  <button
+    onClick={ultimos7Dias}
+    className="h-[42px] px-3 bg-gray-300 rounded hover:bg-gray-400"
+  >
+    ⏱️ 7 días
+  </button>
+
+  <button
+    onClick={esteMes}
+    className="h-[42px] px-3 bg-gray-300 rounded hover:bg-gray-400"
+  >
+    📆 Este mes
+  </button>
+</div>
 
   {/* LIMPIAR FECHAS */}
   {(fechaDesde || fechaHasta) && (
