@@ -154,7 +154,7 @@ const resultadosFiltrados = ingreso.filter((o) => {
   // Sacamos lista única de usuarios para el select
   const usuariosUnicos = Array.from(new Set(ingreso.map((i) => i.usuario_nombre)));
 
-  / 📅 PRESETS DE FECHA (SIN LIBRERÍAS)
+  
 const hoy = () => {
   const today = new Date().toISOString().split("T")[0];
   setFechaDesde(today);
