@@ -167,11 +167,11 @@ const resultadosFiltrados = ingreso.filter((o) => {
         className="p-2 border text-gray-700 rounded w-full mb-4"
       />
 
-      <div className="flex flex-wrap gap-4 mb-4">
-  <div>
-    <label className="block text-gray-700 text-sm font-semibold">
-      Desde
-    </label>
+    <div className="flex flex-wrap items-end gap-4 mb-5">
+
+  {/* FECHA DESDE */}
+  <div className="flex flex-col">
+    <label className="text-gray-700 text-sm font-semibold">Desde</label>
     <input
       type="date"
       value={fechaDesde}
@@ -180,10 +180,9 @@ const resultadosFiltrados = ingreso.filter((o) => {
     />
   </div>
 
-  <div>
-    <label className="block text-gray-700 text-sm font-semibold">
-      Hasta
-    </label>
+  {/* FECHA HASTA */}
+  <div className="flex flex-col">
+    <label className="text-gray-700 text-sm font-semibold">Hasta</label>
     <input
       type="date"
       value={fechaHasta}
@@ -192,56 +191,59 @@ const resultadosFiltrados = ingreso.filter((o) => {
     />
   </div>
 
+  {/* LIMPIAR FECHAS */}
   {(fechaDesde || fechaHasta) && (
     <button
       onClick={() => {
         setFechaDesde("");
         setFechaHasta("");
       }}
-      className="self-end bg-gray-600 text-white px-3 py-2 rounded hover:bg-gray-700"
+      className="h-[42px] bg-gray-600 text-white px-3 rounded hover:bg-gray-700"
     >
-      Limpiar fechas
+      Limpiar
     </button>
   )}
-</div>
 
-      <div className="flex items-center gap-5 mb-5" >
-         <label className="mr-2 text-gray-700 font-semibold">Tipo de Orden:</label>
-      <select
-       className="border p-2 rounded text-gray-600"
-       value={filtroTipo}
-       onChange={(e) => setFiltroTipo(e.target.value)}
-       >
-       <option value="TODOS">Todas</option>
-       <option value="REPARACION">reparacion</option>
-       <option value="SERVICE">service</option>
-      </select>
+  {/* TIPO ORDEN */}
+  <div className="flex flex-col">
+    <label className="text-gray-700 text-sm font-semibold">Tipo</label>
+    <select
+      value={filtroTipo}
+      onChange={(e) => setFiltroTipo(e.target.value)}
+      className="border p-2 rounded text-gray-700"
+    >
+      <option value="TODOS">Todas</option>
+      <option value="REPARACION">Reparación</option>
+      <option value="SERVICE">Service</option>
+    </select>
+  </div>
 
-      {/* Segundo filtro (Creado por) */}
-      
-        <label className="mr-2 text-gray-700 font-semibold">Creado por:</label>
-        <select
-          value={filtroUsuario}
-          onChange={(e) => setFiltroUsuario(e.target.value)}
-          className="border text-gray-700 p-1 rounded"
-        >
-          <option value="">Todos</option>
-          {usuariosUnicos.map((u, idx) => (
-            <option key={idx} value={u}>
-              {u}
-            </option>
-          ))}
-        </select>
+  {/* USUARIO */}
+  <div className="flex flex-col">
+    <label className="text-gray-700 text-sm font-semibold">Creado por</label>
+    <select
+      value={filtroUsuario}
+      onChange={(e) => setFiltroUsuario(e.target.value)}
+      className="border p-2 rounded text-gray-700"
+    >
+      <option value="">Todos</option>
+      {usuariosUnicos.map((u, idx) => (
+        <option key={idx} value={u}>
+          {u}
+        </option>
+      ))}
+    </select>
+  </div>
 
-             
-      <button
-         onClick={() => exportarIngresosExcel (resultadosFiltrados)} 
-       className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 shadow mb-3"
-       >
+  {/* EXPORTAR */}
+  <button
+    onClick={() => exportarIngresosExcel(resultadosFiltrados)}
+    className="h-[42px] bg-green-600 text-white px-4 rounded hover:bg-green-700 shadow"
+  >
     Descargar Excel
-      </button>
+  </button>
 
-      </div>
+</div>
 
       
       
