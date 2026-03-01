@@ -15,6 +15,9 @@ function TasksBuscarOrden() {
 
   const [filtroTipo, setFiltroTipo] = useState(""); // ⬅️ agregado
 
+  const [fechaDesde, setFechaDesde] = useState("");
+  const [fechaHasta, setFechaHasta] = useState("");
+
   const [paginaActual, setPaginaActual] = useState(1);
   const [filasPorPagina, setFilasPorPagina] = useState(9);
   const [modalAbierto, setModalAbierto] = useState(false);
@@ -38,65 +41,71 @@ function TasksBuscarOrden() {
 
   useEffect(() => {
     setPaginaActual(1);
-  }, [busqueda, filtroUsuario, filtroTipo, filasPorPagina]); // ⬅️ ahora también escucha filtroUsuario
+  }, [busqueda, filtroUsuario, filtroTipo, filasPorPagina, fechaDesde, fechaHasta]); // ⬅️ ahora también escucha filtroUsuario
 
   if (!Array.isArray(ingreso)) {
     return <div className="p-4">Cargando ingresos...</div>;
+  }
+
+   const normalizarDate = (fecha) => {
+    if (!fecha) return null;
+    const d = new Date(fecha);
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
   }
 
   // Filtro general
  const textoBusqueda = busqueda.toLowerCase().trim();
 
 const resultadosFiltrados = ingreso.filter((o) => {
-  const nombreStr = o.nombre ? o.nombre.toLowerCase() : "";
+  const nombreStr = o.nombre?.toLowerCase() || "";
+  const apellidoStr = o.apellido?.toLowerCase() || "";
+  const telefonoStr = o.telefono ? String(o.telefono) : "";
+  const nserieStr = o.nserie?.toLowerCase() || "";
+  const usuarioStr = o.usuario_nombre?.toLowerCase() || "";
+  const tipoStr = o.tipo_orden?.toLowerCase() || "";
 
-  const apellidoStr = o.apellido ? o.apellido.toLowerCase() : "";
-  const telefonoStr = o.telefono ? String(o.telefono).toLowerCase() : "";
-  const nserieStr = o.nserie ? String(o.nserie).toLowerCase() : "";
-  const usuarioStr = o.usuario_nombre ? o.usuario_nombre.toLowerCase() : "";
-  const salidaStr = o.salida
-    ? new Date(o.salida).toISOString().split("T")[0]
-    : "";
-  const presuStr = o.presu ? o.presu.toLowerCase() : "garantia";
+  const fechaOrden = normalizarDate(o.fecha);
+  const desde = normalizarDate(fechaDesde);
+  const hasta = normalizarDate(fechaHasta);
 
-  const esCerrada = o.salida !== null;
-  const esAbierta = o.salida === null;
+  const esCerrada = Boolean(o.salida);
+  const esAbierta = !o.salida;
 
- 
-
-  // 👈 IMPORTANTE: let
+  // 🔎 búsqueda general
   let coincideBusqueda =
-     nombreStr.includes(textoBusqueda) || 
+    nombreStr.includes(textoBusqueda) ||
     apellidoStr.includes(textoBusqueda) ||
     telefonoStr.includes(textoBusqueda) ||
     nserieStr.includes(textoBusqueda) ||
     usuarioStr.includes(textoBusqueda) ||
-    salidaStr.includes(textoBusqueda) ||
-    presuStr.includes(textoBusqueda);
+    tipoStr.includes(textoBusqueda);
 
-  // 🔒 filtro por estado SOLO si escribió algo
-  if (textoBusqueda !== "") {
-    if (["cerrada", "cerrado"].includes(textoBusqueda)) {
-      coincideBusqueda = esCerrada;
-    }
-
-    if (["abierta", "abierto"].includes(textoBusqueda)) {
-      coincideBusqueda = esAbierta;
-    }
+  if (["cerrada", "cerrado"].includes(textoBusqueda)) {
+    coincideBusqueda = esCerrada;
   }
 
+  if (["abierta", "abierto"].includes(textoBusqueda)) {
+    coincideBusqueda = esAbierta;
+  }
+
+  // 📅 filtro por rango de fechas
+  let coincideFecha = true;
+
+  if (desde && fechaOrden < desde) coincideFecha = false;
+  if (hasta && fechaOrden > hasta) coincideFecha = false;
+
+  // 👤 filtro usuario
   const coincideUsuario =
     filtroUsuario === "" ||
     usuarioStr === filtroUsuario.toLowerCase();
 
+  // 🛠️ filtro tipo
   const coincideTipo =
-  filtroTipo === "" ||
-  filtroTipo === "TODOS" ||
-  o.tipo_orden === filtroTipo.toLowerCase();
+    filtroTipo === "" ||
+    filtroTipo === "TODOS" ||
+    tipoStr === filtroTipo.toLowerCase();
 
-  console.log("coincideTipo", coincideTipo, o.tipo_orden, filtroTipo);
-
-return coincideBusqueda && coincideUsuario && coincideTipo;
+  return coincideBusqueda && coincideUsuario && coincideTipo && coincideFecha;
 });
   // Paginación
   const totalPaginas = Math.max(1, Math.ceil(resultadosFiltrados.length / filasPorPagina));
@@ -158,6 +167,44 @@ return coincideBusqueda && coincideUsuario && coincideTipo;
         className="p-2 border text-gray-700 rounded w-full mb-4"
       />
 
+      <div className="flex flex-wrap gap-4 mb-4">
+  <div>
+    <label className="block text-gray-700 text-sm font-semibold">
+      Desde
+    </label>
+    <input
+      type="date"
+      value={fechaDesde}
+      onChange={(e) => setFechaDesde(e.target.value)}
+      className="border p-2 rounded text-gray-700"
+    />
+  </div>
+
+  <div>
+    <label className="block text-gray-700 text-sm font-semibold">
+      Hasta
+    </label>
+    <input
+      type="date"
+      value={fechaHasta}
+      onChange={(e) => setFechaHasta(e.target.value)}
+      className="border p-2 rounded text-gray-700"
+    />
+  </div>
+
+  {(fechaDesde || fechaHasta) && (
+    <button
+      onClick={() => {
+        setFechaDesde("");
+        setFechaHasta("");
+      }}
+      className="self-end bg-gray-600 text-white px-3 py-2 rounded hover:bg-gray-700"
+    >
+      Limpiar fechas
+    </button>
+  )}
+</div>
+
       <select
        className="border p-2 rounded text-gray-600"
        value={filtroTipo}
@@ -218,11 +265,10 @@ return coincideBusqueda && coincideUsuario && coincideTipo;
         <tr className="bg-gray-800 text-white text-sm uppercase tracking-wide">
           <th className="p-3 text-center">Orden</th>
            <th className="p-3 text-center">Tipo</th>
-          <th className="p-3 text-center">Cliente</th>
           <th className="p-3 text-center">Fecha</th>         
           <th className="p-3 text-center">Serie</th>
            <th className="p-3 text-center">Equipo</th>
-            
+          <th className="p-3 text-center">Falla</th>      
           
           <th className="p-3 text-center">Repuesto</th>
           <th className="p-3 text-center">Mano de Obra</th>
@@ -270,18 +316,16 @@ return coincideBusqueda && coincideUsuario && coincideTipo;
   </span>
 </td>
 
-
-         <td className="p-2 font-semibold truncate max-w-[160px]" title={`${orden.nombre} ${orden.apellido}`}>
-                 {orden.nombre} {orden.apellido}
-              </td>
-          
 <td className="p-2">
             {orden.fecha
               ? new Date(orden.fecha).toISOString().split("T")[0]
               : ""}
           </td>
+
           <td className="p-2">{orden.nserie}</td>
-          <td className="p-2">{orden.equipo}</td>         
+          <td className="p-2">{orden.equipo}</td>
+          <td className="p-2">{orden.falla}</td>
+         
           <td>{mostrarMonto(orden.repuesto)}</td>
           <td>{mostrarMonto(orden.manoobra)}</td>
          
@@ -482,7 +526,7 @@ return coincideBusqueda && coincideUsuario && coincideTipo;
 
   {/* IMPRIMIR */}
   <button
-    onClick={() => imprimirOrdenBuscarUno(ordenSeleccionada)}
+    onClick={() => imprimirIngreso(ordenSeleccionada)}
     className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
   >
     Imprimir
