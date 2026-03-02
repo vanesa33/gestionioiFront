@@ -17,6 +17,7 @@ function TasksBuscarOrden() {
 
   const [filtroTipo, setFiltroTipo] = useState(""); // ⬅️ agregado
 
+
   const [fechaDesde, setFechaDesde] = useState("");
   const [fechaHasta, setFechaHasta] = useState("");
 
@@ -33,7 +34,15 @@ function TasksBuscarOrden() {
 const formatearFecha = (fecha) => {
   if (!fecha) return "";
 
+  // Si viene del input type="date" → YYYY-MM-DD
+  if (typeof fecha === "string" && fecha.length === 10) {
+    const [anio, mes, dia] = fecha.split("-");
+    return `${dia}/${mes}/${anio}`;
+  }
+
+  // Si viene del backend (ISO / timestamp)
   const d = new Date(fecha);
+
   const dia = String(d.getDate()).padStart(2, "0");
   const mes = String(d.getMonth() + 1).padStart(2, "0");
   const anio = d.getFullYear();
@@ -63,13 +72,30 @@ const formatearFecha = (fecha) => {
     return <div className="p-4">Cargando ingresos...</div>;
   }
 
+   // eslint-disable-next-line no-unused-vars
    const normalizarDate = (fecha) => {
     if (!fecha) return null;
     const d = new Date(fecha);
     return new Date(d.getFullYear(), d.getMonth(), d.getDate());
   }
 
+  // 📅 Formatear fecha correctamente (input + backend)
+
+  const fechaNumber = (f) => {
+  if (!f) return null;
+  return new Date(f.split("T")[0]).getTime();
+};
+
+// eslint-disable-next-line no-unused-vars
+const toDateOnly = (fecha) => {
+  const d = new Date(fecha);
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+};
+
+
+
   // Filtro general
+ // eslint-disable-next-line no-unused-vars
  const textoBusqueda = busqueda.toLowerCase().trim();
 
 const resultadosFiltrados = ingreso.filter((o) => {
@@ -226,14 +252,14 @@ const esteMes = () => {
   </button>
 
   <button
-    onClick={ultimos7Dias}
+   onClick={ultimos7Dias}
     className="h-[42px] px-3 bg-gray-300 rounded hover:bg-gray-400"
   >
     ⏱️ 7 días
   </button>
 
   <button
-    onClick={esteMes}
+   onClick={esteMes}
     className="h-[42px] px-3 bg-gray-300 rounded hover:bg-gray-400"
   >
     📆 Este mes
@@ -370,9 +396,9 @@ const esteMes = () => {
 </td>
 
 <td className="p-2">
-            {orden.fecha
-              ? formatearFecha(orden.fecha)
-              : ""}
+            {
+               formatearFecha(orden.fecha)
+              }
           </td>
 
           <td className="p-2">{orden.nserie}</td>
