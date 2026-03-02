@@ -6,6 +6,11 @@ import * as XLSX from "xlsx";
 import { imprimirOrdenBuscarUno } from "../imprimirOrdenBuscarUno.js";
 import { exportarIngresosExcel } from "../exportExcel";
 
+const fechaNumero = (f) => {
+  if (!f) return null;
+  return new Date(f.split("T")[0]).getTime();
+};
+
 function TasksBuscarOrden() {
   const {  deleteIngreso } = useTasks();
 
@@ -81,6 +86,7 @@ const formatearFecha = (fecha) => {
 
   // 📅 Formatear fecha correctamente (input + backend)
 
+  // eslint-disable-next-line no-unused-vars
   const fechaNumber = (f) => {
   if (!f) return null;
   return new Date(f.split("T")[0]).getTime();
@@ -99,21 +105,9 @@ const toDateOnly = (fecha) => {
  const textoBusqueda = busqueda.toLowerCase().trim();
 
 const resultadosFiltrados = ingreso.filter((o) => {
-  // 🔒 si hay filtro de fechas → solo cerradas
-  if ((fechaDesde || fechaHasta) && !o.salida) return false;
-
-  // 📅 filtro por rango de fecha de cierre
-  if (fechaDesde || fechaHasta) {
-    const salida = fechaNumber(o.salida);
-    if (!salida) return false;
-
-    if (fechaDesde && salida < fechaNumber(fechaDesde)) return false;
-    if (fechaHasta && salida > fechaNumber(fechaHasta)) return false;
-  }
-
-  // 🔎 filtros que ya tenías (SIN CAMBIOS)
   const texto = busqueda.toLowerCase();
 
+  // 🔎 texto (igual que antes)
   const coincideTexto =
     o.nombre?.toLowerCase().includes(texto) ||
     o.apellido?.toLowerCase().includes(texto) ||
@@ -122,15 +116,30 @@ const resultadosFiltrados = ingreso.filter((o) => {
     o.usuario_nombre?.toLowerCase().includes(texto) ||
     o.presu?.toLowerCase().includes(texto);
 
+  // 👤 usuario
   const coincideUsuario =
     !filtroUsuario || o.usuario_nombre === filtroUsuario;
 
+  // 🔧 tipo
   const coincideTipo =
     !filtroTipo ||
     filtroTipo === "TODOS" ||
     o.tipo_orden === filtroTipo.toLowerCase();
 
-  return coincideTexto && coincideUsuario && coincideTipo;
+  // 📅 FECHA (cerrada o no)
+  let coincideFecha = true;
+
+  if (fechaDesde || fechaHasta) {
+    const fechaBase = o.salida || o.fecha; // 👈 CLAVE
+    const fechaOrd = fechaNumero(fechaBase);
+
+    if (!fechaOrd) return false;
+
+    if (fechaDesde && fechaOrd < fechaNumero(fechaDesde)) return false;
+    if (fechaHasta && fechaOrd > fechaNumero(fechaHasta)) return false;
+  }
+
+  return coincideTexto && coincideUsuario && coincideTipo && coincideFecha;
 });
   // Paginación
   const totalPaginas = Math.max(1, Math.ceil(resultadosFiltrados.length / filasPorPagina));
