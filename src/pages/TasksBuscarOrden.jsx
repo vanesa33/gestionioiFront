@@ -11,6 +11,8 @@ function TasksBuscarOrden() {
 
   const [ingreso, setIngreso] = useState([]);
   const [busqueda, setBusqueda] = useState("");
+
+  
   const [filtroUsuario, setFiltroUsuario] = useState(""); // ⬅️ agregado
 
   const [filtroTipo, setFiltroTipo] = useState(""); // ⬅️ agregado
@@ -25,6 +27,20 @@ function TasksBuscarOrden() {
   const navigate = useNavigate();
 
   const ordenCerrada = Boolean(ordenSeleccionada?.salida);
+
+
+  // 📅 Formatear fecha a DD/MM/AAAA
+const formatearFecha = (fecha) => {
+  if (!fecha) return "";
+
+  const d = new Date(fecha);
+  const dia = String(d.getDate()).padStart(2, "0");
+  const mes = String(d.getMonth() + 1).padStart(2, "0");
+  const anio = d.getFullYear();
+
+  return `${dia}/${mes}/${anio}`;
+};
+
 
   useEffect(() => {
     const loadTodosIngresos = async () => {
@@ -154,8 +170,7 @@ const resultadosFiltrados = ingreso.filter((o) => {
   // Sacamos lista única de usuarios para el select
   const usuariosUnicos = Array.from(new Set(ingreso.map((i) => i.usuario_nombre)));
 
-  
-const hoy = () => {
+  const hoy = () => {
   const today = new Date().toISOString().split("T")[0];
   setFechaDesde(today);
   setFechaHasta(today);
@@ -178,8 +193,6 @@ const esteMes = () => {
   setFechaDesde(desde.toISOString().split("T")[0]);
   setFechaHasta(hasta.toISOString().split("T")[0]);
 };
-
-
 
   return (
     <div className="p-4 bg-gray-200 min-h-screen">
@@ -218,7 +231,7 @@ const esteMes = () => {
     />
   </div>
 
-      {/* PRESETS DE FECHA */}
+  {/* PRESETS DE FECHA */}
 <div className="flex gap-2">
   <button
     onClick={hoy}
@@ -373,7 +386,7 @@ const esteMes = () => {
 
 <td className="p-2">
             {orden.fecha
-              ? new Date(orden.fecha).toISOString().split("T")[0]
+              ? formatearFecha(orden.fecha)
               : ""}
           </td>
 
@@ -425,7 +438,7 @@ const esteMes = () => {
       title="Orden cerrada"
     >
       <span>
-        {new Date(orden.salida).toISOString().split("T")[0]}
+        {formatearFecha(orden.salida)}
       </span>
       <span className="text-yellow-400">🔒</span>
     </span>
@@ -474,9 +487,7 @@ const esteMes = () => {
             Orden Técnica #{ordenSeleccionada.numorden}
           </h2>
           <p className="text-sm text-gray-500">
-            {ordenSeleccionada.fecha
-              ? new Date(ordenSeleccionada.fecha).toISOString().split("T")[0]
-              : ""}
+            {formatearFecha(ordenSeleccionada.fecha)}
           </p>
         </div>
 
@@ -543,7 +554,7 @@ const esteMes = () => {
           {ordenSeleccionada.salida && (
             <>
               {" · "}Salida:{" "}
-              {new Date(ordenSeleccionada.salida).toISOString().split("T")[0]}
+              {formatearFecha(ordenSeleccionada.salida)}
             </>
           )}
         </div>
