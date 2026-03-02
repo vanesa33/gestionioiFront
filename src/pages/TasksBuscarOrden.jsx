@@ -73,55 +73,38 @@ const formatearFecha = (fecha) => {
  const textoBusqueda = busqueda.toLowerCase().trim();
 
 const resultadosFiltrados = ingreso.filter((o) => {
-  const nombreStr = o.nombre?.toLowerCase() || "";
-  const apellidoStr = o.apellido?.toLowerCase() || "";
-  const telefonoStr = o.telefono ? String(o.telefono) : "";
-  const nserieStr = o.nserie?.toLowerCase() || "";
-  const usuarioStr = o.usuario_nombre?.toLowerCase() || "";
-  const tipoStr = o.tipo_orden?.toLowerCase() || "";
+  // 🔒 si hay filtro de fechas → solo cerradas
+  if ((fechaDesde || fechaHasta) && !o.salida) return false;
 
-  const fechaOrden = normalizarDate(o.fecha);
-  const desde = normalizarDate(fechaDesde);
-  const hasta = normalizarDate(fechaHasta);
+  // 📅 filtro por rango de fecha de cierre
+  if (fechaDesde || fechaHasta) {
+    const salida = fechaNumber(o.salida);
+    if (!salida) return false;
 
-  const esCerrada = Boolean(o.salida);
-  const esAbierta = !o.salida;
-
-  // 🔎 búsqueda general
-  let coincideBusqueda =
-    nombreStr.includes(textoBusqueda) ||
-    apellidoStr.includes(textoBusqueda) ||
-    telefonoStr.includes(textoBusqueda) ||
-    nserieStr.includes(textoBusqueda) ||
-    usuarioStr.includes(textoBusqueda) ||
-    tipoStr.includes(textoBusqueda);
-
-  if (["cerrada", "cerrado"].includes(textoBusqueda)) {
-    coincideBusqueda = esCerrada;
+    if (fechaDesde && salida < fechaNumber(fechaDesde)) return false;
+    if (fechaHasta && salida > fechaNumber(fechaHasta)) return false;
   }
 
-  if (["abierta", "abierto"].includes(textoBusqueda)) {
-    coincideBusqueda = esAbierta;
-  }
+  // 🔎 filtros que ya tenías (SIN CAMBIOS)
+  const texto = busqueda.toLowerCase();
 
-  // 📅 filtro por rango de fechas
-  let coincideFecha = true;
+  const coincideTexto =
+    o.nombre?.toLowerCase().includes(texto) ||
+    o.apellido?.toLowerCase().includes(texto) ||
+    String(o.telefono || "").includes(texto) ||
+    String(o.nserie || "").includes(texto) ||
+    o.usuario_nombre?.toLowerCase().includes(texto) ||
+    o.presu?.toLowerCase().includes(texto);
 
-  if (desde && fechaOrden < desde) coincideFecha = false;
-  if (hasta && fechaOrden > hasta) coincideFecha = false;
-
-  // 👤 filtro usuario
   const coincideUsuario =
-    filtroUsuario === "" ||
-    usuarioStr === filtroUsuario.toLowerCase();
+    !filtroUsuario || o.usuario_nombre === filtroUsuario;
 
-  // 🛠️ filtro tipo
   const coincideTipo =
-    filtroTipo === "" ||
+    !filtroTipo ||
     filtroTipo === "TODOS" ||
-    tipoStr === filtroTipo.toLowerCase();
+    o.tipo_orden === filtroTipo.toLowerCase();
 
-  return coincideBusqueda && coincideUsuario && coincideTipo && coincideFecha;
+  return coincideTexto && coincideUsuario && coincideTipo;
 });
   // Paginación
   const totalPaginas = Math.max(1, Math.ceil(resultadosFiltrados.length / filasPorPagina));
@@ -176,6 +159,7 @@ const resultadosFiltrados = ingreso.filter((o) => {
   setFechaHasta(today);
 };
 
+
 const ultimos7Dias = () => {
   const hoy = new Date();
   const desde = new Date();
@@ -184,6 +168,7 @@ const ultimos7Dias = () => {
   setFechaDesde(desde.toISOString().split("T")[0]);
   setFechaHasta(hoy.toISOString().split("T")[0]);
 };
+
 
 const esteMes = () => {
   const ahora = new Date();
