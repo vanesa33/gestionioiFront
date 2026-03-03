@@ -26,6 +26,10 @@ function TasksBuscarOrden() {
   const [fechaDesde, setFechaDesde] = useState("");
   const [fechaHasta, setFechaHasta] = useState("");
 
+
+  const [filtroEstado, setFiltroEstado] = useState("TODAS"); // ⬅️ agregado
+  // valores posibles: "TODAS", "ABIERTAS", "CERRADAS"
+
   const [paginaActual, setPaginaActual] = useState(1);
   const [filasPorPagina, setFilasPorPagina] = useState(9);
   const [modalAbierto, setModalAbierto] = useState(false);
@@ -107,6 +111,11 @@ const toDateOnly = (fecha) => {
 const resultadosFiltrados = ingreso.filter((o) => {
   const texto = busqueda.toLowerCase();
 
+  const coincideEstado =
+  filtroEstado === "TODAS" ||
+  (filtroEstado === "CERRADAS" && o.salida) ||
+  (filtroEstado === "ABIERTAS" && !o.salida);
+
   // 🔎 texto (igual que antes)
   const coincideTexto =
     o.nombre?.toLowerCase().includes(texto) ||
@@ -139,7 +148,8 @@ const resultadosFiltrados = ingreso.filter((o) => {
     if (fechaHasta && fechaOrd > fechaNumero(fechaHasta)) return false;
   }
 
-  return coincideTexto && coincideUsuario && coincideTipo && coincideFecha;
+  return coincideTexto && coincideUsuario && coincideTipo && coincideFecha &&  coincideTexto &&
+  coincideUsuario && coincideTipo && coincideEstado;
 });
   // Paginación
   const totalPaginas = Math.max(1, Math.ceil(resultadosFiltrados.length / filasPorPagina));
@@ -215,9 +225,12 @@ const esteMes = () => {
 };
 
   return (
-    <div className="p-4 bg-gray-200 min-h-screen">
-      <h1 className="text-2xl text-gray-600 font-bold mb-4">Buscar Orden Técnica</h1>
+    
+    <div className="bg-gray-200 min-h-screen">
 
+      <div>
+      <h1 className="text-2xl text-gray-600 font-bold mb-4">Buscar Orden Técnica</h1>
+       
       {/* Primer filtro (general) */}
       <input
         type="text"
@@ -226,8 +239,9 @@ const esteMes = () => {
         onChange={(e) => setBusqueda(e.target.value)}
         className="p-2 border text-gray-700 rounded w-full mb-4"
       />
+      </div>
 
-    <div className="flex flex-wrap items-end gap-4 mb-5">
+    <div className="flex flex-wrap items-end gap-5 mb-5">
 
   {/* FECHA DESDE */}
   <div className="flex flex-col">
@@ -326,6 +340,22 @@ const esteMes = () => {
   >
     Descargar Excel
   </button>
+
+   <div>
+  <label className="block text-gray-700 text-sm font-semibold">
+    Estado
+  </label>
+
+  <select
+    value={filtroEstado}
+    onChange={(e) => setFiltroEstado(e.target.value)}
+    className="border p-2 rounded text-gray-700"
+  >
+    <option value="TODAS">Todas</option>
+    <option value="CERRADAS">Cerradas</option>
+    <option value="ABIERTAS">Abiertas</option>
+  </select>
+</div>
 
 </div>
 
