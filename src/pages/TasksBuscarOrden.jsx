@@ -226,8 +226,8 @@ const esteMes = () => {
 
   return (
     
-    <div className="bg-gray-200 min-h-screen">
-
+    <div className="bg-gray-200 min-h-screen px-4 md:px-8 py-6">
+      <div className="max-w-7xl mx-auto">
       <div>
       <h1 className="text-2xl text-gray-600 font-bold mb-4">Buscar Orden Técnica</h1>
        
@@ -523,6 +523,7 @@ const esteMes = () => {
             ))}
           </div>
         </div>
+      </div>
       </div>
 
       {/* Modal */}
