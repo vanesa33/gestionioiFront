@@ -151,6 +151,12 @@ const resultadosFiltrados = ingreso.filter((o) => {
   return coincideTexto && coincideUsuario && coincideTipo && coincideFecha &&  coincideTexto &&
   coincideUsuario && coincideTipo && coincideEstado;
 });
+
+const sumaTotal = resultadosFiltrados.reduce((acc, o) => {
+  const total = parseFloat(o.total) || 0;
+  return acc + total;
+}, 0);
+
   // Paginación
   const totalPaginas = Math.max(1, Math.ceil(resultadosFiltrados.length / filasPorPagina));
   const paginaSegura = Math.min(paginaActual, totalPaginas);
@@ -226,8 +232,9 @@ const esteMes = () => {
 
   return (
     
-    <div className="bg-gray-200 min-h-screen px-4 md:px-12 py-6">
-  <div className="max-w-[1600px] mx-auto">
+    <div className="bg-gray-200 min-h-screen px-4 md:px-8 py-6">
+      <div className="max-w-7xl mx-auto">
+
       <div>
       <h1 className="text-2xl text-gray-600 font-bold mb-4">Buscar Orden Técnica</h1>
        
@@ -502,6 +509,16 @@ const esteMes = () => {
   )}
 </tbody>
     </table>
+    <div className="flex justify-end mt-4">
+      <div className="bg-gray-800 text-white px-6 py-3 rounded-lg shadow">
+        <span className="font-semibold mr-2">
+          Total Acumulado: {Number(sumaTotal).toLocaleString('es-AR', { style: 'currency', currency: 'ARS',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+           })}</span>
+      </div>
+
+    </div>
   </div>
 </div>
       {/* Paginación */}
@@ -523,9 +540,9 @@ const esteMes = () => {
             ))}
           </div>
         </div>
+        </div>
       </div>
-      </div>
-
+     
       {/* Modal */}
      {modalAbierto && ordenSeleccionada && (
   <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
