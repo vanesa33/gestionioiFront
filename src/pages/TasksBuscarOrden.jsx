@@ -13,7 +13,7 @@ const fechaNumero = (f) => {
 
 function TasksBuscarOrden() {
   const {  deleteIngreso } = useTasks();
-
+  const { user } = useTasks();
   const [ingreso, setIngreso] = useState([]);
   const [busqueda, setBusqueda] = useState("");
 
@@ -342,7 +342,7 @@ const esteMes = () => {
 
   {/* EXPORTAR */}
   <button
-    onClick={() => exportarIngresosExcel(resultadosFiltrados)}
+    onClick={() => exportarIngresosExcel(resultadosFiltrados, user?.email || "Sin usuario definido")}
     className="h-[42px] bg-green-600 text-white px-4 rounded hover:bg-green-700 shadow"
   >
     Descargar Excel
