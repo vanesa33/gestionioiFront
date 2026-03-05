@@ -11,9 +11,13 @@ const fechaNumero = (f) => {
   return new Date(f.split("T")[0]).getTime();
 };
 
+
+
 function TasksBuscarOrden() {
   const {  deleteIngreso } = useTasks();
-  const { user } = useTasks();
+  const { user } = useAuth();
+  console.log("user en TasksBuscarOrden:", user);
+
   const [ingreso, setIngreso] = useState([]);
   const [busqueda, setBusqueda] = useState("");
 
@@ -128,6 +132,8 @@ const resultadosFiltrados = ingreso.filter((o) => {
   // 👤 usuario
   const coincideUsuario =
     !filtroUsuario || o.usuario_nombre === filtroUsuario;
+
+      console.log("user completo:", o.usuario_nombre);
 
   // 🔧 tipo
   const coincideTipo =
