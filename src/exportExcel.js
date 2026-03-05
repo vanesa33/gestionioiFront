@@ -1,10 +1,7 @@
 import * as XLSX from "xlsx-js-style";
 
-export function exportarIngresosExcel(ingresos) {
-  if (!ingresos || ingresos.length === 0) {
-    alert("No hay datos para exportar.");
-    return;
-  }
+export function exportarIngresosExcel(ingresos, user) {
+
 
   const mostrarMonto = (v) => (Number(v) > 0 ? Number(v) : "");
 
@@ -60,9 +57,18 @@ data.push(filaTotal);
  
 
   const wb = XLSX.utils.book_new();
-  const ws = XLSX.utils.json_to_sheet(data);
+const ws = XLSX.utils.json_to_sheet(data, { origin: "A5" });
+//esto permite que el total acumulado quede justo debajo de la última fila de datos, sin importar cuántas filas haya.
 
   const range = XLSX.utils.decode_range(ws["!ref"]);
+
+  XLSX.utils.sheet_add_aoa(ws, [
+    ["Reporte de Ordenes"],
+    [`Usuario: ${user || "Usuario Desconocido"}`],
+    [`Fecha: ${new Date().toLocaleString()}`],  
+    []
+    
+  ], { origin: "A1" });
 
   // 🔵 Resaltar SOLO las celdas IVA y Total del Total Acumulado
 const lastRow = range.e.r;
@@ -112,5 +118,3 @@ if (cellTotal) {cellTotal.s = { ...estiloTotal, numFmt: "$#,##0.00" };}
   XLSX.utils.book_append_sheet(wb, ws, "Ingresos");
   XLSX.writeFile(wb, "Ingresos.xlsx");
 }
-
-
