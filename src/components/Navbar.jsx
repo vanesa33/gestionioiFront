@@ -58,7 +58,7 @@ function Navbar(){
     </li>
 
     <li>
-      <Link to="/tasks/TasksBuscarorden" className="block px-2 py-2 hover:bg-gray-300">
+      <Link to="/ingresos/todos" className="block px-2 py-2 hover:bg-gray-300">
         Buscar Orden
       </Link>
     </li>
