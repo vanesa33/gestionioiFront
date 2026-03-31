@@ -14,7 +14,9 @@ export function exportarIngresosExcel(ingresos, user) {
   // 🔹 Datos normales (SIN total acumulado como columna)
   const data = ingresos.map((i) => ({
     "N° Orden": i.numorden,
-    "Cliente": [i.nombre, i.apellido].filter(Boolean).join(" "),
+   "Cliente": i.cliente_nombre 
+  ? i.cliente_nombre 
+  : `${i.nombre || ""} ${i.apellido || ""}`.trim(),
     "Tipo de Orden": i.tipo_orden || "",
     "Equipo": i.equipo || "",
     "Falla": i.falla || "",
