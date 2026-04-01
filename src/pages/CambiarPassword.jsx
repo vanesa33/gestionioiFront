@@ -66,7 +66,7 @@ function CambiarPassword() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-2 top-9 text-gray-600 hover:text-black"
+              className="absolute right-2 top-9 text-gray-800 hover:text-black"
             >
               {showPassword ? "🙈" : "👁️"}
             </button>
@@ -90,7 +90,7 @@ function CambiarPassword() {
             <button
               type="button"
               onClick={() => setShowConfirmar(!showConfirmar)}
-              className="absolute right-2 top-9 text-gray-600 hover:text-black"
+              className="absolute right-2 top-9 text-gray-800 hover:text-black"
             >
               {showConfirmar ? "🙈" : "👁️"}
             </button>
