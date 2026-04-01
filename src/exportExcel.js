@@ -14,7 +14,7 @@ export function exportarIngresosExcel(ingresos, user) {
   // 🔹 Datos normales (SIN total acumulado como columna)
   const data = ingresos.map((i) => ({
     "N° Orden": i.numorden,
- "Cliente": i.cliente_nombre,
+ "Cliente": `${i.nombre || ""} ${i.apellido || ""}`
     "Tipo de Orden": i.tipo_orden || "",
     "Equipo": i.equipo || "",
     "Falla": i.falla || "",
