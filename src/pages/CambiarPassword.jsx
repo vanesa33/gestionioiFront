@@ -1,29 +1,38 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-//import { useAuth } from "../context/useAuth";
 import { cambiarPasswordRequest } from "../api/users";
 
 function CambiarPassword() {
   const [password, setPassword] = useState("");
   const [confirmar, setConfirmar] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
- // const { user } = useAuth();
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (loading) return;
-  setLoading(true);
+  // 👁️ NUEVO
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmar, setShowConfirmar] = useState(false);
 
-  try {
-    await cambiarPasswordRequest({ password });
-    navigate("/login");
-  } catch (err) {
-    setError("Error al actualizar la contraseña", err);
-    setLoading(false);
-  }
-};
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (loading) return;
+
+    if (password !== confirmar) {
+      setError("Las contraseñas no coinciden");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      await cambiarPasswordRequest({ password });
+      navigate("/login");
+    } catch (err) {
+      setError("Error al actualizar la contraseña");
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
@@ -37,28 +46,54 @@ function CambiarPassword() {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
+
+          {/* PASSWORD */}
+          <div className="relative">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Nueva contraseña
             </label>
+
             <input
-              type="password"
+              type={showPassword ? "text" : "password"} // 👁️
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-700 rounded-md px-3 py-2 pr-10 
+                         focus:outline-none focus:ring-2 focus:ring-blue-500
+                         tracking-widest font-semibold" // 👈 más visible
             />
+
+            {/* 👁️ botón */}
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-2 top-9 text-gray-600 hover:text-black"
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </button>
           </div>
 
-          <div>
+          {/* CONFIRMAR */}
+          <div className="relative">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Repetir contraseña
             </label>
+
             <input
-              type="password"
+              type={showConfirmar ? "text" : "password"} // 👁️
               value={confirmar}
               onChange={(e) => setConfirmar(e.target.value)}
-              className="w-full border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-700 rounded-md px-3 py-2 pr-10 
+                         focus:outline-none focus:ring-2 focus:ring-blue-500
+                         tracking-widest font-semibold"
             />
+
+            <button
+              type="button"
+              onClick={() => setShowConfirmar(!showConfirmar)}
+              className="absolute right-2 top-9 text-gray-600 hover:text-black"
+            >
+              {showConfirmar ? "🙈" : "👁️"}
+            </button>
           </div>
 
           {error && (
@@ -67,7 +102,6 @@ function CambiarPassword() {
             </div>
           )}
 
-          
           <button
             disabled={loading}
             type="submit"
