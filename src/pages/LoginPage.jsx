@@ -120,8 +120,8 @@ if (isAuthenticated) navigate("/");
         </form>
           
         <p className='flex gap-x-2 justify-between'>
-          Don't have an account? <Link to="/signup"
-          className='text-red-900'><b>Sign up</b></Link>
+          Don't have an account? <Link to="/register"
+          className='text-red-900'><b>Register</b></Link>
         </p>
 
         
