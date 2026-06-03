@@ -242,18 +242,19 @@ const esteMes = () => {
     <div className="bg-gray-200 min-h-screen px-3 md:px-6 py-6">
   <div className="max-w-[1700px] mx-auto">
 
-      <div>
-      <h1 className="text-2xl text-gray-600 font-bold mb-4">Buscar Orden Técnica</h1>
-       
-      {/* Primer filtro (general) */}
-      <input
-        type="text"
-        placeholder="Buscar por número, cliente, orden cerrada..."
-        value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
-        className="p-2 border text-gray-700 rounded w-full md:w-[500px] mb-4"
-      />
-      </div>
+      div className="flex items-center gap-6 mb-6">
+  <h1 className="text-2xl text-gray-600 font-bold whitespace-nowrap">
+    Buscar Orden Técnica
+  </h1>
+
+  <input
+    type="text"
+    placeholder="Buscar por número, cliente, cerrada..."
+    value={busqueda}
+    onChange={(e) => setBusqueda(e.target.value)}
+    className="w-[500px] p-2 border text-gray-700 rounded"
+  />
+</div>
 
     <div className="flex flex-wrap items-end gap-5 mb-5">
 
