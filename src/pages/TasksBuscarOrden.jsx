@@ -249,7 +249,7 @@ const esteMes = () => {
 
   <input
     type="text"
-    placeholder="Buscar por número, cliente, cerrada..."
+    placeholder="Buscar por número, cliente, orden cerrada..."
     value={busqueda}
     onChange={(e) => setBusqueda(e.target.value)}
     className="w-[500px] p-2 border text-gray-700 rounded"
