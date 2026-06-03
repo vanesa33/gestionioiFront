@@ -105,12 +105,12 @@ function RegisterPage() {
                 )
             }
             <button type="submit">
-                Register
+                Registrarme
             </button>
         </form>
          <br></br>
         <p className='flex gap-x-2 justify-between'>
-          Don't have an account? <Link to="/login"
+          Ya tienes una cuenta? <Link to="/login"
           className='text-sky-500'><b>Login</b></Link>
         </p>
         </div>
