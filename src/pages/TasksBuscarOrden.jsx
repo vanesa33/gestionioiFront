@@ -411,7 +411,7 @@ const esteMes = () => {
           <th className="p-3 text-center">Creado por</th>
         </tr>
       </thead>
-      <tbody>
+     <tbody className="[&>tr]:h-14">
   {ordenesPaginadas.length === 0 ? (
     <tr>
       <td colSpan="15" className="p-4 text-center text-gray-500">
