@@ -242,7 +242,7 @@ const esteMes = () => {
     <div className="bg-gray-200 min-h-screen px-3 md:px-6 py-6">
   <div className="max-w-[1700px] mx-auto">
 
-      div className="flex items-center gap-6 mb-6">
+      <div className="flex items-center gap-6 mb-6">
   <h1 className="text-2xl text-gray-600 font-bold whitespace-nowrap">
     Buscar Orden Técnica
   </h1>
