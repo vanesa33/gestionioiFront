@@ -432,7 +432,7 @@ const esteMes = () => {
     }`}
      onClick={() => abrirModal(orden)}
 >
-          <td className="p-2 whitespace-nowrap font-medium">{orden.numorden_visual || orden.numorden}</td>
+          <td className="p-2 font-semibold whitespace-nowrap ">{orden.numorden_visual || orden.numorden}</td>
 
           
           
