@@ -239,8 +239,8 @@ const esteMes = () => {
 
   return (
     
-    <div className="bg-gray-200 min-h-screen px-4 md:px-8 py-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="bg-gray-200 min-h-screen px-3 md:px-6 py-6">
+  <div className="max-w-[1700px] mx-auto">
 
       <div>
       <h1 className="text-2xl text-gray-600 font-bold mb-4">Buscar Orden Técnica</h1>
@@ -390,24 +390,24 @@ const esteMes = () => {
       </div>
 
       {/* Tabla */}
-<div className="flex justify-center">
-  <div className="w-full max-w-8xl"> {/* ⬅️ ancho máximo centrado */}
-    <table className="min-w-full bg-gray-400 rounded-lg shadow">
+<div className="overflow-x-auto">
+  <div className="w-full"> {/* ⬅️ ancho máximo centrado */}
+    <table className="w-full bg-gray-400 rounded-lg shadow">
       <thead>
         <tr className="bg-gray-800 text-white text-sm uppercase tracking-wide">
           <th className="p-3 text-center">Orden</th>
            <th className="p-3 text-center">Tipo</th>
           <th className="p-3 text-center">Fecha</th>         
           <th className="p-3 text-center">Serie</th>
-           <th className="p-3 text-center">Equipo</th>
-          <th className="p-3 text-center">Falla</th>      
+           <th className="p-3 text-center min-w-[140px]">Equipo</th>
+          <th className="p-3 text-center min-w-[250px]">Falla</th>     
           
           <th className="p-3 text-center">Repuesto</th>
           <th className="p-3 text-center">Mano de Obra</th>
           <th className="p-3 text-center">IVA</th>
           <th className="p-3 text-center">Total</th>          
           <th className="p-3 text-center">Garantia</th>          
-          <th className="p-3 text-center">Orden Cerrada</th>
+          <th className="p-3 text-center min-w-[120px]">Orden Cerrada</th>
           <th className="p-3 text-center">Creado por</th>
         </tr>
       </thead>
@@ -456,7 +456,7 @@ const esteMes = () => {
 
           <td className="p-2">{orden.nserie}</td>
           <td className="p-2">{orden.equipo}</td>
-          <td className="p-2">{orden.falla}</td>
+          <td className="p-2 min-w-[250px]">{orden.falla}</td>
          
           <td>{mostrarMonto(orden.repuesto)}</td>
           <td>{mostrarMonto(orden.manoobra)}</td>
