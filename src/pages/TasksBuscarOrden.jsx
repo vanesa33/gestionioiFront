@@ -395,7 +395,7 @@ const esteMes = () => {
     <table className="w-full bg-gray-400 rounded-lg shadow">
       <thead>
         <tr className="bg-gray-800 text-white text-sm uppercase tracking-wide">
-          <th className="p-3 text-center">Orden</th>
+          <th className="p-3 text-center min-w-[120px]">Orden</th>
            <th className="p-3 text-center">Tipo</th>
           <th className="p-3 text-center">Fecha</th>         
           <th className="p-3 text-center">Serie</th>
@@ -432,7 +432,7 @@ const esteMes = () => {
     }`}
      onClick={() => abrirModal(orden)}
 >
-          <td className="p-2">{orden.numorden_visual || orden.numorden}</td>
+          <td className="p-2 min-w-[120px]">{orden.numorden_visual || orden.numorden}</td>
 
           
           
