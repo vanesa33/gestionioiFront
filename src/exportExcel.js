@@ -26,7 +26,7 @@ export function exportarIngresosExcel(ingresos, user) {
     "Mano de Obra": mostrarMonto(i.manoobra),
     "IVA": i.iva || "",
     "Total": mostrarMonto(i.total),
-    "Garantía": i.presu ? "Sí" : "No",
+    "Garantía": i.presu || "" ,
     "Salida": i.salida
       ? new Date(i.salida).toLocaleDateString("es-AR")
       : "",
