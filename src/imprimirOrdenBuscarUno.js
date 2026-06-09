@@ -176,7 +176,7 @@ export function imprimirOrdenBuscarUno(orden) {
   <div class="footer">
     Servicio Técnico Centro: M.T. de Alvear 2181 3º10 CABA — 011 3690-5558 · 
     Servicio Técnico Pompeya: Carlos Berg 3492 CABA — 011 3103-4611 · 
-    Email: info@ioi-sa.com.ar
+    Email: atecnico@ioisa.com.ar
   </div>
 
 </body>
