@@ -19,29 +19,29 @@ export function imprimirOrdenBuscarUno(orden) {
   /* =======================
      CONFIGURACIÓN IMPRESIÓN
      ======================= */
-  @page {
-    size: A4;
-    margin: 10mm;
-  }
+ @page {
+  size: A4;
+  margin: 20mm;
+}
 
-  @media print {
-    body {
-      margin: 0;
-      padding: 0;
-      font-size: 12px;
-    }
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
   }
+}
 
   /* =======================
      ESTILOS GENERALES
      ======================= */
-  body {
-    font-family: Arial, sans-serif;
-    padding: 0;
-    position: relative;
-    min-height: 100%;
-  }
-
+ body {
+  font-family: Arial, sans-serif;
+  padding: 0 10mm;
+  position: relative;
+  min-height: 100%;
+  box-sizing: border-box;
+}
   p {
     margin: 2px 0;
   }
