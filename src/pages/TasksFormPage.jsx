@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "/supabaseClient.js"
 //import { jsPDF } from "jspdf";
 import { getIngresoRequest } from "../api/ingresos.js";
-import { getTecnicosRequest } from "../api/users.js;
+import { getTecnicosRequest } from "../api/users.js";
 import { imprimirIngreso } from "../imprimirIngreso.js";
 
 
