@@ -114,6 +114,9 @@ useEffect(() => {
 }, [costo, repuesto, manoobra, iva, setValue]);
 
   const onSubmit = async (data) => {
+   console.log("=== FORM ===");
+  console.log(data);
+  console.log("tecnico_id =", data.tecnico_id);
   try {
     // Convierte vacíos a null y texto a número donde corresponda
     const numFields = ["costo", "repuesto", "manoobra", "total"];
