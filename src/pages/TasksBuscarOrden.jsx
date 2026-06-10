@@ -239,22 +239,21 @@ const esteMes = () => {
 
   return (
     
-    <div className="bg-gray-200 min-h-screen px-3 md:px-6 py-6">
-  <div className="max-w-[1700px] mx-auto">
+    <div className="bg-gray-200 min-h-screen px-4 md:px-8 py-6">
+      <div className="max-w-7xl mx-auto">
 
-      <div className="flex items-center gap-6 mb-6">
-  <h1 className="text-2xl text-gray-600 font-bold whitespace-nowrap">
-    Buscar Orden Técnica
-  </h1>
-
-  <input
-    type="text"
-    placeholder="Buscar por número, cliente, orden cerrada..."
-    value={busqueda}
-    onChange={(e) => setBusqueda(e.target.value)}
-    className="w-[500px] p-2 border text-gray-700 rounded"
-  />
-</div>
+      <div>
+      <h1 className="text-2xl text-gray-600 font-bold mb-4">Buscar Orden Técnica</h1>
+       
+      {/* Primer filtro (general) */}
+      <input
+        type="text"
+        placeholder="Buscar por número, cliente, cerrada..."
+        value={busqueda}
+        onChange={(e) => setBusqueda(e.target.value)}
+        className="p-2 border text-gray-700 rounded w-full mb-4"
+      />
+      </div>
 
     <div className="flex flex-wrap items-end gap-5 mb-5">
 
@@ -391,28 +390,28 @@ const esteMes = () => {
       </div>
 
       {/* Tabla */}
-<div className="overflow-x-auto">
-  <div className="w-full"> {/* ⬅️ ancho máximo centrado */}
-    <table className="w-full bg-gray-400 rounded-lg shadow">
+<div className="flex justify-center">
+  <div className="w-full max-w-8xl"> {/* ⬅️ ancho máximo centrado */}
+    <table className="min-w-full bg-gray-400 rounded-lg shadow">
       <thead>
         <tr className="bg-gray-800 text-white text-sm uppercase tracking-wide">
-          <th className="p-3 text-center w-40">ORDEN</th>
+          <th className="p-3 text-center">Orden</th>
            <th className="p-3 text-center">Tipo</th>
           <th className="p-3 text-center">Fecha</th>         
           <th className="p-3 text-center">Serie</th>
-           <th className="p-3 text-center min-w-[140px]">Equipo</th>
-          <th className="p-3 text-center min-w-[250px]">Falla</th>     
+           <th className="p-3 text-center">Equipo</th>
+          <th className="p-3 text-center">Falla</th>      
           
           <th className="p-3 text-center">Repuesto</th>
           <th className="p-3 text-center">Mano de Obra</th>
           <th className="p-3 text-center">IVA</th>
           <th className="p-3 text-center">Total</th>          
           <th className="p-3 text-center">Garantia</th>          
-          <th className="p-3 text-center min-w-[120px]">Orden Cerrada</th>
-          <th className="p-3 text-center">Creado por</th>
+          <th className="p-3 text-center">Orden Cerrada</th>
+          <th className="p-3 text-center">Técnico</th>
         </tr>
       </thead>
-     <tbody className="[&>tr]:h-14">
+      <tbody>
   {ordenesPaginadas.length === 0 ? (
     <tr>
       <td colSpan="15" className="p-4 text-center text-gray-500">
@@ -422,6 +421,8 @@ const esteMes = () => {
   ) : (
     ordenesPaginadas.map((orden) => {
       //const esCerrada = orden.salida && orden.salida !== "";
+
+console.log("orden seleccionada", orden);
 
       return (
         <tr
@@ -433,7 +434,7 @@ const esteMes = () => {
     }`}
      onClick={() => abrirModal(orden)}
 >
-          <td className="p-2 font-semibold whitespace-nowrap ">{orden.numorden_visual || orden.numorden}</td>
+          <td className="p-2">{orden.numorden_visual || orden.numorden}</td>
 
           
           
@@ -457,7 +458,7 @@ const esteMes = () => {
 
           <td className="p-2">{orden.nserie}</td>
           <td className="p-2">{orden.equipo}</td>
-          <td className="p-2 min-w-[250px]">{orden.falla}</td>
+          <td className="p-2">{orden.falla}</td>
          
           <td>{mostrarMonto(orden.repuesto)}</td>
           <td>{mostrarMonto(orden.manoobra)}</td>
@@ -510,7 +511,8 @@ const esteMes = () => {
   )}
 </td>
 
-          <td className="p-2">{orden.usuario_nombre}</td>
+          <td className="p-2">{orden.tecnico_nombre || "-"}</td>
+          
         </tr>
       );
     })
@@ -627,12 +629,16 @@ const esteMes = () => {
         {/* FOOTER INFO */}
         <div className="md:col-span-2 text-xs text-gray-500 border-t pt-3">
           Creado por: <b>{ordenSeleccionada.usuario_nombre}</b>
+          <div>Técnico: <b>{ordenSeleccionada.tecnico_nombre}</b>
+            <div>
           {ordenSeleccionada.salida && (
             <>
-              {" · "}Salida:{" "}
+              {" "}Salida:{" "}
               {formatearFecha(ordenSeleccionada.salida)}
             </>
           )}
+          </div>
+          </div>
         </div>
       </div>
 
@@ -668,7 +674,7 @@ const esteMes = () => {
 
   {/* IMPRIMIR */}
   <button
-    onClick={() => imprimirOrdenBuscarUno(ordenSeleccionada)}
+    onClick={() => imprimirIngreso(ordenSeleccionada)}
     className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
   >
     Imprimir
