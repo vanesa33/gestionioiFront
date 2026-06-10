@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "/supabaseClient.js"
 //import { jsPDF } from "jspdf";
 import { getIngresoRequest } from "../api/ingresos.js";
+import { getTecnicosRequest } from "../api/users.js;
 import { imprimirIngreso } from "../imprimirIngreso.js";
 
 
@@ -30,12 +31,12 @@ function TasksFromPage() {
   // eslint-disable-next-line no-unused-vars
   const [ingresos, setIngreso] = useState([]);
   
+  // eslint-disable-next-line no-unused-vars
   const [imagenurl, setImageurl] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [ isUploading, setIsUploading] = useState(false);
 
  
-
 
   const [ordenGenerada, setOrdenGenerada] = useState("");
   //const [file, setFile] = useState(null);
@@ -44,8 +45,10 @@ function TasksFromPage() {
  const [ultimoIngresoId, setUltimoIngresoId] = useState(null);
  const [UltimoIngreso, setUltimoIngreso] = useState(null);
  const [datosOrden, setDatosOrden] = useState(null)
+ const [tecnicos, setTecnicos] = useState([]);
 
-  
+ 
+
 
   useEffect(()=> {
 
@@ -96,6 +99,19 @@ useEffect(() => {
   });
 }, [client_id, reset]);
 
+useEffect(() => {
+  const cargarTecnicos = async () => {
+    try {
+      const res = await getTecnicosRequest();
+      setTecnicos(res.data.result || []);
+    } catch (error) {
+      console.error("Error cargando técnicos:", error);
+      setTecnicos([]);
+    }
+  };
+
+  cargarTecnicos();
+}, []);
 
 
 
@@ -142,10 +158,6 @@ const onSubmit = async (data) => {
 
     const res = await createIngreso(ingresoCompleto);
     console.log("Respuesta del backend", res.data);
-
- // const ingresoCreado = await createIngreso(data);
-//setUltimoIngresoId(ingresoCreado);
-
 
     setDatosOrden(res.data);
 
@@ -207,6 +219,7 @@ const handleImprimir = async () => {
   }
 };
 
+
   return (
 
     <>
@@ -256,6 +269,21 @@ const handleImprimir = async () => {
     <option value="SERVICE">service</option>
     <option value="REPARACION">reparacion</option>
   </select>
+   <div>
+  <select 
+  {...register("tecnico_id")}
+  className="border p-2 rounded"
+  >
+   <option value="">Seleccionar Técnico</option>
+   {Array.isArray(tecnicos) &&
+  tecnicos.map((t) => (
+    <option key={t.ruid} value={t.ruid}>
+      {t.username}
+    </option>
+  ))
+}  
+  </select>
+  </div>
 </div>
 
                 <input type="text" placeholder="N° de Serie" className="p-2 rounded border" disabled={formBloqueado} {...register("nserie")} />
@@ -316,12 +344,13 @@ const handleImprimir = async () => {
               
 
                <button
-                 type="button"
-                  className="btn bg-blue-500 text-white px-4 py-2 rounded hover:bg-red-600 hidden md:flex"
-                  onClick={handleImprimir}
-                     >
-                    Imprimir
-                   </button>
+                  type="button"
+                   className="btn bg-blue-500 text-white px-4 py-2 rounded
+                  hover:bg-red-600 hidden md:flex"
+                   onClick={handleImprimir}
+                         >
+                          Imprimir
+                           </button>
 
                 <button type="button" onClick={() => navigate("/")} className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-600 hidden md:flex">
                   Inicio
@@ -330,7 +359,7 @@ const handleImprimir = async () => {
                   <input
                   className="text-gray-700"
                   type="file"
-                  accep="image/*"
+                  accept="image/*"
                   onChange={(e) => setSelectedFile(e.target.files[0])}
                   disabled={isSubmitting}
                   />
@@ -380,12 +409,14 @@ const handleImprimir = async () => {
             </p>
             <div className="flex justify-center gap-4">
 
-             <button
-                onClick={handleImprimir}
-                className="px-4 py-2 btn bg-blue-500 text-white rounded"
-              >
-                 Imprimir
-              </button>
+               <button
+                  type="button"
+                   className="btn bg-blue-500 text-white px-4 py-2 rounded
+                  hover:bg-red-600 hidden md:flex"
+                   onClick={handleImprimir}
+                         >
+                          Imprimir
+                           </button>
 
               <button
                 onClick={() => setMostrarModal(false)}
