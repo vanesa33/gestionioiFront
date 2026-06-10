@@ -32,3 +32,5 @@ export const updateUserRoleRequest = (userId, newRoleId) => {
   if (!newRoleId) throw new Error("New Role ID is required for role update");
   return api.put(`/passuser/${userId}/role`, { role_id: newRoleId });
 }
+
+export const getTecnicosRequest = () => api.get("/tecnicos");
