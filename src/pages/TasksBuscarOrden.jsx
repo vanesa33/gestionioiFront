@@ -45,7 +45,13 @@ function TasksBuscarOrden() {
 
   const ordenCerrada = Boolean(ordenSeleccionada?.salida);
 
-
+ const tecnicosUnicos = [
+  ...new Set(
+    ingresos.map(
+      (i) => i.tecnico_nombre || "Sin asignar"
+    )
+  ),
+];
   // 📅 Formatear fecha a DD/MM/AAAA
 const formatearFecha = (fecha) => {
   if (!fecha) return "";
@@ -243,13 +249,7 @@ const esteMes = () => {
   setFechaHasta(hasta.toISOString().split("T")[0]);
 };
 
-  const tecnicosUnicos = [
-  ...new Set(
-    ingresos.map(
-      (i) => i.tecnico_nombre || "Sin asignar"
-    )
-  ),
-];
+ 
 
   return (
     
