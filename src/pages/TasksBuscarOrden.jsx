@@ -47,7 +47,7 @@ function TasksBuscarOrden() {
 
  const tecnicosUnicos = [
   ...new Set(
-    ingresos.map(
+    ingreso.map(
       (i) => i.tecnico_nombre || "Sin asignar"
     )
   ),
@@ -145,8 +145,8 @@ const resultadosFiltrados = ingreso.filter((o) => {
   const coincideUsuario =
     (!filtroUsuario || o.usuario_nombre === filtroUsuario) &&
     (!filtroTecnico ||
-    (ingreso.tecnico_nombre || "Sin asignar") === filtroTecnico)
-      console.log("user completo:", o.usuario_nombre);
+    (o.tecnico_nombre || "Sin asignar") === filtroTecnico)
+      
 
   // 🔧 tipo
   const coincideTipo =
