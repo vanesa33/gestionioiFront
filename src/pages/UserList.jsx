@@ -78,19 +78,22 @@ try {
   const getRoleBadge = (role) => {
     const base = "px-2 py-1 rounded text-white font-semibold";
 
-    switch (role) {
-      case "ADMIN":
-        return `${base} bg-red-600`;
-      case "FACTURACION":
-        return `${base} bg-blue-600`;
-      case "TECNICO":
-        return `${base} bg-green-600`;
-         case "VENDEDOR":
-          case "vendedor":
-        return `${base} bg-yellow-600`;
-               
-         
-    }
+   switch (role?.toUpperCase()) {
+  case "ADMIN":
+    return `${base} bg-purple-700`;
+
+  case "FACTURACION":
+    return `${base} bg-blue-600`;
+
+  case "TECNICO":
+    return `${base} bg-emerald-600`;
+
+  case "VENDEDOR":
+    return `${base} bg-amber-500 text-black`;
+
+  default:
+    return `${base} bg-gray-500`;
+}
   };
 
   return (
