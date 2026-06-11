@@ -133,13 +133,7 @@ const resultadosFiltrados = ingreso.filter((o) => {
     o.presu?.toLowerCase().includes(texto);
 
 
-   const tecnicosUnicos = [
-  ...new Set(
-    ingresos.map(
-      (i) => i.tecnico_nombre || "Sin asignar"
-    )
-  ),
-];
+   
   
   // 👤 usuario
   const coincideUsuario =
@@ -248,6 +242,14 @@ const esteMes = () => {
   setFechaDesde(desde.toISOString().split("T")[0]);
   setFechaHasta(hasta.toISOString().split("T")[0]);
 };
+
+  const tecnicosUnicos = [
+  ...new Set(
+    ingresos.map(
+      (i) => i.tecnico_nombre || "Sin asignar"
+    )
+  ),
+];
 
   return (
     
