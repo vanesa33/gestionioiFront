@@ -27,6 +27,8 @@ function TasksBuscarOrden() {
 
   const [filtroTipo, setFiltroTipo] = useState(""); // ⬅️ agregado
 
+  const [filtroTecnico, setFiltroTecnico] = useState("");
+
 
   const [fechaDesde, setFechaDesde] = useState("");
   const [fechaHasta, setFechaHasta] = useState("");
@@ -130,10 +132,20 @@ const resultadosFiltrados = ingreso.filter((o) => {
     o.usuario_nombre?.toLowerCase().includes(texto) ||
     o.presu?.toLowerCase().includes(texto);
 
+
+   const tecnicosUnicos = [
+  ...new Set(
+    ingresos.map(
+      (i) => i.tecnico_nombre || "Sin asignar"
+    )
+  ),
+];
+  
   // 👤 usuario
   const coincideUsuario =
-    !filtroUsuario || o.usuario_nombre === filtroUsuario;
-
+    (!filtroUsuario || o.usuario_nombre === filtroUsuario) &&
+    (!filtroTecnico ||
+    (ingreso.tecnico_nombre || "Sin asignar") === filtroTecnico)
       console.log("user completo:", o.usuario_nombre);
 
   // 🔧 tipo
@@ -368,6 +380,27 @@ const esteMes = () => {
     <option value="TODAS">Todas</option>
     <option value="CERRADAS">Cerradas</option>
     <option value="ABIERTAS">Abiertas</option>
+  </select>
+</div>
+
+      {/* TÉCNICO ASIGNADO */}
+<div className="flex flex-col">
+  <label className="text-gray-700 text-sm font-semibold">
+    Técnico Asignado
+  </label>
+
+  <select
+    value={filtroTecnico}
+    onChange={(e) => setFiltroTecnico(e.target.value)}
+    className="border p-2 rounded text-gray-700"
+  >
+    <option value="">Todos</option>
+
+    {tecnicosUnicos.map((t, idx) => (
+      <option key={idx} value={t}>
+        {t}
+      </option>
+    ))}
   </select>
 </div>
 
