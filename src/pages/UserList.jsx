@@ -61,6 +61,7 @@ try {
 
   // Roles distintos para filtro
   const distinctRoles = [...new Set(users.map(u => u.role_name))];
+  
 
   // Filtrado
   const filteredUsers =
@@ -84,8 +85,12 @@ try {
         return `${base} bg-blue-600`;
       case "TECNICO":
         return `${base} bg-green-600`;
+         case "VENDEDOR":
+          case "vendedor":
+        return `${base} bg-yellow-600`;
       default:
-        return `${base} bg-gray-500`;
+        return `${base} bg-gray-500`;          
+         
     }
   };
 
@@ -140,6 +145,7 @@ try {
                     <option value={1}>ADMIN</option>
                     <option value={2}>FACTURACION</option>
                     <option value={3}>TECNICO</option>
+                    <option value={4}>VENDEDOR</option>
                   </select>
                 </td>
 
