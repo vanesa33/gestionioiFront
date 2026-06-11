@@ -277,7 +277,7 @@ const handleDelete = async () => {
             type="number"
             {...register("repuesto")}
             className={`w-full border p-2 rounded text-gray-600
-               ${esGarantia ? "bg-gray-100 " : ""}
+               ${esGarantia ? "bg-gray-100 cursor-not-allowed" : ""}
               `}
             placeholder="$"
           />
