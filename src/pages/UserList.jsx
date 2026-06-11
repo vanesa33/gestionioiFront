@@ -88,8 +88,7 @@ try {
          case "VENDEDOR":
           case "vendedor":
         return `${base} bg-yellow-600`;
-      default:
-        return `${base} bg-gray-500`;          
+               
          
     }
   };
