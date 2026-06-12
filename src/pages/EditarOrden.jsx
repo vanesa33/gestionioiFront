@@ -270,7 +270,7 @@ const handleDelete = async () => {
             type="number"
             {...register("repuesto")}
             className={`w-full border p-2 rounded text-gray-600
-               ${esGarantia ?  : ""}
+               ${esGarantia ? "" : ""}
               `}
             placeholder="$"
           />
@@ -282,7 +282,7 @@ const handleDelete = async () => {
             type="number"
             {...register("manoobra")}
             className={`w-full border p-2 rounded text-gray-600
-                   ${esGarantia ?  : ""}
+                   ${esGarantia ? ""  : ""}
                 `}
             placeholder="$"
           />
