@@ -318,7 +318,7 @@ const handleDelete = async () => {
             type="number"
             {...register("total")}
            className={`w-full border border-gray-300 p-2 rounded 
-            ´ ${iva === "Sí" ? "bg-yellow-600 font-bold text-gray-900" : "bg-gray-700 font-semibold text-gray-900"}
+            ´ ${iva === "Sí" ? "bg-yellow-600 font-bold text-gray-900" : "bg-gray-200 font-semibold text-gray-900"}
              `}
             readOnly
             placeholder="$"
