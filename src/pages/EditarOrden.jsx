@@ -297,7 +297,7 @@ const handleDelete = async () => {
             
           <label className="block font-semibold text-gray-600">IVA</label>
            <select className={`p-2 rounded border font-semibold
-            ${esGarantia ? "bg-gray-100 " : "text-gray-600"}
+            ${esGarantia ? "bg-yellow-300 " : "text-gray-800"}
   `           }
   
                   {...register("iva")}>
