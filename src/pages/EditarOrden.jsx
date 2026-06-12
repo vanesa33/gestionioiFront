@@ -84,14 +84,14 @@ const iva = watch("iva");
 const garantia = watch("presu");
 const esGarantia = garantia === "Sí";
 
-useEffect(() => {
+/*useEffect(() => {
   if (esGarantia) {
     setValue("costo", 0);
     setValue("repuesto", 0);
     setValue("manoobra", 0);
     setValue("iva", "No");
   }
-}, [esGarantia, setValue]);
+}, [esGarantia, setValue]);*/
 
 // Recalcular automáticamente TOTAL
 useEffect(() => {
@@ -304,7 +304,7 @@ const handleDelete = async () => {
             
           <label className="block font-semibold text-gray-600">IVA</label>
            <select className={`p-2 rounded border font-semibold
-            ${esGarantia ? "bg-gray-100 cursor-not-allowed" : "text-gray-600"}
+            ${esGarantia ? "bg-gray-100 " : "text-gray-600"}
   `           }
   
                   {...register("iva")}>
