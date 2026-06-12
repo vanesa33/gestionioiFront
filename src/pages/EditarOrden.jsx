@@ -84,14 +84,7 @@ const iva = watch("iva");
 const garantia = watch("presu");
 const esGarantia = garantia === "Sí";
 
-/*useEffect(() => {
-  if (esGarantia) {
-    setValue("costo", 0);
-    setValue("repuesto", 0);
-    setValue("manoobra", 0);
-    setValue("iva", "No");
-  }
-}, [esGarantia, setValue]);*/
+
 
 // Recalcular automáticamente TOTAL
 useEffect(() => {
@@ -260,7 +253,7 @@ const handleDelete = async () => {
         
            {esGarantia && (
           <div className="p-2 mb-2 rounded bg-blue-100 text-blue-800 text-sm font-semibold">
-             🔧 Orden en garantía — no se cobra mano de obra
+             🔧 Orden en garantía
             </div>
           )}
          </div>
@@ -277,7 +270,7 @@ const handleDelete = async () => {
             type="number"
             {...register("repuesto")}
             className={`w-full border p-2 rounded text-gray-600
-               ${esGarantia ? "bg-gray-100 cursor-not-allowed" : ""}
+               ${esGarantia ?  : ""}
               `}
             placeholder="$"
           />
@@ -289,7 +282,7 @@ const handleDelete = async () => {
             type="number"
             {...register("manoobra")}
             className={`w-full border p-2 rounded text-gray-600
-                   ${esGarantia ? "bg-gray-100 cursor-not-allowed" : ""}
+                   ${esGarantia ?  : ""}
                 `}
             placeholder="$"
           />
