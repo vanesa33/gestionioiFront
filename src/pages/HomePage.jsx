@@ -3,6 +3,7 @@ import imgInClient from "../assets/imgInClient.jpeg";
 import imgBusClient from "../assets/imgBusClient.jpeg";
 import imgInOrden from "../assets/imgInOrden.jpeg";
 import imgBusOrden from "../assets/imgBusOrden.jpeg";
+import manualUsuario from "../Manual_Usuario_ioi.pdf";
 
 function HomePage() {
   const buttons = [
@@ -22,6 +23,7 @@ function HomePage() {
     <div className="h-screen bg-[#e34232] text-white flex flex-col">
 
       <a
+  onClick={() => manualUsuario(manualUsuario)}
   href="/src/Manual_Usuario_ioi.pdf"
   download
   className="text-gray-700 hover:text-white"
