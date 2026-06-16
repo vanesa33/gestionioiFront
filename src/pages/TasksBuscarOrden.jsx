@@ -712,7 +712,7 @@ console.log("orden seleccionada", orden);
     onClick={() => imprimirOrdenBuscarUno(ordenSeleccionada)}
     className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
   >
-    Imprimir/PDF
+    Imprimir / PDF
   </button>
 </div>
     </div>
