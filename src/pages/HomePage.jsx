@@ -24,7 +24,7 @@ function HomePage() {
 
       <a
   onClick={() => manualUsuario(manualUsuario)}
-  href="/src/Manual_Usuario_ioi.pdf"
+  
   download
   className="text-gray-700 hover:text-white"
 >
