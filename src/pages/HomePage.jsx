@@ -22,7 +22,7 @@ function HomePage() {
     <div className="h-screen bg-[#e34232] text-white flex flex-col">
 
       <a
-  href="../Manual_Usuario_ioi.pdf"
+  href="./Manual_Usuario_ioi.pdf"
   download
   className="text-gray-700 hover:text-white"
 >
