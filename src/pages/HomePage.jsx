@@ -24,7 +24,7 @@ function HomePage() {
       <a
   href="/manual-usuario.pdf"
   download
-  className="text-gray-700 hover:text-blue-600"
+  className="text-gray-700 hover:text-white"
 >
   📘 Descargar Manual Usuario
 </a>
