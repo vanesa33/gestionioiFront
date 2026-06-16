@@ -23,7 +23,7 @@ function HomePage() {
     <div className="h-screen bg-[#e34232] text-white flex flex-col">
 
       <button
-  onClick={() => manualUsuario(manualUsuario)}
+  onClick={() => manualUsuario}
   
   download
   className="text-gray-700 hover:text-white"
