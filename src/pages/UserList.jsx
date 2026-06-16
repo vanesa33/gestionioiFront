@@ -80,16 +80,16 @@ try {
 
    switch (role?.toUpperCase()) {
   case "ADMIN":
-    return `${base} bg-purple-700`;
+    return `${base} bg-black`;
 
   case "FACTURACION":
     return `${base} bg-blue-600`;
 
   case "TECNICO":
-    return `${base} bg-emerald-600`;
+    return `${base} bg-green-600`;
 
   case "VENDEDOR":
-    return `${base} bg-amber-500 text-black`;
+    return `${base} bg-yellow-500 text-black`;
 
   default:
     return `${base} bg-gray-500`;
