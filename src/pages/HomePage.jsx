@@ -22,14 +22,13 @@ function HomePage() {
   return (
     <div className="h-screen bg-[#e34232] text-white flex flex-col">
 
-      <button
-  onClick={() => manualUsuario}
-  
-  download
+     <a
+  href={manualUsuario}
+  download="Manual_Usuario_IOI.pdf"
   className="text-gray-700 hover:text-white"
 >
   📘 Descargar Manual Usuario
-</button>
+</a>
      
       {/* 🔹 Contenido principal */}
       <main className="flex-1 grid grid-cols-2 sm:grid-cols-2 gap-3 p-4 place-items-center overflow-y-auto">
