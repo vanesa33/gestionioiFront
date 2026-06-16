@@ -27,14 +27,7 @@ function Navbar(){
                 />
             </Link> 
 
-            <a
-               href="../Manual_Usuario_ioi.pdf"
-                target="_blank"
-                  rel="noopener noreferrer"
-                 className="text-gray-700 hover:text-blue-600"
-                   >
-                 📘 Manual de usuario
-               </a>
+           
              <ul className="flex gap-x-4 items-center">
                 {isAuthenticated ? (
                     <>
