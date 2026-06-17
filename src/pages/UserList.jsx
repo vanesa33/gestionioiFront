@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getUsersRequest, deleteUserRequest, updateUserRoleRequest } from "../api/users.js";
 import { useAuth } from "../context/useAuth.js";
 import { useNavigate } from "react-router-dom";
+import manualAdmin from "../Manual_Administrador_ioi.pdf";
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -196,6 +197,22 @@ try {
           </button>
         ))}
       </div>
+      
+      <div> 
+        
+         {user?.role_id === 1 && (
+        <a
+          href={manualAdmin}
+          download="Manual_Administrador_ioi.pdf"
+          className="text-white hover:text-gray-700 p-3 w-60"
+         >
+           📘 Manual Administrador
+        </a>
+           )}
+        
+      </div>
+
+      
     </div>
   );
 };
