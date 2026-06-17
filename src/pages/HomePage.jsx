@@ -25,7 +25,7 @@ function HomePage() {
      <a
   href={manualUsuario}
   download="Manual_Usuario_IOI.pdf"
-  className="text-gray-700 hover:text-white p-3 w-60"
+  className="text-white hover:text-gray-700 p-3 w-60"
 >
   📘 Descargar Manual Usuario
 </a>
