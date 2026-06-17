@@ -32,7 +32,7 @@ function HomePage() {
 </a>
 
       
-<dic>
+<div>
 {user?.role_id === 1 && (
   <a
     href={manualAdmin}
@@ -42,7 +42,7 @@ function HomePage() {
     📘 Manual Administrador
   </a>
 )}
-  </dic>
+  </div>
      
       {/* 🔹 Contenido principal */}
       <main className="flex-1 grid grid-cols-2 sm:grid-cols-2 gap-3 p-4 place-items-center overflow-y-auto">
