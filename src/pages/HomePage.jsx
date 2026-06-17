@@ -4,6 +4,7 @@ import imgBusClient from "../assets/imgBusClient.jpeg";
 import imgInOrden from "../assets/imgInOrden.jpeg";
 import imgBusOrden from "../assets/imgBusOrden.jpeg";
 import manualUsuario from "../Manual_Usuario_ioi.pdf";
+import manualAdmin from "../Manual_Administrador_ioi.pdf";
 
 function HomePage() {
   const buttons = [
@@ -29,6 +30,19 @@ function HomePage() {
 >
   📘 Descargar Manual Usuario
 </a>
+
+      
+<dic>
+{user?.role_id === 1 && (
+  <a
+    href={manualAdmin}
+    download="Manual_Administrador_IOI.pdf"
+    className="text-white hover:text-gray-700 p-3 w-60"
+  >
+    📘 Manual Administrador
+  </a>
+)}
+  </dic>
      
       {/* 🔹 Contenido principal */}
       <main className="flex-1 grid grid-cols-2 sm:grid-cols-2 gap-3 p-4 place-items-center overflow-y-auto">
