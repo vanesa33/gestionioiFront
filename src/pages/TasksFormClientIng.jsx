@@ -101,7 +101,7 @@ function TasksFromClientIng() {
 
                  <input
                   type="text"
-                  placeholder="N° DE CUIT"
+                  placeholder="N° DE CUIT (sin puntos ni espacios)"
                   className="p-2 rounded border w-full text-gray-900"
                   {...register("numero")}
                    onInput={(e) => {
@@ -137,7 +137,7 @@ function TasksFromClientIng() {
                
                 <input
                   type="text"
-                  placeholder="Piso"
+                  placeholder="Piso (solo números)"
                   className="p-2 rounded border w-full text-gray-900"
                   {...register("piso")}
                   onInput={(e) => {
