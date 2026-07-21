@@ -78,7 +78,7 @@ function TasksFromClientIng() {
                 />
                 <input
                   type="text"
-                  placeholder="Ej: 1134567890"
+                  placeholder="Teléfono Ej: 1134567890"
                   className="p-2 rounded border w-full text-gray-900"
                   {...register("telefono")}
                   onInput={(e) => {
@@ -104,6 +104,11 @@ function TasksFromClientIng() {
                   placeholder="N° DE CUIT"
                   className="p-2 rounded border w-full text-gray-900"
                   {...register("numero")}
+                   onInput={(e) => {
+                  e.target.value = e.target.value
+                  .replace(/\D/g, "")
+                  .slice(0, 15);
+                  }}
                   disabled={formBloqueado}
                 />
              
@@ -135,6 +140,11 @@ function TasksFromClientIng() {
                   placeholder="Piso"
                   className="p-2 rounded border w-full text-gray-900"
                   {...register("piso")}
+                  onInput={(e) => {
+                  e.target.value = e.target.value
+                  .replace(/\D/g, "")
+                  .slice(0, 15);
+                  }}
                   disabled={formBloqueado}
                 />
                 <input
@@ -163,6 +173,7 @@ function TasksFromClientIng() {
                   placeholder="Cod pos"
                   className="p-2 rounded border w-full text-gray-900"
                   {...register("codpost")}
+                  
                   disabled={formBloqueado}
                 />
               </div>
