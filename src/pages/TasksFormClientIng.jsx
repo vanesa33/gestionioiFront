@@ -78,11 +78,19 @@ function TasksFromClientIng() {
                 />
                 <input
                   type="text"
-                  placeholder="Teléfono"
+                  placeholder="Ej: 1134567890"
                   className="p-2 rounded border w-full text-gray-900"
                   {...register("telefono")}
+                  onInput={(e) => {
+                  e.target.value = e.target.value
+                  .replace(/\D/g, "")
+                  .slice(0, 15);
+                  }}
                   disabled={formBloqueado}
                 />
+                <p className="text-xs text-gray-500 mt-1">
+                  Solo números, sin guiones ni espacios.
+                 </p>
                 <input
                   type="email"
                   placeholder="Mail"
