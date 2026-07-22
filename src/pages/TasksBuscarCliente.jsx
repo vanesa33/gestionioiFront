@@ -198,7 +198,7 @@ function BuscarClientes() {
             <p><strong>ID:</strong> {clienteSeleccionado.id}</p>
             <p><strong>Nombre:</strong> {clienteSeleccionado.nombre}</p>
             <p><strong>Apellido:</strong> {clienteSeleccionado.apellido}</p>
-            <p><strong>Apellido:</strong> {clienteSeleccionado.numero}</p>
+            <p><strong>Cuit:</strong> {clienteSeleccionado.numero}</p>
             <p><strong>Teléfono:</strong> {clienteSeleccionado.telefono}</p>
             <p><strong>Mail:</strong> {clienteSeleccionado.mail}</p>
             <p><strong>Domicilio:</strong> {clienteSeleccionado.calle} {clienteSeleccionado.numero} {clienteSeleccionado.localidad}</p>
