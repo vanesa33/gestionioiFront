@@ -112,6 +112,10 @@ if (isAuthenticated) navigate("/");
             signinErrors.map((error, i) => (
                 <div key={i} className=' bg-black text-center text-red-700 my-2 mt-2 mb-4'>
                     {error}
+                  <p className="text-sm text-gray-500 mt-4 text-center">
+            Si experimenta algún inconveniente para acceder o utilizar la aplicación,
+            comuníquese con el administrador del sistema o con la persona responsable de la empresa.
+        </p>
                     </div>
             ))
         }
@@ -128,10 +132,7 @@ if (isAuthenticated) navigate("/");
 
         </div>
         </div>
-          <p className="text-sm text-gray-500 mt-4 text-center">
-            Si experimenta algún inconveniente para acceder o utilizar la aplicación,
-            comuníquese con el administrador del sistema o con la persona responsable de la empresa.
-        </p>
+         
         </div>
         
         
