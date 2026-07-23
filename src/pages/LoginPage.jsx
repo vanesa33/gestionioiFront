@@ -113,7 +113,9 @@ if (isAuthenticated) navigate("/");
                 <div key={i} className=' bg-black text-center text-red-700 my-2 mt-2 mb-4'>
                     {error}
                   <p className="text-sm text-gray-500 mt-4 text-center">
-                    Comuníquese con el administrador del sistema o con la persona responsable de la empresa.
+                    No fue posible iniciar sesión.
+                    Verifique sus credenciales. Si el problema continúa, 
+                    comuníquese con el administrador del sistema o con el responsable designado por su empresa.
                    </p>
                     </div>
             ))
