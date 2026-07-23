@@ -124,13 +124,14 @@ if (isAuthenticated) navigate("/");
           className='text-red-900'><b>Register</b></Link>
         </p>
 
-        <p className="text-sm text-gray-500 mt-4 text-center">
-            Si experimenta algún inconveniente para acceder o utilizar la aplicación,
-            comuníquese con el administrador del sistema o con la persona responsable de la empresa.
-        </p>
+       
 
         </div>
         </div>
+          <p className="text-sm text-gray-500 mt-4 text-center">
+            Si experimenta algún inconveniente para acceder o utilizar la aplicación,
+            comuníquese con el administrador del sistema o con la persona responsable de la empresa.
+        </p>
         </div>
         
         
